@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct AuthView <Content : View> : View {
-  @StateObject private var model = AuthViewModel()
+  @StateObject private var viewModel = AuthViewModel()
   @State private var presentingCredentialsView = false
   
   @ViewBuilder var content: () -> Content
   
   var body: some View {
-    switch model.authStatus {
+    switch viewModel.authState {
     case .unauthenticated, .authenticating:
       VStack {
         Text("Welcome to MyChat!")
         Button(action: {
-          model.reset()
+          viewModel.reset()
           presentingCredentialsView.toggle()
         }, label: {
           Text("Log In")
@@ -27,7 +27,14 @@ struct AuthView <Content : View> : View {
         })
       }
       .sheet(isPresented: $presentingCredentialsView) {
-        
+        switch viewModel.flow {
+        case .login:
+          LoginView()
+            .environmentObject(viewModel)
+        case .signUp:
+          SignupView()
+            .environmentObject(viewModel)
+        }
       }
     case .authenticated:
       content()

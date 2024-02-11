@@ -11,7 +11,6 @@
 		A80AADEC2B71DE7F00A74DAA /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80AADEB2B71DE7F00A74DAA /* AuthView.swift */; };
 		A80AADEE2B71DE8C00A74DAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A80AADED2B71DE8C00A74DAA /* Assets.xcassets */; };
 		A80AADF12B71DE8C00A74DAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A80AADF02B71DE8C00A74DAA /* Preview Assets.xcassets */; };
-		A8D45E512B7880120005126C /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D45E502B7880120005126C /* CredentialsView.swift */; };
 		A8D45E532B7880DA0005126C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D45E522B7880DA0005126C /* LoginView.swift */; };
 		A8D45E552B7880E90005126C /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D45E542B7880E90005126C /* SignupView.swift */; };
 		A8D9C0872B76BCD300118CA0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A8D9C0862B76BCD300118CA0 /* FirebaseAnalytics */; };
@@ -52,7 +51,6 @@
 		A80AADEB2B71DE7F00A74DAA /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		A80AADED2B71DE8C00A74DAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A80AADF02B71DE8C00A74DAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A8D45E502B7880120005126C /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
 		A8D45E522B7880DA0005126C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A8D45E542B7880E90005126C /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		A8D9C0BC2B76BE0D00118CA0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -138,7 +136,6 @@
 			isa = PBXGroup;
 			children = (
 				A80AADEB2B71DE7F00A74DAA /* AuthView.swift */,
-				A8D45E502B7880120005126C /* CredentialsView.swift */,
 				A8D45E522B7880DA0005126C /* LoginView.swift */,
 				A8D45E542B7880E90005126C /* SignupView.swift */,
 				A8D9C0C72B78773800118CA0 /* ChatsView.swift */,
@@ -261,7 +258,6 @@
 				A8D45E552B7880E90005126C /* SignupView.swift in Sources */,
 				A8D45E532B7880DA0005126C /* LoginView.swift in Sources */,
 				A8D9C0CA2B7878FF00118CA0 /* AuthViewModel.swift in Sources */,
-				A8D45E512B7880120005126C /* CredentialsView.swift in Sources */,
 				A8D9C0C82B78773800118CA0 /* ChatsView.swift in Sources */,
 				A80AADEC2B71DE7F00A74DAA /* AuthView.swift in Sources */,
 				A80AADEA2B71DE7F00A74DAA /* MyChatApp.swift in Sources */,
