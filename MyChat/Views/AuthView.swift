@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
 struct AuthView <Content : View> : View {
+  @Environment(\.colorScheme) var colorScheme
+  
   @StateObject private var viewModel = AuthViewModel()
   @State private var presentingCredentialsView = false
   
@@ -18,13 +21,26 @@ struct AuthView <Content : View> : View {
     case .unauthenticated, .authenticating:
       VStack {
         Text("Welcome to MyChat!")
+          .font(.title)
+        
+        SignInWithAppleButton(.signIn) { request in
+          viewModel.handleSignInWithAppleRequest(request)
+        } onCompletion: { result in
+          viewModel.handleSignInWithAppleCompletion(result)
+        }
+        .signInWithAppleButtonStyle(colorScheme == .light ? .black : .white)
+        .frame(maxWidth: 300, maxHeight: 50)
+        .cornerRadius(8)
+        
         Button(action: {
           viewModel.reset()
           presentingCredentialsView.toggle()
         }, label: {
-          Text("Log In")
+          Text("Continue with email and password")
             .foregroundColor(.cyan)
         })
+        .frame(maxWidth: 300, maxHeight: 50)
+        .cornerRadius(8)
       }
       .sheet(isPresented: $presentingCredentialsView) {
         switch viewModel.flow {

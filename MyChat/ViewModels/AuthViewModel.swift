@@ -7,6 +7,8 @@
 
 import Foundation
 import FirebaseAuth
+import AuthenticationServices
+import CryptoKit
 
 enum AuthState {
   case unauthenticated
@@ -125,5 +127,15 @@ extension AuthViewModel {
       errorMessage = error.localizedDescription
       return false
     }
+  }
+}
+
+extension AuthViewModel {
+  func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) {
+    request.requestedScopes = [.fullName, .email]
+
+  }
+  
+  func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) {
   }
 }
