@@ -11,6 +11,7 @@
 		A80AADEC2B71DE7F00A74DAA /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80AADEB2B71DE7F00A74DAA /* AuthView.swift */; };
 		A80AADEE2B71DE8C00A74DAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A80AADED2B71DE8C00A74DAA /* Assets.xcassets */; };
 		A80AADF12B71DE8C00A74DAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A80AADF02B71DE8C00A74DAA /* Preview Assets.xcassets */; };
+		A82CFB722B79AD9E00E4DE0D /* AuthEmailPasswordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82CFB712B79AD9E00E4DE0D /* AuthEmailPasswordTests.swift */; };
 		A8D45E532B7880DA0005126C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D45E522B7880DA0005126C /* LoginView.swift */; };
 		A8D45E552B7880E90005126C /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D45E542B7880E90005126C /* SignupView.swift */; };
 		A8D9C0872B76BCD300118CA0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A8D9C0862B76BCD300118CA0 /* FirebaseAnalytics */; };
@@ -45,12 +46,24 @@
 		A8D9C0CA2B7878FF00118CA0 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D9C0C92B7878FF00118CA0 /* AuthViewModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A82CFB732B79AD9E00E4DE0D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A80AADDE2B71DE7E00A74DAA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A80AADE52B71DE7F00A74DAA;
+			remoteInfo = MyChat;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		A80AADE62B71DE7F00A74DAA /* MyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A80AADE92B71DE7F00A74DAA /* MyChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChatApp.swift; sourceTree = "<group>"; };
 		A80AADEB2B71DE7F00A74DAA /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		A80AADED2B71DE8C00A74DAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A80AADF02B71DE8C00A74DAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A82CFB6F2B79AD9D00E4DE0D /* MyChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A82CFB712B79AD9E00E4DE0D /* AuthEmailPasswordTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEmailPasswordTests.swift; sourceTree = "<group>"; };
 		A8D45E522B7880DA0005126C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A8D45E542B7880E90005126C /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		A8D9C0BC2B76BE0D00118CA0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -93,6 +106,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A82CFB6C2B79AD9D00E4DE0D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -100,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				A80AADE82B71DE7F00A74DAA /* MyChat */,
+				A82CFB702B79AD9E00E4DE0D /* MyChatTests */,
 				A80AADE72B71DE7F00A74DAA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				A80AADE62B71DE7F00A74DAA /* MyChat.app */,
+				A82CFB6F2B79AD9D00E4DE0D /* MyChatTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -118,6 +140,7 @@
 				A8D9C0BC2B76BE0D00118CA0 /* GoogleService-Info.plist */,
 				A8D45E4F2B7879D00005126C /* Views */,
 				A8D9C0CB2B78792000118CA0 /* ViewModels */,
+				A80AADE92B71DE7F00A74DAA /* MyChatApp.swift */,
 				A80AADED2B71DE8C00A74DAA /* Assets.xcassets */,
 				A80AADEF2B71DE8C00A74DAA /* Preview Content */,
 			);
@@ -130,6 +153,14 @@
 				A80AADF02B71DE8C00A74DAA /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A82CFB702B79AD9E00E4DE0D /* MyChatTests */ = {
+			isa = PBXGroup;
+			children = (
+				A82CFB712B79AD9E00E4DE0D /* AuthEmailPasswordTests.swift */,
+			);
+			path = MyChatTests;
 			sourceTree = "<group>";
 		};
 		A8D45E4F2B7879D00005126C /* Views */ = {
@@ -146,7 +177,6 @@
 		A8D9C0CB2B78792000118CA0 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				A80AADE92B71DE7F00A74DAA /* MyChatApp.swift */,
 				A8D9C0C92B7878FF00118CA0 /* AuthViewModel.swift */,
 			);
 			path = ViewModels;
@@ -201,6 +231,24 @@
 			productReference = A80AADE62B71DE7F00A74DAA /* MyChat.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A82CFB6E2B79AD9D00E4DE0D /* MyChatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A82CFB772B79AD9E00E4DE0D /* Build configuration list for PBXNativeTarget "MyChatTests" */;
+			buildPhases = (
+				A82CFB6B2B79AD9D00E4DE0D /* Sources */,
+				A82CFB6C2B79AD9D00E4DE0D /* Frameworks */,
+				A82CFB6D2B79AD9D00E4DE0D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A82CFB742B79AD9E00E4DE0D /* PBXTargetDependency */,
+			);
+			name = MyChatTests;
+			productName = MyChatTests;
+			productReference = A82CFB6F2B79AD9D00E4DE0D /* MyChatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -213,6 +261,10 @@
 				TargetAttributes = {
 					A80AADE52B71DE7F00A74DAA = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					A82CFB6E2B79AD9D00E4DE0D = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = A80AADE52B71DE7F00A74DAA;
 					};
 				};
 			};
@@ -233,6 +285,7 @@
 			projectRoot = "";
 			targets = (
 				A80AADE52B71DE7F00A74DAA /* MyChat */,
+				A82CFB6E2B79AD9D00E4DE0D /* MyChatTests */,
 			);
 		};
 /* End PBXProject section */
@@ -245,6 +298,13 @@
 				A80AADF12B71DE8C00A74DAA /* Preview Assets.xcassets in Resources */,
 				A8D9C0BD2B76BE0D00118CA0 /* GoogleService-Info.plist in Resources */,
 				A80AADEE2B71DE8C00A74DAA /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A82CFB6D2B79AD9D00E4DE0D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,7 +324,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A82CFB6B2B79AD9D00E4DE0D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A82CFB722B79AD9E00E4DE0D /* AuthEmailPasswordTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A82CFB742B79AD9E00E4DE0D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A80AADE52B71DE7F00A74DAA /* MyChat */;
+			targetProxy = A82CFB732B79AD9E00E4DE0D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		A80AADF22B71DE8C00A74DAA /* Debug */ = {
@@ -448,6 +524,42 @@
 			};
 			name = Release;
 		};
+		A82CFB752B79AD9E00E4DE0D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YSWM5SJ596;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nikivanov.MyChatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyChat.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyChat";
+			};
+			name = Debug;
+		};
+		A82CFB762B79AD9E00E4DE0D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YSWM5SJ596;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nikivanov.MyChatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyChat.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyChat";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -465,6 +577,15 @@
 			buildConfigurations = (
 				A80AADF52B71DE8C00A74DAA /* Debug */,
 				A80AADF62B71DE8C00A74DAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A82CFB772B79AD9E00E4DE0D /* Build configuration list for PBXNativeTarget "MyChatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A82CFB752B79AD9E00E4DE0D /* Debug */,
+				A82CFB762B79AD9E00E4DE0D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
