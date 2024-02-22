@@ -44,6 +44,9 @@
 		A8D9C0BD2B76BE0D00118CA0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A8D9C0BC2B76BE0D00118CA0 /* GoogleService-Info.plist */; };
 		A8D9C0C82B78773800118CA0 /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D9C0C72B78773800118CA0 /* ChatsView.swift */; };
 		A8D9C0CA2B7878FF00118CA0 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D9C0C92B7878FF00118CA0 /* AuthViewModel.swift */; };
+		A8E4D57F2B86F11200EA0EE7 /* Sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4D57E2B86F11200EA0EE7 /* Sha256.swift */; };
+		A8E4D5812B86F40C00EA0EE7 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4D5802B86F40C00EA0EE7 /* AuthenticationService.swift */; };
+		A8E4D5842B86F62600EA0EE7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4D5832B86F62600EA0EE7 /* AppState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +73,9 @@
 		A8D9C0BC2B76BE0D00118CA0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A8D9C0C72B78773800118CA0 /* ChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
 		A8D9C0C92B7878FF00118CA0 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		A8E4D57E2B86F11200EA0EE7 /* Sha256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sha256.swift; sourceTree = "<group>"; };
+		A8E4D5802B86F40C00EA0EE7 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		A8E4D5832B86F62600EA0EE7 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,8 +146,11 @@
 			children = (
 				A82CFB782B79DAF600E4DE0D /* MyChat.entitlements */,
 				A8D9C0BC2B76BE0D00118CA0 /* GoogleService-Info.plist */,
+				A8E4D5822B86F54600EA0EE7 /* Injected */,
+				A8E4D57C2B86F0CE00EA0EE7 /* Services */,
 				A8D45E4F2B7879D00005126C /* Views */,
 				A8D9C0CB2B78792000118CA0 /* ViewModels */,
+				A8E4D57D2B86F0E200EA0EE7 /* Utilities */,
 				A80AADE92B71DE7F00A74DAA /* MyChatApp.swift */,
 				A80AADED2B71DE8C00A74DAA /* Assets.xcassets */,
 				A80AADEF2B71DE8C00A74DAA /* Preview Content */,
@@ -182,6 +191,30 @@
 				A8D9C0C92B7878FF00118CA0 /* AuthViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A8E4D57C2B86F0CE00EA0EE7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A8E4D5802B86F40C00EA0EE7 /* AuthenticationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A8E4D57D2B86F0E200EA0EE7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A8E4D57E2B86F11200EA0EE7 /* Sha256.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		A8E4D5822B86F54600EA0EE7 /* Injected */ = {
+			isa = PBXGroup;
+			children = (
+				A8E4D5832B86F62600EA0EE7 /* AppState.swift */,
+			);
+			path = Injected;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,9 +353,12 @@
 				A8D45E552B7880E90005126C /* SignupView.swift in Sources */,
 				A8D45E532B7880DA0005126C /* LoginView.swift in Sources */,
 				A8D9C0CA2B7878FF00118CA0 /* AuthViewModel.swift in Sources */,
+				A8E4D5842B86F62600EA0EE7 /* AppState.swift in Sources */,
 				A8D9C0C82B78773800118CA0 /* ChatsView.swift in Sources */,
+				A8E4D57F2B86F11200EA0EE7 /* Sha256.swift in Sources */,
 				A80AADEC2B71DE7F00A74DAA /* AuthView.swift in Sources */,
 				A80AADEA2B71DE7F00A74DAA /* MyChatApp.swift in Sources */,
+				A8E4D5812B86F40C00EA0EE7 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
