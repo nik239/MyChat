@@ -61,15 +61,15 @@ struct LoginView: View {
       .padding(.bottom, 8)
     }
     
-    if !viewModel.authService.errorMessage.isEmpty {
+    if !viewModel.errorMessage.isEmpty {
       VStack {
-        Text(viewModel.authService.errorMessage)
+        Text(viewModel.errorMessage)
           .foregroundColor(Color(UIColor.systemRed))
       }
     }
     
     Button(action: signInWithEmailPassword) {
-      if viewModel.authService.authState != .authenticating {
+      if viewModel.authState != .authenticating {
         Text("Login")
           .padding(.vertical, 8)
           .frame(maxWidth: .infinity)

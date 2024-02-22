@@ -15,7 +15,7 @@ enum AuthState {
   case authenticated
 }
 
-final class AuthenticationService: ObservableObject {
+final class AuthenticationService {
   @Published var user: User?
   @Published var displayName = ""
   

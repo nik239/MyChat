@@ -17,7 +17,8 @@ enum AuthFlow {
 final class AuthViewModel: ObservableObject {
   let authService: AuthenticationService
   
-  
+  @Published var authState: AuthState
+  @Published var errorMessage: String
   
   @Published var email = ""
   @Published var password = ""
@@ -29,6 +30,12 @@ final class AuthViewModel: ObservableObject {
   
   init(authService: AuthenticationService = AuthenticationService()) {
     self.authService = authService
+    self.authState = authService.authState
+    self.errorMessage = authService.errorMessage
+    authService.$authState
+      .assign(to: &$authState)
+    authService.$errorMessage
+      .assign(to: &$errorMessage)
     makeIsValidPublisher()
   }
   
