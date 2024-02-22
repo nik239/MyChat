@@ -28,14 +28,16 @@ final class AuthViewModel: ObservableObject {
   
   @Published var isValid  = false
   
-  init(authService: AuthenticationService = AuthenticationService()) {
+  init(authService: AuthenticationService = RealAuthenticationService()) {
     self.authService = authService
     self.authState = authService.authState
     self.errorMessage = authService.errorMessage
-    authService.$authState
-      .assign(to: &$authState)
-    authService.$errorMessage
-      .assign(to: &$errorMessage)
+    if let authService = authService as? RealAuthenticationService {
+      authService.$authState
+        .assign(to: &$authState)
+      authService.$errorMessage
+        .assign(to: &$errorMessage)
+    }
     makeIsValidPublisher()
   }
   

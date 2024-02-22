@@ -15,7 +15,24 @@ enum AuthState {
   case authenticated
 }
 
-final class AuthenticationService {
+protocol AuthenticationService: AnyObject {
+  var user: User? { get }
+  var displayName: String { get }
+
+  var authState: AuthState { get }
+  var errorMessage: String { get set }
+  
+  func signOut()
+  func deleteAccount() async -> Bool
+  
+  func signInWithEmailPassword(email: String, password: String) async -> Bool
+  func signUpWithEmailPassword(email: String, password: String) async -> Bool
+  
+  func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest)
+  func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>)
+}
+
+final class RealAuthenticationService: AuthenticationService {
   @Published var user: User?
   @Published var displayName = ""
   
@@ -64,7 +81,7 @@ final class AuthenticationService {
 
 // MARK: Email and Password Authentication
 
-extension AuthenticationService {
+extension RealAuthenticationService {
   func signInWithEmailPassword(email: String, password: String) async -> Bool {
     authState = .authenticating
     do {
@@ -96,7 +113,7 @@ extension AuthenticationService {
 
 // MARK: Sign in with Apple
 
-extension AuthenticationService {
+extension RealAuthenticationService {
   func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) {
     request.requestedScopes = [.fullName, .email]
     let nonce = randomNonceString()

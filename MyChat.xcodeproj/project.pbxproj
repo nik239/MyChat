@@ -146,6 +146,7 @@
 			children = (
 				A82CFB782B79DAF600E4DE0D /* MyChat.entitlements */,
 				A8D9C0BC2B76BE0D00118CA0 /* GoogleService-Info.plist */,
+				A8E4D5872B871E0900EA0EE7 /* System */,
 				A8E4D5822B86F54600EA0EE7 /* Injected */,
 				A8E4D57C2B86F0CE00EA0EE7 /* Services */,
 				A8D45E4F2B7879D00005126C /* Views */,
@@ -215,6 +216,13 @@
 				A8E4D5832B86F62600EA0EE7 /* AppState.swift */,
 			);
 			path = Injected;
+			sourceTree = "<group>";
+		};
+		A8E4D5872B871E0900EA0EE7 /* System */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = System;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
