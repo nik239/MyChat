@@ -75,15 +75,15 @@ struct SignupView: View {
       .background(Divider(), alignment: .bottom)
       .padding(.bottom, 8)
       
-      if !viewModel.errorMessage.isEmpty {
+      if !viewModel.authService.errorMessage.isEmpty {
         VStack {
-          Text(viewModel.errorMessage)
+          Text(viewModel.authService.errorMessage)
             .foregroundColor(Color(UIColor.systemRed))
         }
       }
 
       Button(action: signUpWithEmailPassword) {
-        if viewModel.authState != .authenticating {
+        if viewModel.authService.authState != .authenticating {
           Text("Sign up")
             .padding(.vertical, 8)
             .frame(maxWidth: .infinity)

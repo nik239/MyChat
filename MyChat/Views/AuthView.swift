@@ -17,16 +17,16 @@ struct AuthView <Content : View> : View {
   @ViewBuilder var content: () -> Content
   
   var body: some View {
-    switch viewModel.authState {
+    switch viewModel.authService.authState {
     case .unauthenticated, .authenticating:
       VStack {
         Text("Welcome to MyChat!")
           .font(.title)
         
         SignInWithAppleButton(.signIn) { request in
-          viewModel.handleSignInWithAppleRequest(request)
+          viewModel.authService.handleSignInWithAppleRequest(request)
         } onCompletion: { result in
-          viewModel.handleSignInWithAppleCompletion(result)
+          viewModel.authService.handleSignInWithAppleCompletion(result)
         }
         .signInWithAppleButtonStyle(colorScheme == .light ? .black : .white)
         .frame(maxWidth: 300, maxHeight: 50)
