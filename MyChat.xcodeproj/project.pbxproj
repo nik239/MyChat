@@ -21,6 +21,9 @@
 		A849C8EB2B9D5DC200655D1C /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8EA2B9D5DC200655D1C /* DIContainer.swift */; };
 		A849C8ED2B9D5F7A00655D1C /* ViewModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8EC2B9D5F7A00655D1C /* ViewModelContainer.swift */; };
 		A849C8EF2B9D63DE00655D1C /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8EE2B9D63DE00655D1C /* AppEnvironment.swift */; };
+		A849C8F22B9E33DF00655D1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F12B9E33DF00655D1C /* AppDelegate.swift */; };
+		A849C8F42B9E33F600655D1C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F32B9E33F600655D1C /* SceneDelegate.swift */; };
+		A849C8F62B9E361000655D1C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F52B9E361000655D1C /* ContentView.swift */; };
 		A87579432B883D5200289437 /* FireStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87579422B883D5200289437 /* FireStoreService.swift */; };
 		A8D45E532B7880DA0005126C /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D45E522B7880DA0005126C /* EmailLoginView.swift */; };
 		A8D45E552B7880E90005126C /* EmailSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D45E542B7880E90005126C /* EmailSignupView.swift */; };
@@ -87,6 +90,9 @@
 		A849C8EA2B9D5DC200655D1C /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		A849C8EC2B9D5F7A00655D1C /* ViewModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelContainer.swift; sourceTree = "<group>"; };
 		A849C8EE2B9D63DE00655D1C /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		A849C8F12B9E33DF00655D1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A849C8F32B9E33F600655D1C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A849C8F52B9E361000655D1C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A87579422B883D5200289437 /* FireStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreService.swift; sourceTree = "<group>"; };
 		A8D45E522B7880DA0005126C /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
 		A8D45E542B7880E90005126C /* EmailSignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignupView.swift; sourceTree = "<group>"; };
@@ -173,7 +179,6 @@
 				A8D45E4F2B7879D00005126C /* Views */,
 				A8D9C0CB2B78792000118CA0 /* ViewModels */,
 				A8E4D57D2B86F0E200EA0EE7 /* Utilities */,
-				A80AADE92B71DE7F00A74DAA /* MyChatApp.swift */,
 				A80AADED2B71DE8C00A74DAA /* Assets.xcassets */,
 				A80AADEF2B71DE8C00A74DAA /* Preview Content */,
 			);
@@ -205,6 +210,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		A849C8F02B9E17D000655D1C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A849C8DF2B9BA52900655D1C /* ChatView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		A8D45E4F2B7879D00005126C /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,7 +227,8 @@
 				A849C8DD2B9BA4E100655D1C /* CreateChatView.swift */,
 				A849C8E12B9BA58B00655D1C /* ProfileView.swift */,
 				A8D9C0C72B78773800118CA0 /* ChatsView.swift */,
-				A849C8DF2B9BA52900655D1C /* ChatView.swift */,
+				A849C8F02B9E17D000655D1C /* Components */,
+				A849C8F52B9E361000655D1C /* ContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -258,7 +272,10 @@
 		A8E4D5872B871E0900EA0EE7 /* System */ = {
 			isa = PBXGroup;
 			children = (
+				A849C8F12B9E33DF00655D1C /* AppDelegate.swift */,
+				A849C8F32B9E33F600655D1C /* SceneDelegate.swift */,
 				A849C8EE2B9D63DE00655D1C /* AppEnvironment.swift */,
+				A80AADE92B71DE7F00A74DAA /* MyChatApp.swift */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -404,8 +421,11 @@
 				A849C8EF2B9D63DE00655D1C /* AppEnvironment.swift in Sources */,
 				A87579432B883D5200289437 /* FireStoreService.swift in Sources */,
 				A849C8ED2B9D5F7A00655D1C /* ViewModelContainer.swift in Sources */,
+				A849C8F42B9E33F600655D1C /* SceneDelegate.swift in Sources */,
+				A849C8F22B9E33DF00655D1C /* AppDelegate.swift in Sources */,
 				A849C8E02B9BA52900655D1C /* ChatView.swift in Sources */,
 				A8E4D5842B86F62600EA0EE7 /* AppState.swift in Sources */,
+				A849C8F62B9E361000655D1C /* ContentView.swift in Sources */,
 				A8D9C0C82B78773800118CA0 /* ChatsView.swift in Sources */,
 				A8E4D57F2B86F11200EA0EE7 /* Sha256.swift in Sources */,
 				A849C8E52B9BACBF00655D1C /* Chat.swift in Sources */,
