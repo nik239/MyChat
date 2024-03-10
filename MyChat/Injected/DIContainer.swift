@@ -39,20 +39,20 @@ extension EnvironmentValues {
 //}
 //#endif
 //
-//// MARK: - Injection in the view hierarchy
-//
-//extension View {
-//  
+
+// MARK: - Injection in the view hierarchy
+
+extension View {
+  
 //  func inject(_ appState: AppState,
 //              _ interactors: DIContainer.Interactors) -> some View {
 //    let container = DIContainer(appState: .init(appState),
 //                                interactors: interactors)
 //    return inject(container)
 //  }
-//  
-//  func inject(_ container: DIContainer) -> some View {
-//    return self
-//      .modifier(RootViewAppearance())
-//      .environment(\.injected, container)
-//  }
-//}
+  
+  func inject(_ container: DIContainer) -> some View {
+    return self
+      .environment(\.injected, container)
+  }
+}

@@ -6,11 +6,25 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
-  var container: DIContainer
+  private let container: DIContainer
+  private let  isRunningTests: Bool
+  
+  init(container: DIContainer, isRunningTests: Bool = ProcessInfo.processInfo.isRunningTests) {
+    self.container = container
+    self.isRunningTests = isRunningTests
+  }
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+      if isRunningTests {
+        Text("Running unit tests")
+      } else {
+        AuthView() {
+          ChatsView()
+        }
+        .inject(container)
+      }
     }
 }
 
