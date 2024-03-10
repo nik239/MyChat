@@ -78,4 +78,8 @@ extension AuthViewModel {
   }
 }
 
+final class StubAuthViewModel {
+  
+}
+
 
