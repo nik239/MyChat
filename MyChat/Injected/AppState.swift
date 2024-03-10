@@ -8,12 +8,13 @@
 import Foundation
 import FirebaseAuth
 
-struct AppState {
-  var userData = UserData()
+final class AppState: ObservableObject {
+  @Published var userData = UserData()
 }
 
 extension AppState {
   struct UserData {
     var user: User?
+    var chats: [String: Chat] = [:]
   }
 }

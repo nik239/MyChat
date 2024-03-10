@@ -16,9 +16,6 @@ enum AuthState {
 }
 
 protocol AuthenticationService: AnyObject {
-  var user: User? { get }
-  var displayName: String { get }
-
   var authState: AuthState { get }
   var errorMessage: String { get set }
   
@@ -33,7 +30,7 @@ protocol AuthenticationService: AnyObject {
 }
 
 final class RealAuthenticationService: AuthenticationService {
-  @Published var user: User?
+  let appState: AppState
   @Published var displayName = ""
   
   @Published var authState: AuthState = .unauthenticated
@@ -43,16 +40,16 @@ final class RealAuthenticationService: AuthenticationService {
   
   private var authStateHandler: AuthStateDidChangeListenerHandle?
   
-  init() {
+  init(appState: AppState) {
+    self.appState = appState
     registerAuthStateHandler()
   }
   
   private func registerAuthStateHandler() {
     if authStateHandler == nil {
       authStateHandler = Auth.auth().addStateDidChangeListener { auth, user in
-        self.user = user
+        self.appState.userData.user = user
         self.authState = user == nil ? .unauthenticated : .authenticated
-        self.displayName = user?.email ?? ""
       }
     }
   }
@@ -69,7 +66,7 @@ final class RealAuthenticationService: AuthenticationService {
   
   func deleteAccount() async -> Bool {
     do {
-      try await user?.delete()
+      try await self.appState.userData.user?.delete()
       return true
     }
     catch {
