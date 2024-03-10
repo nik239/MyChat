@@ -28,7 +28,7 @@ final class AuthViewModel: ObservableObject {
   
   @Published var isValid  = false
   
-  init(authService: AuthenticationService = RealAuthenticationService()) {
+  init(authService: AuthenticationService) {
     self.authService = authService
     self.authState = authService.authState
     self.errorMessage = authService.errorMessage

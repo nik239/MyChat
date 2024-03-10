@@ -35,19 +35,25 @@ class FirestoreService {
   
   private func updateChat(withID id: String, fromDocument document: QueryDocumentSnapshot) {
     
-    guard let members = document["members"] as? [String], let pending = document["pending"] as? [String] else {
+    guard let members = document["members"] as? [String], let pending = document["pending"] as? [String], var name = document["name"] as? String else {
       assertionFailure("Failed to access fields of a chat doc")
       return
     }
     
+    if name == "" {
+      let otherMembers = members.filter { $0 != appState.userData.user?.displayName }
+      name = otherMembers.joined(separator: ",")
+    }
+    
     guard let chat = appState.userData.chats[id] else {
-      appState.userData.chats[id] = Chat(members: members, pending: pending)
+      appState.userData.chats[id] = Chat(members: members, pending: pending, name: name)
       createMessagesListener(withChatID: id)
       return
     }
     
     chat.members = members
     chat.pending = pending
+    chat.name = name
   }
   
   private func createMessagesListener(withChatID id: String) {
@@ -66,7 +72,10 @@ class FirestoreService {
           }
           return Message(author: author, content: content, date: timestamp.dateValue())
         }
-        self.appState.userData.chats[id]?.messages = messages
+        
+        let sortedMessages = messages.sorted { $0.date < $1.date }
+        self.appState.userData.chats[id]?.lastMessage = sortedMessages.last?.date
+        self.appState.userData.chats[id]?.messages = sortedMessages
     }
   }
 }

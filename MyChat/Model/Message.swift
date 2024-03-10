@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Message: Codable {
+struct Message {
   let author: String
   let content: String
   let date: Date

@@ -13,8 +13,12 @@ class Chat {
   
   var messages: [Message]?
   
-  init(members: [String], pending: [String]){
+  var name: String
+  var lastMessage: Date?
+  
+  init(members: [String], pending: [String], name: String){
     self.members = members
     self.pending = pending
+    self.name = name
   }
 }

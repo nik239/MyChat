@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct ChatView: View {
+  let chat: Chat
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("")
     }
 }
 
 #Preview {
-    ChatView()
+  ChatView(chat: Chat(members: ["Jack"], pending: ["TheRipper"]))
 }
