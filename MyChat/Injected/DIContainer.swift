@@ -54,5 +54,6 @@ extension View {
   func inject(_ container: DIContainer) -> some View {
     return self
       .environment(\.injected, container)
+      .environmentObject(container.interactors.authViewModel!)
   }
 }

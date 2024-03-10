@@ -11,7 +11,7 @@ import AuthenticationServices
 struct AuthView <Content : View> : View {
   @Environment(\.colorScheme) var colorScheme
   
-  @StateObject private var viewModel = AuthViewModel()
+  @EnvironmentObject private var viewModel: AuthViewModel
   @State private var presentingCredentialsView = false
   
   @ViewBuilder var content: () -> Content

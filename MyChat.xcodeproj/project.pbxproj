@@ -26,6 +26,7 @@
 		A849C8F62B9E361000655D1C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F52B9E361000655D1C /* ContentView.swift */; };
 		A849C8F82B9E434F00655D1C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F72B9E434F00655D1C /* Helpers.swift */; };
 		A87579432B883D5200289437 /* FireStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87579422B883D5200289437 /* FireStoreService.swift */; };
+		A8C7D79F2B9E628100383676 /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C7D79E2B9E628100383676 /* AuthServiceTests.swift */; };
 		A8D45E532B7880DA0005126C /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D45E522B7880DA0005126C /* EmailLoginView.swift */; };
 		A8D45E552B7880E90005126C /* EmailSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D45E542B7880E90005126C /* EmailSignupView.swift */; };
 		A8D9C0872B76BCD300118CA0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A8D9C0862B76BCD300118CA0 /* FirebaseAnalytics */; };
@@ -59,7 +60,7 @@
 		A8D9C0C82B78773800118CA0 /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D9C0C72B78773800118CA0 /* ChatsView.swift */; };
 		A8D9C0CA2B7878FF00118CA0 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D9C0C92B7878FF00118CA0 /* AuthViewModel.swift */; };
 		A8E4D57F2B86F11200EA0EE7 /* Sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4D57E2B86F11200EA0EE7 /* Sha256.swift */; };
-		A8E4D5812B86F40C00EA0EE7 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4D5802B86F40C00EA0EE7 /* AuthenticationService.swift */; };
+		A8E4D5812B86F40C00EA0EE7 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4D5802B86F40C00EA0EE7 /* AuthService.swift */; };
 		A8E4D5842B86F62600EA0EE7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4D5832B86F62600EA0EE7 /* AppState.swift */; };
 /* End PBXBuildFile section */
 
@@ -96,13 +97,14 @@
 		A849C8F52B9E361000655D1C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A849C8F72B9E434F00655D1C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		A87579422B883D5200289437 /* FireStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreService.swift; sourceTree = "<group>"; };
+		A8C7D79E2B9E628100383676 /* AuthServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceTests.swift; sourceTree = "<group>"; };
 		A8D45E522B7880DA0005126C /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
 		A8D45E542B7880E90005126C /* EmailSignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignupView.swift; sourceTree = "<group>"; };
 		A8D9C0BC2B76BE0D00118CA0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A8D9C0C72B78773800118CA0 /* ChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
 		A8D9C0C92B7878FF00118CA0 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		A8E4D57E2B86F11200EA0EE7 /* Sha256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sha256.swift; sourceTree = "<group>"; };
-		A8E4D5802B86F40C00EA0EE7 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		A8E4D5802B86F40C00EA0EE7 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		A8E4D5832B86F62600EA0EE7 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,6 +200,7 @@
 		A82CFB702B79AD9E00E4DE0D /* MyChatTests */ = {
 			isa = PBXGroup;
 			children = (
+				A8C7D79D2B9E623200383676 /* Services */,
 				A82CFB712B79AD9E00E4DE0D /* AuthEmailPasswordTests.swift */,
 			);
 			path = MyChatTests;
@@ -218,6 +221,14 @@
 				A849C8DF2B9BA52900655D1C /* ChatView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		A8C7D79D2B9E623200383676 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A8C7D79E2B9E628100383676 /* AuthServiceTests.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		A8D45E4F2B7879D00005126C /* Views */ = {
@@ -246,7 +257,7 @@
 		A8E4D57C2B86F0CE00EA0EE7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				A8E4D5802B86F40C00EA0EE7 /* AuthenticationService.swift */,
+				A8E4D5802B86F40C00EA0EE7 /* AuthService.swift */,
 				A87579422B883D5200289437 /* FireStoreService.swift */,
 			);
 			path = Services;
@@ -438,7 +449,7 @@
 				A849C8E72B9BB04800655D1C /* Message.swift in Sources */,
 				A80AADEA2B71DE7F00A74DAA /* MyChatApp.swift in Sources */,
 				A849C8EB2B9D5DC200655D1C /* DIContainer.swift in Sources */,
-				A8E4D5812B86F40C00EA0EE7 /* AuthenticationService.swift in Sources */,
+				A8E4D5812B86F40C00EA0EE7 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A82CFB722B79AD9E00E4DE0D /* AuthEmailPasswordTests.swift in Sources */,
+				A8C7D79F2B9E628100383676 /* AuthServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
