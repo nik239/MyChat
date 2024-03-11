@@ -37,27 +37,25 @@ extension FirestoreService {
       }
   }
   
-  private func updateChat(withID id: String, fromDocument document: QueryDocumentSnapshot) {
-    
-    guard let members = document["members"] as? [String], let pending = document["pending"] as? [String], var name = document["name"] as? String else {
-      assertionFailure("Failed to access fields of a chat doc")
-      return
+  private func updateChat(withID id: String, fromDocument doc: QueryDocumentSnapshot) {
+    do {
+      let chatNew = try doc.data(as: Chat.self)
+      
+      if chatNew.name == "" {
+        let otherMembers = chatNew.members.filter { $0 != appState.userData.user?.displayName }
+        chatNew.name = otherMembers.joined(separator: ",")
+      }
+      guard let chatOld = appState.userData.chats[id] else {
+        appState.userData.chats[id] = chatNew
+        createMessagesListener(withChatID: id)
+        return
+      }
+      chatOld.members = chatNew.members
+      chatOld.pending = chatNew.pending
+      chatOld.name = chatNew.name
+    } catch {
+      print(error)
     }
-    
-    if name == "" {
-      let otherMembers = members.filter { $0 != appState.userData.user?.displayName }
-      name = otherMembers.joined(separator: ",")
-    }
-    
-    guard let chat = appState.userData.chats[id] else {
-      appState.userData.chats[id] = Chat(members: members, pending: pending, name: name)
-      createMessagesListener(withChatID: id)
-      return
-    }
-    
-    chat.members = members
-    chat.pending = pending
-    chat.name = name
   }
   
   private func createMessagesListener(withChatID id: String) {
@@ -97,6 +95,5 @@ extension FirestoreService {
       print(error)
       return false
     }
-//    db.collection("chats").document(id).collection("messages").document().setData(["author": message.author, "content": message.content, "date": Timestamp(date: Date())])
   }
 }
