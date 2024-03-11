@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseCore
 import FirebaseAuth
+import FirebaseFirestore
 
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     FirebaseApp.configure()
     #if DEBUG
     Auth.auth().useEmulator(withHost:"localhost", port:9099)
+    Firestore.firestore().useEmulator(withHost: "localhost", port: 8080)
     #endif
     return true
   }

@@ -17,7 +17,11 @@ class FirestoreService {
     self.appState = appState
   }
   
-  private func createChatsListener() {
+}
+
+// MARK: - Creating listeners
+extension FirestoreService {
+  func createChatsListener() {
     guard let userHandle = appState.userData.user?.displayName else {
       assertionFailure("User object is nil")
       return
@@ -64,18 +68,35 @@ class FirestoreService {
           return
         }
         let messages = messageDocs.compactMap { doc -> Message? in
-          guard let author = doc["author"] as? String,
-                let content = doc["content"] as? String,
-                let timestamp = doc["date"] as? Timestamp else {
-            assertionFailure("Failed to access fields of a message doc")
+          do {
+            let message = try doc.data(as: Message.self)
+            return message
+          } catch {
+            print(error)
             return nil
           }
-          return Message(author: author, content: content, date: timestamp.dateValue())
         }
-        
         let sortedMessages = messages.sorted { $0.date < $1.date }
         self.appState.userData.chats[id]?.lastMessage = sortedMessages.last?.date
         self.appState.userData.chats[id]?.messages = sortedMessages
+      }
+  }
+}
+
+// MARK: - Writing
+extension FirestoreService {
+//  func createChat(chat: Chat) {
+//    db.collection("chats").document().setData()
+//  }
+  func sendMessage(message: Message, toChat id: String) -> Bool {
+    do {
+      let data = try Firestore.Encoder().encode(message)
+      db.collection("chats").document(id).collection("messages").document().setData(data)
+      return true
+    } catch {
+      print(error)
+      return false
     }
+//    db.collection("chats").document(id).collection("messages").document().setData(["author": message.author, "content": message.content, "date": Timestamp(date: Date())])
   }
 }
