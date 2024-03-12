@@ -48,7 +48,7 @@ final class RealAuthenticationService: AuthenticationService {
   private func registerAuthStateHandler() {
     if authStateHandler == nil {
       authStateHandler = Auth.auth().addStateDidChangeListener { auth, user in
-        self.appState.userData.user = user
+        self.appState.update(user: user)
         self.authState = user == nil ? .unauthenticated : .authenticated
       }
     }

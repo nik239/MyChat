@@ -6,22 +6,37 @@
 //
 
 import FirebaseFirestore
+import Combine
 
 class FirestoreService {
   let appState: AppState
-  
   let db = Firestore.firestore()
+  
+  private var cancellables = Set<AnyCancellable>()
   //let listenerManager = ListenerManager()
   
   init(appState: AppState) {
     self.appState = appState
+    observeDidAuthenticate()
   }
-  
+
+  private func observeDidAuthenticate() {
+    appState.$userData
+      .map { $0.user }
+      .removeDuplicates()
+      .compactMap { $0 } 
+      .sink { [weak self] _ in
+        self?.createChatsListener()
+      }
+      .store(in: &cancellables)
+  }
 }
 
 // MARK: - Creating listeners
 extension FirestoreService {
+  // should be called once the user is no longer nil
   func createChatsListener() {
+    
     guard let userHandle = appState.userData.user?.displayName else {
       assertionFailure("User object is nil")
       return
@@ -39,20 +54,24 @@ extension FirestoreService {
   
   private func updateChat(withID id: String, fromDocument doc: QueryDocumentSnapshot) {
     do {
-      let chatNew = try doc.data(as: Chat.self)
+      var chatNew = try doc.data(as: Chat.self)
       
       if chatNew.name == "" {
         let otherMembers = chatNew.members.filter { $0 != appState.userData.user?.displayName }
         chatNew.name = otherMembers.joined(separator: ",")
       }
-      guard let chatOld = appState.userData.chats[id] else {
-        appState.userData.chats[id] = chatNew
+      
+      guard var chat = appState.userData.chats[id] else {
+        appState.update(chatAtID: id, to: chatNew)
         createMessagesListener(withChatID: id)
         return
       }
-      chatOld.members = chatNew.members
-      chatOld.pending = chatNew.pending
-      chatOld.name = chatNew.name
+      
+      chat.members = chatNew.members
+      chat.pending = chatNew.pending
+      chat.name = chatNew.name
+      
+      appState.update(chatAtID: id, to: chat)
     } catch {
       print(error)
     }
@@ -75,8 +94,13 @@ extension FirestoreService {
           }
         }
         let sortedMessages = messages.sorted { $0.date < $1.date }
-        self.appState.userData.chats[id]?.lastMessage = sortedMessages.last?.date
-        self.appState.userData.chats[id]?.messages = sortedMessages
+        
+        guard var chat = self.appState.userData.chats[id] else {
+          return
+        }
+        chat.messages = sortedMessages
+        chat.lastMessage = sortedMessages.last?.date
+        self.appState.update(chatAtID: id, to: chat)
       }
   }
 }

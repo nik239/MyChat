@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Chat: Codable {
+struct Chat: Codable {
   var members: [String]
   var pending: [String]
   
@@ -26,7 +26,7 @@ class Chat: Codable {
     case members, name, pending
   }
   
-  required init(from decoder: Decoder) throws {
+  init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.members = try container.decode([String].self, forKey: .members)
     self.pending = try container.decode([String].self, forKey: .pending)
