@@ -14,7 +14,6 @@ struct Chat: Codable {
   var messages: [Message]?
   
   var name: String
-  var lastMessage: Date?
   
   init(members: [String], pending: [String], name: String = ""){
     self.members = members

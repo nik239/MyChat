@@ -39,6 +39,7 @@
 		A8E4FDF32BA11D9900BF9077 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = A8E4FDF22BA11D9900BF9077 /* FirebaseAppCheck */; };
 		A8E4FDF52BA11D9900BF9077 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A8E4FDF42BA11D9900BF9077 /* FirebaseAuth */; };
 		A8E4FDF72BA11D9900BF9077 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A8E4FDF62BA11D9900BF9077 /* FirebaseFirestore */; };
+		A8E4FDF92BA171AA00BF9077 /* StringError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4FDF82BA171AA00BF9077 /* StringError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		A8E4D57E2B86F11200EA0EE7 /* Sha256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sha256.swift; sourceTree = "<group>"; };
 		A8E4D5802B86F40C00EA0EE7 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		A8E4D5832B86F62600EA0EE7 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		A8E4FDF82BA171AA00BF9077 /* StringError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 				A8E4D57E2B86F11200EA0EE7 /* Sha256.swift */,
 				A849C8E82B9D189000655D1C /* ListenerManager.swift */,
 				A849C8F72B9E434F00655D1C /* Helpers.swift */,
+				A8E4FDF82BA171AA00BF9077 /* StringError.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				A849C8DE2B9BA4E100655D1C /* CreateChatView.swift in Sources */,
 				A849C8E72B9BB04800655D1C /* Message.swift in Sources */,
 				A80AADEA2B71DE7F00A74DAA /* MyChatApp.swift in Sources */,
+				A8E4FDF92BA171AA00BF9077 /* StringError.swift in Sources */,
 				A849C8EB2B9D5DC200655D1C /* DIContainer.swift in Sources */,
 				A8E4D5812B86F40C00EA0EE7 /* AuthService.swift in Sources */,
 			);
