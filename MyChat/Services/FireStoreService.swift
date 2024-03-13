@@ -62,7 +62,7 @@ extension FirestoreService {
     guard var chatNew = try? doc.data(as: Chat.self) else {
       return
     }
-      
+    
     if chatNew.name == "" {
       let otherMembers = chatNew.members.filter { $0 != appState.userData.user?.displayName }
       chatNew.name = otherMembers.joined(separator: ",")
@@ -105,7 +105,7 @@ extension FirestoreService {
 // MARK: - Writing
 extension FirestoreService {
   /// Creates a chat, optionally specifying its Firestore document id. The id parameter is meant for testing purposes.
-  func createChat(chat: Chat, withID id: String? = nil) async throws {
+  func updateChat(chat: Chat, withID id: String? = nil) async throws {
     let data = try Firestore.Encoder().encode(chat)
     try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
       var reference = db.collection("chats")

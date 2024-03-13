@@ -31,6 +31,7 @@ final class FirestoreServiceTests: XCTestCase {
   
   override func tearDownWithError() throws {
     dbService = nil
+    appState = nil
   }
   
   func test_createChat() async {
@@ -38,7 +39,7 @@ final class FirestoreServiceTests: XCTestCase {
     let chat = Chat(members: [""], pending: [""], name: "testChat")
     do {
       //when
-      try await dbService.createChat(chat: chat)
+      try await dbService.updateChat(chat: chat)
     } catch {
       //then
       XCTFail("createChat threw: \(error)")
@@ -47,13 +48,13 @@ final class FirestoreServiceTests: XCTestCase {
   
   func test_sendMessage() async {
     //gien
-    let testID = "test1"
+    let chatID = "test1"
     let chat = Chat(members: [""], pending: [""], name: "testChat")
     let message = Message(author: "testUser", content: "test")
     //when
-    try! await dbService.createChat(chat: chat, withID: testID)
+    try! await dbService.updateChat(chat: chat, withID: chatID)
     do {
-      try await dbService.sendMessage(message: message, toChat: testID)
+      try await dbService.sendMessage(message: message, toChat: chatID)
     } catch {
     //then
       XCTFail("sendMessage threw: \(error)")
@@ -61,19 +62,50 @@ final class FirestoreServiceTests: XCTestCase {
   }
   
   func test_createMessagesListener() async {
-    //gien
-    let testID = "test2"
+    //given
+    let chatID = "test2"
     let chat = Chat(members: [""], pending: [""], name: "testChat")
+    appState.update(chatAtID: chatID, to: chat)
     let message = Message(author: "testUser", content: "test")
+    dbService.createMessagesListener(withChatID: chatID)
     //when
-    do {
-      try await dbService.createMessagesListener(withChatID: testID)
-    } catch {
-      XCTFail("createMessagesListener threw \(error)")
-    }
-    try! await dbService.createChat(chat: chat, withID: testID)
-    try! await dbService.sendMessage(message: message, toChat: testID)
-    //XCTAssertEqual
-    
+    try! await dbService.updateChat(chat: chat, withID: chatID)
+    try! await dbService.sendMessage(message: message, toChat: chatID)
+    //then
+    var messages = appState.userData.chats[chatID]!.messages!
+    XCTAssertEqual(messages.count, 1)
+    //when
+    try! await dbService.sendMessage(message: message, toChat: chatID)
+    //then
+    messages = appState.userData.chats[chatID]!.messages!
+    XCTAssertEqual(messages.count, 2)
+  }
+  
+  func test_createChatsListener() async {
+    //given
+    let userHandle = "test_user"
+    let chatID1 = "test3"
+    let chatID2 = "test4"
+    var chat1 = Chat(members: ["A","test_user"], pending: [""], name: "")
+    let chat2 = Chat(members: ["test_user"], pending: [""], name: "testChat2")
+    let message = Message(author: "A", content: "test")
+    //when
+    dbService.createChatsListener(forUser: userHandle)
+    try! await dbService.updateChat(chat: chat1, withID: chatID1)
+    try! await dbService.updateChat(chat: chat2, withID: chatID2)
+    //then
+    XCTAssertEqual(appState.userData.chats.count, 2)
+    //when
+    try! await dbService.sendMessage(message: message, toChat: chatID1)
+    //then
+    var messages = appState.userData.chats[chatID1]!.messages!
+    XCTAssertEqual(messages.count, 1)
+    //when
+    chat1.name = "new_name"
+    try! await dbService.updateChat(chat: chat1, withID: chatID1)
+    let chatNewName = appState.userData.chats[chatID1]!.name
+    XCTAssertEqual(chatNewName, "new_name")
+    messages = appState.userData.chats[chatID1]!.messages!
+    XCTAssertEqual(messages.count, 1)
   }
 }
