@@ -40,6 +40,7 @@
 		A8E4FDF52BA11D9900BF9077 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A8E4FDF42BA11D9900BF9077 /* FirebaseAuth */; };
 		A8E4FDF72BA11D9900BF9077 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A8E4FDF62BA11D9900BF9077 /* FirebaseFirestore */; };
 		A8E4FDF92BA171AA00BF9077 /* StringError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4FDF82BA171AA00BF9077 /* StringError.swift */; };
+		A8E4FDFB2BA2157800BF9077 /* ChatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4FDFA2BA2157800BF9077 /* ChatsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		A8E4D5802B86F40C00EA0EE7 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		A8E4D5832B86F62600EA0EE7 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A8E4FDF82BA171AA00BF9077 /* StringError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringError.swift; sourceTree = "<group>"; };
+		A8E4FDFA2BA2157800BF9077 /* ChatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				A8D9C0C92B7878FF00118CA0 /* AuthViewModel.swift */,
+				A8E4FDFA2BA2157800BF9077 /* ChatsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8E4FDFB2BA2157800BF9077 /* ChatsViewModel.swift in Sources */,
 				A8D45E552B7880E90005126C /* EmailSignupView.swift in Sources */,
 				A849C8E92B9D189100655D1C /* ListenerManager.swift in Sources */,
 				A849C8E22B9BA58B00655D1C /* ProfileView.swift in Sources */,

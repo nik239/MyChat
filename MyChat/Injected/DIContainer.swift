@@ -55,5 +55,6 @@ extension View {
     return self
       .environment(\.injected, container)
       .environmentObject(container.interactors.authViewModel!)
+      .environmentObject(container.interactors.chatsViewModel!)
   }
 }

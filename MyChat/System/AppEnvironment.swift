@@ -26,7 +26,10 @@ extension AppEnvironment {
       let authViewModel = await MainActor.run {
         AuthViewModel(authService: services.authService, appState: appState)
       }
-    return .init(authViewModel: authViewModel)
+    let chatsViewModel = await MainActor.run {
+      ChatsViewModel(appState: appState)
+    }
+    return .init(authViewModel: authViewModel, chatsViewModel: chatsViewModel)
   }
 }
 

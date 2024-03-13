@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ChatsView: View {
-  //let chats: [Chat]
+  @EnvironmentObject private var viewModel: ChatsViewModel
     var body: some View {
         Text("This view will display your chats!")
     }
 }
 
-//#Preview {
-//    ChatsView()
-//}
+#Preview {
+    ChatsView()
+}

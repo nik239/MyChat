@@ -8,9 +8,10 @@
 extension DIContainer {
   struct Interactors {
     let authViewModel: AuthViewModel?
+    let chatsViewModel: ChatsViewModel?
     
     static var stub: Self {
-      .init(authViewModel: nil)
+      .init(authViewModel: nil, chatsViewModel: nil)
     }
   }
 }
