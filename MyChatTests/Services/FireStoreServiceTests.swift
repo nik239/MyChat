@@ -14,7 +14,11 @@ final class FireStoreServiceTests: XCTestCase {
   private var dbService: FirestoreService!
   
   override func setUpWithError() throws {
-    Firestore.firestore().useEmulator(withHost: "localhost", port: 8080)
+    let settings = Firestore.firestore().settings
+    settings.host = "127.0.0.1:8080"
+    settings.cacheSettings = MemoryCacheSettings()
+    settings.isSSLEnabled = false
+    Firestore.firestore().settings = settings
     dbService = FirestoreService(appState: AppState())
   }
   
@@ -22,8 +26,14 @@ final class FireStoreServiceTests: XCTestCase {
     dbService = nil
   }
   
-  func test_ChatsListener() {
-    dbService.createChatsListener()
-    
+  func test_createChat() async {
+    //when
+    let chat = Chat(members: [""], pending: [""], name: "testChat")
+    do {
+      try await dbService.createChat(chat: chat)
+    } catch {
+      //then
+      XCTFail("createChat threw: \(error)")
+    }
   }
 }

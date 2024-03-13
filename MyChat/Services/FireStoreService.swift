@@ -10,22 +10,27 @@ import Combine
 
 class FirestoreService {
   let appState: AppState
-  let db = Firestore.firestore()
+  let db: Firestore
   
   private var cancellables = Set<AnyCancellable>()
+  private var listeners = [ListenerRegistration]()
   //let listenerManager = ListenerManager()
   
   init(appState: AppState) {
+    db = Firestore.firestore()
     self.appState = appState
-    observeDidAuthenticate()
+    createUserObserver()
   }
 
-  private func observeDidAuthenticate() {
+  /// Creates a subscriber that manages listeners upon successful user authentication.
+  private func createUserObserver() {
     appState.$userData
       .map { $0.user }
       .removeDuplicates()
-      .compactMap { $0 } 
+      .compactMap { $0 }
       .sink { [weak self] _ in
+        self?.listeners.forEach { $0.remove() }
+        self?.listeners = []
         self?.createChatsListener()
       }
       .store(in: &cancellables)
@@ -34,7 +39,6 @@ class FirestoreService {
 
 // MARK: - Creating listeners
 extension FirestoreService {
-  // should be called once the user is no longer nil
   func createChatsListener() {
     
     guard let userHandle = appState.userData.user?.displayName else {
@@ -107,17 +111,29 @@ extension FirestoreService {
 
 // MARK: - Writing
 extension FirestoreService {
-//  func createChat(chat: Chat) {
-//    db.collection("chats").document().setData()
-//  }
-  func sendMessage(message: Message, toChat id: String) -> Bool {
-    do {
-      let data = try Firestore.Encoder().encode(message)
-      db.collection("chats").document(id).collection("messages").document().setData(data)
-      return true
-    } catch {
-      print(error)
-      return false
+  func createChat(chat: Chat) async throws {
+    let data = try Firestore.Encoder().encode(chat)
+    try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+      db.collection("chats").document().setData(data) { err in
+        if let err = err {
+          continuation.resume(throwing: err)
+        } else {
+          continuation.resume(returning: ())
+        }
+      }
+    }
+  }
+  
+  func sendMessage(message: Message, toChat id: String) async throws {
+    let data = try Firestore.Encoder().encode(message)
+    try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+      db.collection("chats").document(id).collection("messages").document().setData(data){ err in
+        if let err = err {
+          continuation.resume(throwing: err)
+        } else {
+          continuation.resume(returning: ())
+        }
+      }
     }
   }
 }
