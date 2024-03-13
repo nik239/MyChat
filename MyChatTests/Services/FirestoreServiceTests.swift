@@ -10,15 +10,19 @@ import FirebaseFirestore
 @testable import MyChat
 
 //requires Firebase emulator to be restarted before each run
-final class FireStoreServiceTests: XCTestCase {
+final class FirestoreServiceTests: XCTestCase {
   private var dbService: FirestoreService!
+  static var didSetEmulator = false
   
   override func setUpWithError() throws {
-    let settings = Firestore.firestore().settings
-    settings.host = "127.0.0.1:8080"
-    settings.cacheSettings = MemoryCacheSettings()
-    settings.isSSLEnabled = false
-    Firestore.firestore().settings = settings
+    if !FirestoreServiceTests.didSetEmulator {
+      let settings = Firestore.firestore().settings
+      settings.host = "127.0.0.1:8080"
+      settings.cacheSettings = MemoryCacheSettings()
+      settings.isSSLEnabled = false
+      Firestore.firestore().settings = settings
+      FirestoreServiceTests.didSetEmulator = true
+    }
     dbService = FirestoreService(appState: AppState())
   }
   

@@ -16,6 +16,10 @@ final class AppState: ObservableObject {
 extension AppState {
   struct UserData {
     var user: User?
+    
+    var authState: AuthState = .unauthenticated
+    var authError: String = ""
+    
     var chats: [String: Chat] = [:]
   }
 }
@@ -35,6 +39,22 @@ extension AppState {
     Task {
       await MainActor.run {
         self.userData.chats[id] = chat
+      }
+    }
+  }
+  
+  func update(authState: AuthState) {
+    Task {
+      await MainActor.run {
+        self.userData.authState = authState
+      }
+    }
+  }
+  
+  func update(authError: String) {
+    Task {
+      await MainActor.run {
+        self.userData.authError = authError
       }
     }
   }

@@ -14,14 +14,14 @@ struct DIContainer: EnvironmentKey {
   let appState: AppState
   let interactors: Interactors
   
-  init(appState: AppState, interactors: Interactors) {
+  init(interactors: Interactors, appState: AppState) {
     self.appState = appState
     self.interactors = interactors
   }
   
   static var defaultValue: Self { Self.default }
   
-  private static let `default` = Self(appState: AppState(), interactors: .stub)
+  private static let `default` = Self(interactors: .stub, appState: AppState())
 }
 
 extension EnvironmentValues {

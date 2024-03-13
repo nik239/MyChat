@@ -17,7 +17,7 @@ struct AuthView <Content : View> : View {
   @ViewBuilder var content: () -> Content
   
   var body: some View {
-    switch viewModel.authService.authState {
+    switch viewModel.authState {
     case .unauthenticated, .authenticating:
       VStack {
         Text("Welcome to MyChat!")

@@ -12,9 +12,13 @@ import FirebaseAuth
 //requires Firebase emulator to be restarted before each run
 final class AuthServiceTests: XCTestCase {
   private var authService: RealAuthenticationService!
+  static var didSetEmulator = false
     
   override func setUpWithError() throws {
-    Auth.auth().useEmulator(withHost:"localhost", port:9099)
+    if !AuthServiceTests.didSetEmulator {
+      Auth.auth().useEmulator(withHost:"localhost", port:9099)
+      AuthServiceTests.didSetEmulator = true
+    }
     authService = RealAuthenticationService(appState: AppState())
   }
   

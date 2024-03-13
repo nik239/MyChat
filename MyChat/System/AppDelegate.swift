@@ -17,7 +17,11 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     FirebaseApp.configure()
     #if DEBUG
     Auth.auth().useEmulator(withHost:"localhost", port:9099)
-    Firestore.firestore().useEmulator(withHost: "localhost", port: 8080)
+    let settings = Firestore.firestore().settings
+    settings.host = "127.0.0.1:8080"
+    settings.cacheSettings = MemoryCacheSettings()
+    settings.isSSLEnabled = false
+    Firestore.firestore().settings = settings
     #endif
     return true
   }

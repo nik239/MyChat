@@ -13,8 +13,8 @@ extension AppEnvironment {
   static func bootstrap() async -> AppEnvironment {
     let appState = AppState()
     let services = configuredServices(appState: appState)
-    let interactors = await configuredInteractors(services: services)
-    let container = DIContainer(appState: appState, interactors: interactors)
+    let interactors = await configuredInteractors(services: services, appState: appState)
+    let container = DIContainer(interactors: interactors, appState: appState)
     return AppEnvironment(container: container)
   }
   
@@ -22,9 +22,9 @@ extension AppEnvironment {
     return .init(authService: RealAuthenticationService(appState: appState), firestoreService: FirestoreService(appState: appState))
   }
   
-  private static func configuredInteractors(services: DIContainer.FirebaseServices) async -> DIContainer.Interactors {
+  private static func configuredInteractors(services: DIContainer.FirebaseServices, appState: AppState) async -> DIContainer.Interactors {
       let authViewModel = await MainActor.run {
-        AuthViewModel(authService: services.authService)
+        AuthViewModel(authService: services.authService, appState: appState)
       }
     return .init(authViewModel: authViewModel)
   }

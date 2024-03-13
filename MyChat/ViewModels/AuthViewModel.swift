@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 enum AuthFlow {
   case login
@@ -16,6 +17,8 @@ enum AuthFlow {
 @MainActor
 final class AuthViewModel: ObservableObject {
   let authService: AuthenticationService
+  
+//  private var cancellables = Set<AnyCancellable>()
   
   @Published var authState: AuthState
   @Published var errorMessage: String
@@ -28,18 +31,32 @@ final class AuthViewModel: ObservableObject {
   
   @Published var isValid  = false
   
-  init(authService: AuthenticationService) {
+  init(authService: AuthenticationService, appState: AppState) {
     self.authService = authService
-    self.authState = authService.authState
-    self.errorMessage = authService.errorMessage
-    if let authService = authService as? RealAuthenticationService {
-      authService.$authState
-        .assign(to: &$authState)
-      authService.$errorMessage
-        .assign(to: &$errorMessage)
-    }
+    self.authState = appState.userData.authState
+    self.errorMessage = appState.userData.authError
+    bindToAppState(appState: appState)
     makeIsValidPublisher()
   }
+  
+  private func bindToAppState(appState: AppState) {
+    appState.$userData
+      .map { $0.authState }
+      .assign(to: &$authState)
+    appState.$userData
+      .map { $0.authError }
+      .assign(to: &$errorMessage)
+  }
+  
+//  private func bindAppState(appState: AppState) {
+//    appState.$userData
+//      .receive(on: RunLoop.main)
+//      .sink { [weak self] userData in
+//        self?.authState = userData.authState
+//        self?.errorMessage = userData.authError
+//      }
+//      .store(in: &cancellables)
+//  }
   
   private func makeIsValidPublisher() {
     $flow
@@ -54,7 +71,7 @@ final class AuthViewModel: ObservableObject {
   
   func switchFlow() {
     flow = flow == .login ? .signUp : .login
-    authService.errorMessage = ""
+    authService.clearError()
   }
   
   func reset() {
