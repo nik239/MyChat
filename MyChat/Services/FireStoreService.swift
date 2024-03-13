@@ -31,9 +31,7 @@ class FirestoreService {
       .sink { [weak self] _ in
         self?.listeners.forEach { $0.remove() }
         self?.listeners = []
-        Task { [weak self] in
-          await self?.createChatsListener(forUser: self?.appState.userData.user?.displayName)
-        }
+        self?.createChatsListener(forUser: self?.appState.userData.user?.displayName)
       }
       .store(in: &cancellables)
   }
@@ -42,31 +40,25 @@ class FirestoreService {
 // MARK: - Creating listeners
 extension FirestoreService {
   /// Creates a listener on the chats collection.
-  func createChatsListener(forUser userHandle: String?) async {
-    do {
-      guard let userHandle = userHandle else {
-        throw "User object is nil."
-      }
-      try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-        let listener = db.collection("chats").whereField("members",  arrayContains: userHandle)
-          .addSnapshotListener { querySnapshot, error in
-            if let error = error {
-              continuation.resume(throwing: error)
-            }
-            let chats = querySnapshot?.documents
-            chats?.forEach { chat in
-              Task { try await self.updateChat(withID: chat.documentID, fromDocument: chat) }
-            }
-          }
-        self.listeners.append(listener)
-      }
-    } catch {
-      assertionFailure("Couldn't create listener: \(error)")
+  func createChatsListener(forUser userHandle: String?) {
+    guard let userHandle = userHandle else {
+      assertionFailure("User object is nil.")
+      return
     }
+    let listener = db.collection("chats").whereField("members",  arrayContains: userHandle)
+      .addSnapshotListener { querySnapshot, error in
+        if let error = error {
+          print(error)
+        }
+        let chats = querySnapshot?.documents
+        chats?.forEach { self.updateChat(withID: $0.documentID, fromDocument: $0)
+        }
+      }
+    self.listeners.append(listener)
   }
   
   /// Updates a chat's fields other than messages. If the chat's id is not in the chat table, adds it to the table and creates a listener on the chats messages.
-  private func updateChat(withID id: String, fromDocument doc: QueryDocumentSnapshot) async throws {
+  private func updateChat(withID id: String, fromDocument doc: QueryDocumentSnapshot) {
     guard var chatNew = try? doc.data(as: Chat.self) else {
       return
     }
@@ -78,7 +70,7 @@ extension FirestoreService {
     
     guard var chat = appState.userData.chats[id] else {
       appState.update(chatAtID: id, to: chatNew)
-      try await createMessagesListener(withChatID: id)
+      createMessagesListener(withChatID: id)
       return
     }
     
@@ -90,25 +82,23 @@ extension FirestoreService {
   }
   
   /// Creates a listener on a chat's messages subcollection. The listener updates the corresponding chat in AppState when a new message is posted. Throws if listener creation fails.
-  func createMessagesListener(withChatID id: String) async throws {
-    try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-      let listener = db.collection("chats").document(id).collection("messages")
-        .addSnapshotListener { querySnapshot, error in
-          if let error = error {
-            continuation.resume(throwing: error)
-          }
-          let sortedMessages = querySnapshot?.documents.compactMap { doc -> Message? in
-            let message = try? doc.data(as: Message.self)
-            return message
-          }.sorted { $0.date < $1.date }
-          guard var chat = self.appState.userData.chats[id] else {
-            return
-          }
-          chat.messages = sortedMessages
-          self.appState.update(chatAtID: id, to: chat)
+  func createMessagesListener(withChatID id: String) {
+    let listener = db.collection("chats").document(id).collection("messages")
+      .addSnapshotListener { querySnapshot, error in
+        if let error = error {
+         print(error)
         }
-      self.listeners.append(listener)
-    }
+        let sortedMessages = querySnapshot?.documents.compactMap { doc -> Message? in
+          let message = try? doc.data(as: Message.self)
+          return message
+        }.sorted { $0.date < $1.date }
+        guard var chat = self.appState.userData.chats[id] else {
+          return
+        }
+        chat.messages = sortedMessages
+        self.appState.update(chatAtID: id, to: chat)
+      }
+    self.listeners.append(listener)
   }
 }
 
