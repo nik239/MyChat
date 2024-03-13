@@ -17,6 +17,12 @@ struct Message: Codable {
     case author, content, date
   }
   
+  init(author: String, content: String, date: Date = Date()) {
+    self.author = author
+    self.content = content
+    self.date = date
+  }
+  
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.author = try container.decode(String.self, forKey: .author)

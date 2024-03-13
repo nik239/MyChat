@@ -12,6 +12,8 @@ import FirebaseAuth
 //requires Firebase emulator to be restarted before each run
 final class AuthServiceTests: XCTestCase {
   private var authService: RealAuthenticationService!
+  private var appState: AppState!
+  
   static var didSetEmulator = false
     
   override func setUpWithError() throws {
@@ -19,7 +21,8 @@ final class AuthServiceTests: XCTestCase {
       Auth.auth().useEmulator(withHost:"localhost", port:9099)
       AuthServiceTests.didSetEmulator = true
     }
-    authService = RealAuthenticationService(appState: AppState())
+    appState = AppState()
+    authService = RealAuthenticationService(appState: appState)
   }
   
   override func tearDownWithError() throws {
@@ -31,7 +34,7 @@ final class AuthServiceTests: XCTestCase {
     let didSignUp = await authService.signUpWithEmailPassword(email: "test@mail.com", password: "testtest")
     //then
     XCTAssertTrue(didSignUp)
-    XCTAssertEqual(authService.authState, .authenticated)
+    XCTAssertEqual(appState.userData.authState, .authenticated)
     //when
     let didSignUpTwice = await authService.signUpWithEmailPassword(email: "test@mail.com", password: "testtest")
     //then
@@ -52,7 +55,7 @@ final class AuthServiceTests: XCTestCase {
     let deadline = Date().addingTimeInterval(timeout)
     var isTimeout = false
     
-    while authService.authState != .unauthenticated && !isTimeout {
+    while appState.userData.authState != .unauthenticated && !isTimeout {
       await Task.sleep(UInt64(pollingInterval * 1_000_000_000)) // Convert seconds to nanoseconds
       if Date() > deadline {
         isTimeout = true
@@ -65,13 +68,13 @@ final class AuthServiceTests: XCTestCase {
     
     wait(for: [expectation], timeout: timeout)
     //then
-    XCTAssertEqual(authService.authState, .unauthenticated)
+    XCTAssertEqual(appState.userData.authState, .unauthenticated)
     XCTAssertNil(authService.appState.userData.user)
   }
   
   func test_deleteAccountSuccess() async {
     //given
-    let didSignUp = await authService.signUpWithEmailPassword(email: "test3@mail.com", password: "testtest")
+    _ = await authService.signUpWithEmailPassword(email: "test3@mail.com", password: "testtest")
     //when
     let didDeleteAccount = await authService.deleteAccount()
     //then
@@ -87,7 +90,7 @@ final class AuthServiceTests: XCTestCase {
   
   func test_signInWithEmailPasswordSuccess() async {
     //given
-    let didSignUp = await authService.signUpWithEmailPassword(email: "test4@mail.com", password: "testtest")
+    _ = await authService.signUpWithEmailPassword(email: "test4@mail.com", password: "testtest")
     //when
     authService.signOut()
     let didSignIn = await authService.signInWithEmailPassword(email: "test4@mail.com", password: "testtest")

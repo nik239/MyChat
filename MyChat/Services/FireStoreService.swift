@@ -32,7 +32,7 @@ class FirestoreService {
         self?.listeners.forEach { $0.remove() }
         self?.listeners = []
         Task { [weak self] in
-          await self?.createChatsListener()
+          await self?.createChatsListener(forUser: self?.appState.userData.user?.displayName)
         }
       }
       .store(in: &cancellables)
@@ -41,13 +41,14 @@ class FirestoreService {
 
 // MARK: - Creating listeners
 extension FirestoreService {
-  func createChatsListener() async {
+  /// Creates a listener on the chats collection.
+  func createChatsListener(forUser userHandle: String?) async {
     do {
-      guard let userHandle = appState.userData.user?.displayName else {
+      guard let userHandle = userHandle else {
         throw "User object is nil."
       }
       try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-        db.collection("chats").whereField("members",  arrayContains: userHandle)
+        let listener = db.collection("chats").whereField("members",  arrayContains: userHandle)
           .addSnapshotListener { querySnapshot, error in
             if let error = error {
               continuation.resume(throwing: error)
@@ -57,12 +58,14 @@ extension FirestoreService {
               Task { try await self.updateChat(withID: chat.documentID, fromDocument: chat) }
             }
           }
+        self.listeners.append(listener)
       }
     } catch {
       assertionFailure("Couldn't create listener: \(error)")
     }
   }
   
+  /// Updates a chat's fields other than messages. If the chat's id is not in the chat table, adds it to the table and creates a listener on the chats messages.
   private func updateChat(withID id: String, fromDocument doc: QueryDocumentSnapshot) async throws {
     guard var chatNew = try? doc.data(as: Chat.self) else {
       return
@@ -87,9 +90,9 @@ extension FirestoreService {
   }
   
   /// Creates a listener on a chat's messages subcollection. The listener updates the corresponding chat in AppState when a new message is posted. Throws if listener creation fails.
-  private func createMessagesListener(withChatID id: String) async throws {
+  func createMessagesListener(withChatID id: String) async throws {
     try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-      db.collection("chats").document(id).collection("messages")
+      let listener = db.collection("chats").document(id).collection("messages")
         .addSnapshotListener { querySnapshot, error in
           if let error = error {
             continuation.resume(throwing: error)
@@ -104,16 +107,23 @@ extension FirestoreService {
           chat.messages = sortedMessages
           self.appState.update(chatAtID: id, to: chat)
         }
+      self.listeners.append(listener)
     }
   }
 }
 
 // MARK: - Writing
 extension FirestoreService {
-  func createChat(chat: Chat) async throws {
+  /// Creates a chat, optionally specifying its Firestore document id. The id parameter is meant for testing purposes.
+  func createChat(chat: Chat, withID id: String? = nil) async throws {
     let data = try Firestore.Encoder().encode(chat)
     try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-      db.collection("chats").document().setData(data) { error in
+      var reference = db.collection("chats")
+      .document()
+      if let id = id {
+        reference = db.collection("chats").document(id)
+      }
+      reference.setData(data) { error in
         if let error = error {
           continuation.resume(throwing: error)
         } else {
