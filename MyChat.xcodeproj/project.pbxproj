@@ -136,7 +136,7 @@
 				A8E4D5872B871E0900EA0EE7 /* System */,
 				A8E4D5822B86F54600EA0EE7 /* Injected */,
 				A8E4D57C2B86F0CE00EA0EE7 /* Services */,
-				A8D45E4F2B7879D00005126C /* Views */,
+				A8D45E4F2B7879D00005126C /* UI */,
 				A8D9C0CB2B78792000118CA0 /* ViewModels */,
 				A8E4D57D2B86F0E200EA0EE7 /* Utilities */,
 				A80AADED2B71DE8C00A74DAA /* Assets.xcassets */,
@@ -188,7 +188,7 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		A8D45E4F2B7879D00005126C /* Views */ = {
+		A8D45E4F2B7879D00005126C /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				A80AADEB2B71DE7F00A74DAA /* AuthView.swift */,
@@ -200,7 +200,7 @@
 				A849C8F02B9E17D000655D1C /* Components */,
 				A849C8F52B9E361000655D1C /* ContentView.swift */,
 			);
-			path = Views;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		A8D9C0CB2B78792000118CA0 /* ViewModels */ = {

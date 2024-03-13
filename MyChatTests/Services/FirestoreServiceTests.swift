@@ -10,6 +10,7 @@ import FirebaseFirestore
 @testable import MyChat
 
 //requires Firebase emulator to be restarted before each run
+//no security rules should be enforced
 final class FirestoreServiceTests: XCTestCase {
   private var dbService: FirestoreService!
   private var appState: AppState!
@@ -36,7 +37,7 @@ final class FirestoreServiceTests: XCTestCase {
   
   func test_createChat() async {
     //given
-    let chat = Chat(members: [""], pending: [""], name: "testChat")
+    let chat = Chat(members: [""], name: "testChat")
     do {
       //when
       try await dbService.updateChat(chat: chat)
@@ -49,7 +50,7 @@ final class FirestoreServiceTests: XCTestCase {
   func test_sendMessage() async {
     //gien
     let chatID = "test1"
-    let chat = Chat(members: [""], pending: [""], name: "testChat")
+    let chat = Chat(members: [""], name: "testChat")
     let message = Message(author: "testUser", content: "test")
     //when
     try! await dbService.updateChat(chat: chat, withID: chatID)
@@ -64,7 +65,7 @@ final class FirestoreServiceTests: XCTestCase {
   func test_createMessagesListener() async {
     //given
     let chatID = "test2"
-    let chat = Chat(members: [""], pending: [""], name: "testChat")
+    let chat = Chat(members: [""], name: "testChat")
     appState.update(chatAtID: chatID, to: chat)
     let message = Message(author: "testUser", content: "test")
     dbService.createMessagesListener(withChatID: chatID)
@@ -86,8 +87,8 @@ final class FirestoreServiceTests: XCTestCase {
     let userHandle = "test_user"
     let chatID1 = "test3"
     let chatID2 = "test4"
-    var chat1 = Chat(members: ["A","test_user"], pending: [""], name: "")
-    let chat2 = Chat(members: ["test_user"], pending: [""], name: "testChat2")
+    var chat1 = Chat(members: ["A","test_user"], name: "")
+    let chat2 = Chat(members: ["test_user"], name: "testChat2")
     let message = Message(author: "A", content: "test")
     //when
     dbService.createChatsListener(forUser: userHandle)

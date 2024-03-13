@@ -75,7 +75,6 @@ extension FirestoreService {
     }
     
     chat.members = chatNew.members
-    chat.pending = chatNew.pending
     chat.name = chatNew.name
     
     appState.update(chatAtID: id, to: chat)

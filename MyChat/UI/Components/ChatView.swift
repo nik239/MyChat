@@ -15,5 +15,5 @@ struct ChatView: View {
 }
 
 #Preview {
-  ChatView(chat: Chat(members: ["Jack"], pending: ["TheRipper"], name: "Jack"))
+  ChatView(chat: Chat(members: ["Jack"], name: "Jack"))
 }
