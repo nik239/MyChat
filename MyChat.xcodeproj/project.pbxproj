@@ -12,6 +12,8 @@
 		A80AADEE2B71DE8C00A74DAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A80AADED2B71DE8C00A74DAA /* Assets.xcassets */; };
 		A80AADF12B71DE8C00A74DAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A80AADF02B71DE8C00A74DAA /* Preview Assets.xcassets */; };
 		A82CFB722B79AD9E00E4DE0D /* AuthEmailPasswordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82CFB712B79AD9E00E4DE0D /* AuthEmailPasswordTests.swift */; };
+		A83B45B92BA6A9B6004FA743 /* ChatsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83B45B82BA6A9B6004FA743 /* ChatsViewTests.swift */; };
+		A83B45BC2BA6AB92004FA743 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = A83B45BB2BA6AB92004FA743 /* ViewInspector */; };
 		A849C8DE2B9BA4E100655D1C /* CreateChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8DD2B9BA4E100655D1C /* CreateChatView.swift */; };
 		A849C8E02B9BA52900655D1C /* ChatPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8DF2B9BA52900655D1C /* ChatPreview.swift */; };
 		A849C8E22B9BA58B00655D1C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8E12B9BA58B00655D1C /* ProfileView.swift */; };
@@ -62,6 +64,7 @@
 		A82CFB6F2B79AD9D00E4DE0D /* MyChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A82CFB712B79AD9E00E4DE0D /* AuthEmailPasswordTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEmailPasswordTests.swift; sourceTree = "<group>"; };
 		A82CFB782B79DAF600E4DE0D /* MyChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyChat.entitlements; sourceTree = "<group>"; };
+		A83B45B82BA6A9B6004FA743 /* ChatsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewTests.swift; sourceTree = "<group>"; };
 		A849C8DD2B9BA4E100655D1C /* CreateChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChatView.swift; sourceTree = "<group>"; };
 		A849C8DF2B9BA52900655D1C /* ChatPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPreview.swift; sourceTree = "<group>"; };
 		A849C8E12B9BA58B00655D1C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -105,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A83B45BC2BA6AB92004FA743 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,10 +162,19 @@
 		A82CFB702B79AD9E00E4DE0D /* MyChatTests */ = {
 			isa = PBXGroup;
 			children = (
+				A83B45B52BA6A919004FA743 /* UI */,
 				A8C7D79D2B9E623200383676 /* Services */,
 				A82CFB712B79AD9E00E4DE0D /* AuthEmailPasswordTests.swift */,
 			);
 			path = MyChatTests;
+			sourceTree = "<group>";
+		};
+		A83B45B52BA6A919004FA743 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A83B45B82BA6A9B6004FA743 /* ChatsViewTests.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		A849C8E32B9BAC7F00655D1C /* Model */ = {
@@ -294,6 +307,9 @@
 				A82CFB742B79AD9E00E4DE0D /* PBXTargetDependency */,
 			);
 			name = MyChatTests;
+			packageProductDependencies = (
+				A83B45BB2BA6AB92004FA743 /* ViewInspector */,
+			);
 			productName = MyChatTests;
 			productReference = A82CFB6F2B79AD9D00E4DE0D /* MyChatTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -328,6 +344,7 @@
 			mainGroup = A80AADDD2B71DE7E00A74DAA;
 			packageReferences = (
 				A8E4FDF12BA11D9900BF9077 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				A83B45BA2BA6AB92004FA743 /* XCRemoteSwiftPackageReference "ViewInspector" */,
 			);
 			productRefGroup = A80AADE72B71DE7F00A74DAA /* Products */;
 			projectDirPath = "";
@@ -396,6 +413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A83B45B92BA6A9B6004FA743 /* ChatsViewTests.swift in Sources */,
 				A8C7D7A12B9EA79F00383676 /* FirestoreServiceTests.swift in Sources */,
 				A82CFB722B79AD9E00E4DE0D /* AuthEmailPasswordTests.swift in Sources */,
 				A8C7D79F2B9E628100383676 /* AuthServiceTests.swift in Sources */,
@@ -665,6 +683,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A83B45BA2BA6AB92004FA743 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.10;
+			};
+		};
 		A8E4FDF12BA11D9900BF9077 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -676,6 +702,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A83B45BB2BA6AB92004FA743 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A83B45BA2BA6AB92004FA743 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
 		A8E4FDF22BA11D9900BF9077 /* FirebaseAppCheck */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A8E4FDF12BA11D9900BF9077 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
