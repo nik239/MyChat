@@ -7,13 +7,18 @@
 
 import SwiftUI
 
-struct ChatsView: View {
-  @EnvironmentObject private var viewModel: ChatsViewModel
+struct ChatsView<ViewModel: ChatsViewModel>: View {
+  @EnvironmentObject private var viewModel: ViewModel
     var body: some View {
-        Text("This view will display your chats!")
+      ScrollView(.vertical) {
+        ForEach(viewModel.chats ?? []) { chat in
+          ChatPreview(name: chat.name, date: "Today", messagePreview: "Yo, Mr white")
+        }
+      }
     }
 }
 
 #Preview {
-    ChatsView()
+  ChatsView<StubChatsViewModel>()
+    .environmentObject(StubChatsViewModel())
 }

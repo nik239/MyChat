@@ -7,16 +7,18 @@
 
 import Foundation
 
-struct Chat: Codable {
+struct Chat: Codable, Identifiable {
+  let id: UUID
+  
   var members: [String]
+  var name: String
   
   var messages: [Message]?
-  
-  var name: String
   
   init(members: [String], name: String = ""){
     self.members = members
     self.name = name
+    self.id = .init()
   }
   
   enum CodingKeys: String, CodingKey {
@@ -27,6 +29,7 @@ struct Chat: Codable {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.members = try container.decode([String].self, forKey: .members)
     self.name = try container.decode(String.self, forKey: .name)
+    self.id = .init()
   }
   
   func encode(to encoder: Encoder) throws {
