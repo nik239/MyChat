@@ -11,6 +11,8 @@ import Combine
 
 protocol ChatsViewModel: ObservableObject {
   @MainActor var chats: [Chat]? { get set }
+  func messagePreview(chat: Chat) -> String
+  func lastMessageDate(chat: Chat) -> String
 }
 
 @MainActor
@@ -32,18 +34,53 @@ final class RealChatsViewModel: ChatsViewModel {
       }
       .assign(to: &$chats)
   }
+  
+  nonisolated func messagePreview(chat: Chat) -> String {
+    return chat.messages?.last?.content ?? ""
+  }
+  
+  nonisolated func lastMessageDate(chat: Chat) -> String {
+    guard let date = chat.messages?.last?.date else {
+      return ""
+    }
+    let calendar = Calendar.current
+    let now = Date()
+    let dateFormatter = DateFormatter()
+    
+    if calendar.isDateInToday(date) {
+      dateFormatter.timeStyle = .short
+      return dateFormatter.string(from: date)
+    }
+    
+    if calendar.isDateInYesterday(date) {
+      return "Yesterday"
+    }
+    
+    let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: now)?.start ?? now
+    if date >= startOfWeek {
+      dateFormatter.dateFormat = "EEEE"
+      return dateFormatter.string(from: date)
+    }
+    
+    dateFormatter.dateStyle = .short
+    dateFormatter.timeStyle = .none
+
+    return dateFormatter.string(from: date)
+  }
 }
 
-@MainActor 
+//MARK: -StubChatsViewModel
+@MainActor
 final class StubChatsViewModel: ChatsViewModel {
-  @Published var chats: [Chat]? = nil
-  init() {
-    var chat1 = Chat(members: ["Frodo, Sam, Pippin"], name: "Shire")
-    let message1 = Message(author: "Pippin", content: "Who's got the ring?")
-    chat1.messages = [message1]
-    var chat2 = Chat(members: ["Jesse"], name: "Jesse")
-    let message2 = Message(author: "Jesse", content: "Yo, Mr. White, where have you been? We have to coooooooooooooooook!")
-    chat2.messages = [message2]
-    self.chats = [chat1, chat2]
+  @Published var chats: [Chat]? = [Chat(members: [], name: "Sam"),
+                                  Chat(members: [], name: "Merry"),
+                                  Chat(members:[], name: "Pipppin")]
+  
+  nonisolated func messagePreview(chat: Chat) -> String {
+    "Hey, what's up. Hope everything is well. Do you have the ring? I was wondering if I could I borrow it for a little while."
+  }
+  
+  nonisolated func lastMessageDate(chat: Chat) -> String {
+    "Yesterday"
   }
 }

@@ -12,7 +12,10 @@ struct ChatsView<ViewModel: ChatsViewModel>: View {
     var body: some View {
       ScrollView(.vertical) {
         ForEach(viewModel.chats ?? []) { chat in
-          ChatPreview(name: chat.name, date: "Today", messagePreview: "Yo, Mr white")
+          ChatPreview(name: chat.name,
+                      date: viewModel.lastMessageDate(chat: chat),
+                      messagePreview: viewModel.messagePreview(chat: chat))
+          Divider()
         }
       }
     }
