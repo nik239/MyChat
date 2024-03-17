@@ -8,10 +8,10 @@
 import SwiftUI
 import AuthenticationServices
 
-struct AuthView <Content : View> : View {
+struct AuthView <ViewModel: AuthViewModel,Content:View> : View {
   @Environment(\.colorScheme) var colorScheme
   
-  @EnvironmentObject private var viewModel: AuthViewModel
+  @EnvironmentObject private var viewModel: ViewModel
   @State private var presentingCredentialsView = false
   
   @ViewBuilder var content: () -> Content
@@ -24,9 +24,9 @@ struct AuthView <Content : View> : View {
           .font(.title)
         
         SignInWithAppleButton(.signIn) { request in
-          viewModel.authService.handleSignInWithAppleRequest(request)
+          viewModel.handleSignInWithApple(request)
         } onCompletion: { result in
-          viewModel.authService.handleSignInWithAppleCompletion(result)
+          viewModel.handleSignInWithAppleCompletion(result)
         }
         .signInWithAppleButtonStyle(colorScheme == .light ? .black : .white)
         .frame(maxWidth: 300, maxHeight: 50)
@@ -45,7 +45,7 @@ struct AuthView <Content : View> : View {
       .sheet(isPresented: $presentingCredentialsView) {
         switch viewModel.flow {
         case .login:
-          LoginView()
+          LoginView<RealAuthViewModel>()
             .environmentObject(viewModel)
         case .signUp:
           SignupView()
@@ -59,7 +59,8 @@ struct AuthView <Content : View> : View {
 }
 
 #Preview {
-  AuthView() {
+  AuthView<StubAuthViewModel,Text> {
     Text("Chats View")
   }
+  .environmentObject(StubAuthViewModel())
 }

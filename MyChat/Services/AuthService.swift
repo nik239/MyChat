@@ -76,7 +76,6 @@ final class RealAuthenticationService: AuthenticationService {
 }
 
 // MARK: Email and Password Authentication
-
 extension RealAuthenticationService {
   func signInWithEmailPassword(email: String, password: String) async -> Bool {
     self.appState.update(authState: .authenticating)

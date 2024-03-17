@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import AuthenticationServices
 
 enum AuthFlow {
   case login
@@ -15,7 +16,31 @@ enum AuthFlow {
 }
 
 @MainActor
-final class AuthViewModel: ObservableObject {
+protocol AuthViewModel: ObservableObject {
+  var authState: AuthState { get }
+  var errorMessage: String { get }
+  var email: String { get set }
+  var password: String { get set }
+  var confirmPassword: String { get set }
+  var flow: AuthFlow { get set }
+  var isValid: Bool { get }
+  
+  func handleSignInWithApple(_ request: ASAuthorizationAppleIDRequest)
+  
+  func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>)
+  
+  func signInWithEmailPassword() async -> Bool
+  
+  func signUpWithEmailPassword() async -> Bool
+  
+  func switchFlow()
+  
+  func reset()
+}
+
+
+@MainActor
+final class RealAuthViewModel: AuthViewModel {
   let authService: AuthenticationService
   
 //  private var cancellables = Set<AnyCancellable>()
@@ -83,9 +108,9 @@ final class AuthViewModel: ObservableObject {
   }
 }
 
-// MARK: - Email and Password Authentication
+// MARK: - Authentication
 
-extension AuthViewModel {
+extension RealAuthViewModel {
   func signInWithEmailPassword() async -> Bool {
     await authService.signInWithEmailPassword(email: self.email, password: self.password)
   }
@@ -93,10 +118,55 @@ extension AuthViewModel {
   func signUpWithEmailPassword() async -> Bool {
     await authService.signUpWithEmailPassword(email: self.email, password: self.password)
   }
+  
+  func handleSignInWithApple(_ request: ASAuthorizationAppleIDRequest) {
+    authService.handleSignInWithAppleRequest(request)
+  }
+  
+  func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) {
+    authService.handleSignInWithAppleCompletion(result)
+  }
 }
 
-final class StubAuthViewModel {
+//MARK: - StubAuthViewModel
+@MainActor
+final class StubAuthViewModel: AuthViewModel {
+  @Published var authState: AuthState = .unauthenticated
+  @Published var errorMessage: String = ""
+  @Published var email: String = ""
+  @Published var password: String = ""
+  @Published var confirmPassword: String = ""
+  @Published var flow: AuthFlow = .login
+  @Published var isValid: Bool = false
   
+  func signInWithEmailPassword() async -> Bool {
+    self.authState = .authenticated
+    return true
+  }
+  
+  func signUpWithEmailPassword() async -> Bool {
+    self.authState = .authenticated
+    return true
+  }
+  
+  //note: empty implement. doesn't prevent the auth request from being sent
+  func handleSignInWithApple(_ request: ASAuthorizationAppleIDRequest) {}
+  
+  func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) {
+    self.authState = .authenticated
+  }
+  
+  func switchFlow() {
+    flow = flow == .login ? .signUp : .login
+  }
+  
+  func reset() {
+    email = ""
+    password = ""
+    confirmPassword = ""
+    
+    flow = .login
+  }
 }
 
 

@@ -13,8 +13,8 @@ private enum FocusableField {
   case confirmPassword
 }
 
-struct SignupView: View {
-  @EnvironmentObject var viewModel: AuthViewModel
+struct SignupView<ViewModel: AuthViewModel>: View {
+  @EnvironmentObject var viewModel: ViewModel
   @Environment(\.dismiss) var dismiss
 
   @FocusState private var focus: FocusableField?
@@ -113,5 +113,6 @@ struct SignupView: View {
 }
 
 #Preview {
-    SignupView()
+    SignupView<StubAuthViewModel>()
+    .environmentObject(StubAuthViewModel())
 }
