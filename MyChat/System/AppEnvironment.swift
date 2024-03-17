@@ -24,10 +24,10 @@ extension AppEnvironment {
   
   private static func configuredInteractors(services: DIContainer.FirebaseServices, appState: AppState) async -> DIContainer.Interactors {
       let authViewModel = await MainActor.run {
-        RealAuthViewModel(authService: services.authService, appState: appState)
+        AuthViewModel(authService: services.authService, appState: appState)
       }
     let chatsViewModel = await MainActor.run {
-      RealChatsViewModel(appState: appState)
+      ChatsViewModel(appState: appState)
     }
     return .init(authViewModel: authViewModel, chatsViewModel: chatsViewModel)
   }

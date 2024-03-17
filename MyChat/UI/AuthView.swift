@@ -8,10 +8,10 @@
 import SwiftUI
 import AuthenticationServices
 
-struct AuthView <ViewModel: AuthViewModel,Content:View> : View {
+struct AuthView <Content:View> : View {
   @Environment(\.colorScheme) var colorScheme
   
-  @EnvironmentObject private var viewModel: ViewModel
+  @EnvironmentObject private var viewModel: AuthViewModel
   @State private var presentingCredentialsView = false
   
   @ViewBuilder var content: () -> Content
@@ -45,7 +45,7 @@ struct AuthView <ViewModel: AuthViewModel,Content:View> : View {
       .sheet(isPresented: $presentingCredentialsView) {
         switch viewModel.flow {
         case .login:
-          LoginView<RealAuthViewModel>()
+          LoginView()
             .environmentObject(viewModel)
         case .signUp:
           SignupView()
@@ -58,9 +58,9 @@ struct AuthView <ViewModel: AuthViewModel,Content:View> : View {
   }
 }
 
-#Preview {
-  AuthView<StubAuthViewModel,Text> {
-    Text("Chats View")
-  }
-  .environmentObject(StubAuthViewModel())
-}
+//#Preview {
+//  AuthView() {
+//    Text("Chats View")
+//  }
+//  .environmentObject(AuthViewModel())
+//}

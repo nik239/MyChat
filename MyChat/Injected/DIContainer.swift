@@ -8,7 +8,6 @@
 import SwiftUI
 
 // MARK: - DIContainer
-
 struct DIContainer: EnvironmentKey {
   
   let appState: AppState
@@ -41,7 +40,6 @@ extension EnvironmentValues {
 //
 
 // MARK: - Injection in the view hierarchy
-
 extension View {
   
 //  func inject(_ appState: AppState,

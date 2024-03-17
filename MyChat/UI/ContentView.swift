@@ -20,8 +20,8 @@ struct ContentView: View {
       if isRunningTests {
         Text("Running unit tests")
       } else {
-        AuthView<RealAuthViewModel, ChatsView>() {
-          ChatsView<RealChatsViewModel>()
+        AuthView() {
+          ChatsView()
         }
         .inject(container)
       }

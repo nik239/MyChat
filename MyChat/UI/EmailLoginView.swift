@@ -12,8 +12,8 @@ private enum FocusableField {
   case password
 }
 
-struct LoginView<ViewModel: AuthViewModel>: View {
-  @EnvironmentObject var viewModel: ViewModel
+struct LoginView: View {
+  @EnvironmentObject var viewModel: AuthViewModel
   @Environment(\.dismiss) var dismiss
   
   @FocusState private var focus: FocusableField?
@@ -97,7 +97,7 @@ struct LoginView<ViewModel: AuthViewModel>: View {
   }
 }
 
-#Preview {
-    LoginView<StubAuthViewModel>()
-    .environmentObject(StubAuthViewModel())
-}
+//#Preview {
+//    LoginView()
+//    .environmentObject(AuthViewModel())
+//}

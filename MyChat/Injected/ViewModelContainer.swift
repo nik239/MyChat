@@ -7,8 +7,8 @@
 
 extension DIContainer {
   struct Interactors {
-    let authViewModel: RealAuthViewModel?
-    let chatsViewModel: RealChatsViewModel?
+    let authViewModel: AuthViewModel?
+    let chatsViewModel: ChatsViewModel?
     
     static var stub: Self {
       .init(authViewModel: nil, chatsViewModel: nil)

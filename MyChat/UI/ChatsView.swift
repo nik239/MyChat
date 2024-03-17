@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ChatsView<ViewModel: ChatsViewModel>: View {
-  @EnvironmentObject private var viewModel: ViewModel
+struct ChatsView: View {
+  @EnvironmentObject private var viewModel: ChatsViewModel
     var body: some View {
       ScrollView(.vertical) {
         ForEach(viewModel.chats ?? []) { chat in
@@ -22,6 +22,6 @@ struct ChatsView<ViewModel: ChatsViewModel>: View {
 }
 
 #Preview {
-  ChatsView<StubChatsViewModel>()
-    .environmentObject(StubChatsViewModel())
+  ChatsView()
+    .environmentObject(ChatsViewModel(appState: AppState()))
 }

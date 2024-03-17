@@ -16,31 +16,7 @@ enum AuthFlow {
 }
 
 @MainActor
-protocol AuthViewModel: ObservableObject {
-  var authState: AuthState { get }
-  var errorMessage: String { get }
-  var email: String { get set }
-  var password: String { get set }
-  var confirmPassword: String { get set }
-  var flow: AuthFlow { get set }
-  var isValid: Bool { get }
-  
-  func handleSignInWithApple(_ request: ASAuthorizationAppleIDRequest)
-  
-  func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>)
-  
-  func signInWithEmailPassword() async -> Bool
-  
-  func signUpWithEmailPassword() async -> Bool
-  
-  func switchFlow()
-  
-  func reset()
-}
-
-
-@MainActor
-final class RealAuthViewModel: AuthViewModel {
+final class AuthViewModel: ObservableObject {
   let authService: AuthenticationService
   
 //  private var cancellables = Set<AnyCancellable>()
@@ -109,8 +85,7 @@ final class RealAuthViewModel: AuthViewModel {
 }
 
 // MARK: - Authentication
-
-extension RealAuthViewModel {
+extension AuthViewModel {
   func signInWithEmailPassword() async -> Bool {
     await authService.signInWithEmailPassword(email: self.email, password: self.password)
   }
@@ -128,45 +103,5 @@ extension RealAuthViewModel {
   }
 }
 
-//MARK: - StubAuthViewModel
-@MainActor
-final class StubAuthViewModel: AuthViewModel {
-  @Published var authState: AuthState = .unauthenticated
-  @Published var errorMessage: String = ""
-  @Published var email: String = ""
-  @Published var password: String = ""
-  @Published var confirmPassword: String = ""
-  @Published var flow: AuthFlow = .login
-  @Published var isValid: Bool = false
-  
-  func signInWithEmailPassword() async -> Bool {
-    self.authState = .authenticated
-    return true
-  }
-  
-  func signUpWithEmailPassword() async -> Bool {
-    self.authState = .authenticated
-    return true
-  }
-  
-  //note: empty implement. doesn't prevent the auth request from being sent
-  func handleSignInWithApple(_ request: ASAuthorizationAppleIDRequest) {}
-  
-  func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) {
-    self.authState = .authenticated
-  }
-  
-  func switchFlow() {
-    flow = flow == .login ? .signUp : .login
-  }
-  
-  func reset() {
-    email = ""
-    password = ""
-    confirmPassword = ""
-    
-    flow = .login
-  }
-}
 
 
