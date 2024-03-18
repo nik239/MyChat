@@ -17,7 +17,7 @@ enum AuthFlow {
 
 @MainActor
 final class AuthViewModel: ObservableObject {
-  let authService: AuthenticationService
+  let authService: AuthService
   
 //  private var cancellables = Set<AnyCancellable>()
   
@@ -32,7 +32,7 @@ final class AuthViewModel: ObservableObject {
   
   @Published var isValid  = false
   
-  init(authService: AuthenticationService, appState: AppState) {
+  init(authService: AuthService, appState: AppState) {
     self.authService = authService
     self.authState = appState.userData.authState
     self.errorMessage = appState.userData.authError

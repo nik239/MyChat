@@ -30,14 +30,14 @@ extension EnvironmentValues {
   }
 }
 
-//#if DEBUG
-//extension DIContainer {
-//  static var preview: Self {
-//    .init(appState: .init(AppState.preview), interactors: .stub)
-//  }
-//}
-//#endif
-//
+#if DEBUG
+extension DIContainer {
+  static var preview: Self {
+    .init(interactors: .stub, appState: AppState.preview)
+  }
+}
+#endif
+
 
 // MARK: - Injection in the view hierarchy
 extension View {

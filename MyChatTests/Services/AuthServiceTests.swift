@@ -11,7 +11,7 @@ import FirebaseAuth
 
 //requires Firebase emulator to be restarted before each run
 final class AuthServiceTests: XCTestCase {
-  private var authService: RealAuthenticationService!
+  private var authService: RealAuthService!
   private var appState: AppState!
   
   static var didSetEmulator = false
@@ -22,7 +22,7 @@ final class AuthServiceTests: XCTestCase {
       AuthServiceTests.didSetEmulator = true
     }
     appState = AppState()
-    authService = RealAuthenticationService(appState: appState)
+    authService = RealAuthService(appState: appState)
   }
   
   override func tearDownWithError() throws {

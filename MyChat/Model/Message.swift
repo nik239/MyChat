@@ -8,7 +8,9 @@
 import Foundation
 import FirebaseFirestore
 
-struct Message: Codable {
+struct Message: Codable, Identifiable {
+  let id: UUID
+  
   let author: String
   let content: String
   let date: Date
@@ -21,6 +23,7 @@ struct Message: Codable {
     self.author = author
     self.content = content
     self.date = date
+    self.id = .init()
   }
   
   init(from decoder: Decoder) throws {
@@ -29,6 +32,7 @@ struct Message: Codable {
     self.content = try container.decode(String.self, forKey: .content)
     let timestamp = try container.decode(Timestamp.self, forKey: .date)
     self.date = timestamp.dateValue()
+    self.id = .init()
   }
   
   func encode(to encoder: Encoder) throws {

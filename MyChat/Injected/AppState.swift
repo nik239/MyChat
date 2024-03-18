@@ -21,9 +21,9 @@ extension AppState {
     var authError: String = ""
     
     var chats: [String: Chat] = [:]
+    var selectedChat: Chat? = nil
   }
 }
-
 
 // MARK: - Actions
 extension AppState {
@@ -58,4 +58,31 @@ extension AppState {
       }
     }
   }
+  
+  func update(selectedChat: Chat) {
+    Task {
+      await MainActor.run {
+        self.userData.selectedChat = selectedChat
+      }
+    }
+  }
 }
+
+#if DEBUG
+extension AppState {
+  static var preview: AppState {
+    let preview = AppState()
+    var chat1 = Chat(members: [], name: "Sam")
+    var chat2 = Chat(members: [], name: "Merry")
+    var chat3 = Chat(members:[], name: "Pipppin")
+    let messageContent = "Hey, what's up. Hope everything is well. Do you have the ring? I was wondering if I could I borrow it for a little while."
+    chat1.messages = [Message(author: "Sam", content: messageContent)]
+    chat2.messages = [Message(author: "Merry", content: messageContent)]
+    chat3.messages = [Message(author: "Pippin", content: messageContent)]
+    preview.update(chatAtID: "1", to: chat1)
+    preview.update(chatAtID: "2", to: chat2)
+    preview.update(chatAtID: "3", to: chat3)
+    return preview
+  }
+}
+#endif

@@ -12,7 +12,9 @@ import Combine
 @MainActor
 final class ChatsViewModel: ObservableObject {
   @Published var chats: [Chat]?
+  let appState: AppState
   init(appState: AppState) {
+    self.appState = appState
     appState.$userData
       .map {
         Array($0.chats.values).sorted() {
@@ -60,6 +62,10 @@ final class ChatsViewModel: ObservableObject {
     dateFormatter.timeStyle = .none
 
     return dateFormatter.string(from: date)
+  }
+  
+  nonisolated func didTapOnChat(chat: Chat) {
+    appState.update(selectedChat: chat)
   }
 }
 

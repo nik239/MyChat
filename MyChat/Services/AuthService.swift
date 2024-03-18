@@ -15,7 +15,8 @@ enum AuthState {
   case authenticated
 }
 
-protocol AuthenticationService: AnyObject {
+// MARK: - AuthService
+protocol AuthService {
   func signOut()
   func deleteAccount() async -> Bool
   
@@ -28,7 +29,8 @@ protocol AuthenticationService: AnyObject {
   func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>)
 }
 
-final class RealAuthenticationService: AuthenticationService {
+
+final class RealAuthService: AuthService {
   let appState: AppState
   
   private var currentNonce: String?
@@ -75,8 +77,8 @@ final class RealAuthenticationService: AuthenticationService {
   }
 }
 
-// MARK: Email and Password Authentication
-extension RealAuthenticationService {
+// MARK: - RealAuthService Email and Password Authentication
+extension RealAuthService {
   func signInWithEmailPassword(email: String, password: String) async -> Bool {
     self.appState.update(authState: .authenticating)
     do {
@@ -106,9 +108,8 @@ extension RealAuthenticationService {
   }
 }
 
-// MARK: Sign in with Apple
-
-extension RealAuthenticationService {
+// MARK: -RealAuthService Sign in with Apple
+extension RealAuthService {
   func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) {
     request.requestedScopes = [.fullName, .email]
     let nonce = randomNonceString()
@@ -133,14 +134,14 @@ extension RealAuthenticationService {
           print("Unable to serialise token string from data: \(appleIDToken.debugDescription)")
           return
         }
-
+        
         let credential = OAuthProvider.credential(withProviderID: "apple.com",
                                                   idToken: idTokenString,
                                                   rawNonce: nonce)
         Task {
           do {
             let result = try await Auth.auth().signIn(with: credential)
-           // await updateDisplayName(for: result.user, with: appleIDCredential)
+            // await updateDisplayName(for: result.user, with: appleIDCredential)
           }
           catch {
             print("Error authenticating: \(error.localizedDescription)")
@@ -150,24 +151,57 @@ extension RealAuthenticationService {
     }
   }
   
-//  func updateDisplayName(for user: User, with appleIDCredential: ASAuthorizationAppleIDCredential, force: Bool = false) async {
-//    if let currentDisplayName = Auth.auth().currentUser?.displayName, !currentDisplayName.isEmpty {
-//      // current user is non-empty, don't overwrite it
-//    }
-//    else {
-//      let changeRequest = user.createProfileChangeRequest()
-//      changeRequest.displayName = appleIDCredential.displayName()
-//      do {
-//        try await changeRequest.commitChanges()
-//        self.displayName = Auth.auth().currentUser?.displayName ?? ""
-//      }
-//      catch {
-//        print("Unable to update the user's displayname: \(error.localizedDescription)")
-//        errorMessage = error.localizedDescription
-//      }
-//    }
-//  }
+  //  func updateDisplayName(for user: User, with appleIDCredential: ASAuthorizationAppleIDCredential, force: Bool = false) async {
+  //    if let currentDisplayName = Auth.auth().currentUser?.displayName, !currentDisplayName.isEmpty {
+  //      // current user is non-empty, don't overwrite it
+  //    }
+  //    else {
+  //      let changeRequest = user.createProfileChangeRequest()
+  //      changeRequest.displayName = appleIDCredential.displayName()
+  //      do {
+  //        try await changeRequest.commitChanges()
+  //        self.displayName = Auth.auth().currentUser?.displayName ?? ""
+  //      }
+  //      catch {
+  //        print("Unable to update the user's displayname: \(error.localizedDescription)")
+  //        errorMessage = error.localizedDescription
+  //      }
+  //    }
+  //  }
 }
+  
+  // MARK: -MockAuthService
+  final class MockAuthService: AuthService {
+    let appState = AppState()
+    func signOut() {
+      self.appState.update(authState: .unauthenticated)
+    }
+    
+    func deleteAccount() async -> Bool {
+      self.appState.update(authState: .unauthenticated)
+      return true
+    }
+    
+    func clearError() {
+      self.appState.update(authError: "")
+    }
+    
+    func signInWithEmailPassword(email: String, password: String) async -> Bool {
+      self.appState.update(authState: .authenticated)
+      return true
+    }
+    
+    func signUpWithEmailPassword(email: String, password: String) async -> Bool {
+      self.appState.update(authState: .authenticated)
+      return true
+    }
+    
+    func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) {}
+    
+    func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) {
+      self.appState.update(authState: .authenticated)
+    }
+  }
 
 //extension ASAuthorizationAppleIDCredential {
 //  func displayName() -> String {
