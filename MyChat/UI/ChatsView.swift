@@ -21,7 +21,9 @@ struct ChatsView: View {
   }
 }
 
+#if DEBUG
 #Preview {
   ChatsView()
-    .environmentObject(ChatsViewModel(appState: AppState()))
+    .inject(.preview)
 }
+#endif

@@ -13,6 +13,9 @@ struct ProfileView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     ProfileView()
+    .inject(.preview)
 }
+#endif

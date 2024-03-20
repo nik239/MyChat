@@ -10,7 +10,6 @@ import FirebaseAuth
 
 final class AppState: ObservableObject {
   @Published private (set) var userData = UserData()
-
 }
 
 extension AppState {
@@ -79,13 +78,14 @@ extension AppState {
     var chat2 = Chat(members: [], name: "Merry")
     var chat3 = Chat(members:[], name: "Pipppin")
     let messageContent = "Hey, what's up. Hope everything is well. Do you have the ring? I was wondering if I could I borrow it for a little while."
-    chat1.messages = [Message(author: "Frodo", content: "Hey, what's up?"), Message(author: "Sam", content: messageContent)]
+    chat1.messages = [Message(author: "Sam", content: messageContent)]
     chat2.messages = [Message(author: "Merry", content: messageContent)]
     chat3.messages = [Message(author: "Pippin", content: messageContent)]
     preview.update(chatAtID: "1", to: chat1)
     preview.update(chatAtID: "2", to: chat2)
     preview.update(chatAtID: "3", to: chat3)
     preview.update(selectedChat: chat1)
+    
     return preview
   }
 }

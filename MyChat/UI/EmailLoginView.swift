@@ -97,7 +97,9 @@ struct LoginView: View {
   }
 }
 
-//#Preview {
-//    LoginView()
-//    .environmentObject(AuthViewModel())
-//}
+#if DEBUG
+#Preview {
+    LoginView()
+      .inject(.preview)
+}
+#endif

@@ -58,9 +58,11 @@ struct AuthView <Content:View> : View {
   }
 }
 
-//#Preview {
-//  AuthView() {
-//    Text("Chats View")
-//  }
-//  .environmentObject(AuthViewModel())
-//}
+#if DEBUG
+#Preview {
+  AuthView() {
+    ChatsView()
+  }
+    .inject(.preview)
+}
+#endif

@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct CreateChatView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+  var body: some View {
+    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  }
 }
 
+#if DEBUG
 #Preview {
-    CreateChatView()
+  CreateChatView()
+    .inject(.preview)
 }
+#endif

@@ -15,7 +15,7 @@ final class ChatViewModel: ObservableObject {
   var newMessageContent: String = ""
   
   @Published var messages: [Message]?
-  init(appState: AppState, fsService: FireStoreService) {
+  init(fsService: FireStoreService, appState: AppState) {
     self.appState = appState
     self.fsService = fsService
     appState.$userData

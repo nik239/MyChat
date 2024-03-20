@@ -112,7 +112,9 @@ struct SignupView: View {
   }
 }
 
-//#Preview {
-//    SignupView()
-//    .environmentObject(AuthViewModel())
-//}
+#if DEBUG
+#Preview {
+    SignupView()
+      .inject(.preview)
+}
+#endif

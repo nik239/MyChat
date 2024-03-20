@@ -28,6 +28,8 @@ struct ContentView: View {
     }
 }
 
-//#Preview {
-//    ContentView()
-//}
+#if DEBUG
+#Preview {
+  ContentView(container: .preview)
+}
+#endif
