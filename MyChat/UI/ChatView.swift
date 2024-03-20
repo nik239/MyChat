@@ -50,6 +50,6 @@ struct ChatView: View {
 #if DEBUG
 #Preview {
   ChatView()
-    .environmentObject(ChatViewModel(appState: .preview, fsService: MockFireStoreService()))
+    .environmentObject(ChatViewModel(appState: .preview, fsService: StubFireStoreService()))
 }
 #endif

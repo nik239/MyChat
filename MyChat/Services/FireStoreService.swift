@@ -140,9 +140,7 @@ extension RealFireStoreService {
   }
 }
 
-// MARK: - MockFireStoreService
-final class MockFireStoreService: FireStoreService {
-  func sendMessage(message: Message, toChat id: String) async throws {
-    
-  }
+// MARK: - StubFireStoreService
+final class StubFireStoreService: FireStoreService {
+  func sendMessage(message: Message, toChat id: String) async throws { }
 }

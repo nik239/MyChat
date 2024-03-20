@@ -170,37 +170,21 @@ extension RealAuthService {
   //  }
 }
   
-// MARK: -MockAuthService
-final class MockAuthService: AuthService {
-  let appState = AppState()
-  func signOut() {
-    self.appState.update(authState: .unauthenticated)
-  }
+// MARK: -StubAuthService
+final class StubAuthService: AuthService {
+  func signOut() { }
   
-  func deleteAccount() async -> Bool {
-    self.appState.update(authState: .unauthenticated)
-    return true
-  }
+  func deleteAccount() async -> Bool { true }
   
-  func clearError() {
-    self.appState.update(authError: "")
-  }
+  func clearError() { }
   
-  func signInWithEmailPassword(email: String, password: String) async -> Bool {
-    self.appState.update(authState: .authenticated)
-    return true
-  }
+  func signInWithEmailPassword(email: String, password: String) async -> Bool { true }
   
-  func signUpWithEmailPassword(email: String, password: String) async -> Bool {
-    self.appState.update(authState: .authenticated)
-    return true
-  }
+  func signUpWithEmailPassword(email: String, password: String) async -> Bool { true }
   
-  func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) {}
+  func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) { }
   
-  func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) {
-    self.appState.update(authState: .authenticated)
-  }
+  func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) { }
 }
 
 //extension ASAuthorizationAppleIDCredential {
