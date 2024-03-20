@@ -13,10 +13,36 @@ struct ChatView: View {
     VStack {
       ScrollView(.vertical){
         ForEach(viewModel.messages ?? []) { message in
-          
+          HStack {
+            if viewModel.isAuthorSelf(message: message) {
+              Spacer()
+              MessageBubble(message: message)
+              .frame(maxWidth: UIScreen.main.bounds.width * 0.7, alignment: .trailing)
+              .padding()
+            } else {
+              MessageBubble(message: message)
+              .frame(maxWidth: UIScreen.main.bounds.width * 0.7, alignment: .leading)
+              .padding([.leading, .trailing])
+              Spacer()
+            }
+          }
         }
       }
-      Text("")
+      HStack {
+        TextField("Message", text: $viewModel.newMessageContent)
+          .textFieldStyle(RoundedBorderTextFieldStyle())
+          .padding()
+        
+        Button(action: viewModel.sendMessage) {
+          Image(systemName: "arrow.up.circle.fill")
+            .resizable()
+            .frame(width: 44, height: 44)
+            .padding(.trailing)
+        }
+        .disabled(viewModel.newMessageContent.isEmpty)
+      }
+      //.background(Color.secondarySystemBackground)
+      //.padding(.bottom, keyboardHeight())
     }
   }
 }
@@ -24,5 +50,6 @@ struct ChatView: View {
 #if DEBUG
 #Preview {
   ChatView()
+    .environmentObject(ChatViewModel(appState: .preview, fsService: MockFireStoreService()))
 }
 #endif

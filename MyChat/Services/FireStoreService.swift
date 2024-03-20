@@ -8,7 +8,11 @@
 import FirebaseFirestore
 import Combine
 
-class FirestoreService {
+protocol FireStoreService {
+  func sendMessage(message: Message, toChat id: String) async throws
+}
+
+final class RealFireStoreService: FireStoreService {
   let appState: AppState
   let db: Firestore
   
@@ -37,8 +41,8 @@ class FirestoreService {
   }
 }
 
-// MARK: - Creating listeners
-extension FirestoreService {
+// MARK: - RealFireStoreService Creating Listeners
+extension RealFireStoreService {
   /// Creates a listener on the chats collection.
   func createChatsListener(forUser userHandle: String?) {
     guard let userHandle = userHandle else {
@@ -101,8 +105,8 @@ extension FirestoreService {
   }
 }
 
-// MARK: - Writing
-extension FirestoreService {
+// MARK: - RealFireStoreService Writing
+extension RealFireStoreService {
   /// Creates a chat, optionally specifying its Firestore document id. The id parameter is meant for testing purposes.
   func updateChat(chat: Chat, withID id: String? = nil) async throws {
     let data = try Firestore.Encoder().encode(chat)
@@ -133,5 +137,12 @@ extension FirestoreService {
         }
       }
     }
+  }
+}
+
+// MARK: - MockFireStoreService
+final class MockFireStoreService: FireStoreService {
+  func sendMessage(message: Message, toChat id: String) async throws {
+    
   }
 }

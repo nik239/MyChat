@@ -47,6 +47,7 @@
 		A8E4FDF72BA11D9900BF9077 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A8E4FDF62BA11D9900BF9077 /* FirebaseFirestore */; };
 		A8E4FDF92BA171AA00BF9077 /* StringError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4FDF82BA171AA00BF9077 /* StringError.swift */; };
 		A8E4FDFB2BA2157800BF9077 /* ChatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4FDFA2BA2157800BF9077 /* ChatsViewModel.swift */; };
+		A8FA92AF2BAA8047004D9F2C /* KeyForValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FA92AE2BAA8047004D9F2C /* KeyForValue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		A8E4D5832B86F62600EA0EE7 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A8E4FDF82BA171AA00BF9077 /* StringError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringError.swift; sourceTree = "<group>"; };
 		A8E4FDFA2BA2157800BF9077 /* ChatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewModel.swift; sourceTree = "<group>"; };
+		A8FA92AE2BAA8047004D9F2C /* KeyForValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyForValue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +257,7 @@
 				A849C8E82B9D189000655D1C /* ListenerManager.swift */,
 				A849C8F72B9E434F00655D1C /* Helpers.swift */,
 				A8E4FDF82BA171AA00BF9077 /* StringError.swift */,
+				A8FA92AE2BAA8047004D9F2C /* KeyForValue.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				A849C8E22B9BA58B00655D1C /* ProfileView.swift in Sources */,
 				A8D45E532B7880DA0005126C /* EmailLoginView.swift in Sources */,
 				A849C8F82B9E434F00655D1C /* Helpers.swift in Sources */,
+				A8FA92AF2BAA8047004D9F2C /* KeyForValue.swift in Sources */,
 				A83B45C02BA7FBFC004FA743 /* ChatView.swift in Sources */,
 				A83B45C22BA7FC29004FA743 /* ChatViewModel.swift in Sources */,
 				A8D9C0CA2B7878FF00118CA0 /* AuthViewModel.swift in Sources */,

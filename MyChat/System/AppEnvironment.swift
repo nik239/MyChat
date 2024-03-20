@@ -19,7 +19,7 @@ extension AppEnvironment {
   }
   
   private static func configuredServices(appState: AppState) -> DIContainer.FirebaseServices {
-    return .init(authService: RealAuthService(appState: appState), firestoreService: FirestoreService(appState: appState))
+    return .init(authService: RealAuthService(appState: appState), firestoreService: RealFireStoreService(appState: appState))
   }
   
   private static func configuredInteractors(services: DIContainer.FirebaseServices, appState: AppState) async -> DIContainer.Interactors {
@@ -36,6 +36,6 @@ extension AppEnvironment {
 extension DIContainer {
   struct FirebaseServices {
     let authService: AuthService
-    let firestoreService: FirestoreService
+    let firestoreService: RealFireStoreService
   }
 }

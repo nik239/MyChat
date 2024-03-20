@@ -170,38 +170,38 @@ extension RealAuthService {
   //  }
 }
   
-  // MARK: -MockAuthService
-  final class MockAuthService: AuthService {
-    let appState = AppState()
-    func signOut() {
-      self.appState.update(authState: .unauthenticated)
-    }
-    
-    func deleteAccount() async -> Bool {
-      self.appState.update(authState: .unauthenticated)
-      return true
-    }
-    
-    func clearError() {
-      self.appState.update(authError: "")
-    }
-    
-    func signInWithEmailPassword(email: String, password: String) async -> Bool {
-      self.appState.update(authState: .authenticated)
-      return true
-    }
-    
-    func signUpWithEmailPassword(email: String, password: String) async -> Bool {
-      self.appState.update(authState: .authenticated)
-      return true
-    }
-    
-    func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) {}
-    
-    func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) {
-      self.appState.update(authState: .authenticated)
-    }
+// MARK: -MockAuthService
+final class MockAuthService: AuthService {
+  let appState = AppState()
+  func signOut() {
+    self.appState.update(authState: .unauthenticated)
   }
+  
+  func deleteAccount() async -> Bool {
+    self.appState.update(authState: .unauthenticated)
+    return true
+  }
+  
+  func clearError() {
+    self.appState.update(authError: "")
+  }
+  
+  func signInWithEmailPassword(email: String, password: String) async -> Bool {
+    self.appState.update(authState: .authenticated)
+    return true
+  }
+  
+  func signUpWithEmailPassword(email: String, password: String) async -> Bool {
+    self.appState.update(authState: .authenticated)
+    return true
+  }
+  
+  func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) {}
+  
+  func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) {
+    self.appState.update(authState: .authenticated)
+  }
+}
 
 //extension ASAuthorizationAppleIDCredential {
 //  func displayName() -> String {

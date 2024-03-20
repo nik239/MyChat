@@ -14,7 +14,7 @@ struct MessageBubble: View {
         .padding()
         .background(.secondary)
         .foregroundColor(.primary)
-        .cornerRadius(15)
+        .cornerRadius(30)
         .shadow(radius: 3)
     }
 }

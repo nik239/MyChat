@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Chat: Codable, Identifiable {
+// MARK: - Chat
+struct Chat: Identifiable {
   let id: UUID
   
   var members: [String]
@@ -20,7 +21,10 @@ struct Chat: Codable, Identifiable {
     self.name = name
     self.id = .init()
   }
-  
+}
+
+// MARK: - Chat Codable
+extension Chat: Codable {
   enum CodingKeys: String, CodingKey {
     case members, name
   }
@@ -38,3 +42,11 @@ struct Chat: Codable, Identifiable {
     try container.encode(name, forKey: .name)
   }
 }
+
+// MARK: - Chat Equatable
+extension Chat: Equatable {
+    static func == (lhs: Chat, rhs: Chat) -> Bool {
+        return lhs.id == rhs.id && lhs.members == rhs.members
+    }
+}
+

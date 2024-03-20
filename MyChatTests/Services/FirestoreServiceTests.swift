@@ -12,7 +12,7 @@ import FirebaseFirestore
 //requires Firebase emulator to be restarted before each run
 //no security rules should be enforced
 final class FirestoreServiceTests: XCTestCase {
-  private var dbService: FirestoreService!
+  private var dbService: RealFireStoreService!
   private var appState: AppState!
   
   static var didSetEmulator = false
@@ -27,7 +27,7 @@ final class FirestoreServiceTests: XCTestCase {
       FirestoreServiceTests.didSetEmulator = true
     }
     appState = AppState()
-    dbService = FirestoreService(appState: appState)
+    dbService = RealFireStoreService(appState: appState)
   }
   
   override func tearDownWithError() throws {
