@@ -14,6 +14,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
+      print("Calling willConnectTo")
       Task {
         let environment = await AppEnvironment.bootstrap()
         let contentView = ContentView(container: environment.container)

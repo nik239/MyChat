@@ -85,6 +85,7 @@ extension AppState {
     preview.update(chatAtID: "2", to: chat2)
     preview.update(chatAtID: "3", to: chat3)
     preview.update(selectedChat: chat1)
+    preview.update(authState: .authenticated)
     
     return preview
   }

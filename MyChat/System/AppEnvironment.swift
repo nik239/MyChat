@@ -11,15 +11,16 @@ struct AppEnvironment {
 
 extension AppEnvironment {
   static func bootstrap() async -> AppEnvironment {
-    let appState = AppState()
-    let services = configuredServices(appState: appState)
-    let viewModels = await configuredInteractors(services: services, appState: appState)
-    let container = DIContainer(viewModels: viewModels)
+//    let appState = AppState()
+//    let services = configuredServices(appState: appState)
+//    let viewModels = await configuredInteractors(services: services, appState: appState)
+//    let container = DIContainer(viewModels: viewModels)
+    let container = await DIContainer.preview
     return AppEnvironment(container: container)
   }
   
   private static func configuredServices(appState: AppState) -> DIContainer.FirebaseServices {
-    return .init(authService: RealAuthService(appState: appState), firestoreService: RealFireStoreService(appState: appState))
+    return .init(authService: RealAuthService(appState: appState), firestoreService: FireStoreService(appState: appState))
   }
   
   private static func configuredInteractors(services: DIContainer.FirebaseServices, appState: AppState) async -> DIContainer.ViewModels {
@@ -39,6 +40,6 @@ extension AppEnvironment {
 extension DIContainer {
   struct FirebaseServices {
     let authService: AuthService
-    let firestoreService: RealFireStoreService
+    let firestoreService: FireStoreService
   }
 }

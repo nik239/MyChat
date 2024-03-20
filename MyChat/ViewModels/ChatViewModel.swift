@@ -10,12 +10,12 @@ import SwiftUI
 @MainActor
 final class ChatViewModel: ObservableObject {
   let appState: AppState
-  let fsService: FireStoreService
+  let fsService: DBService
   
   var newMessageContent: String = ""
   
   @Published var messages: [Message]?
-  init(fsService: FireStoreService, appState: AppState) {
+  init(fsService: DBService, appState: AppState) {
     self.appState = appState
     self.fsService = fsService
     appState.$userData
@@ -39,7 +39,7 @@ final class ChatViewModel: ObservableObject {
     let message = Message(author: author, content: newMessageContent)
     Task {
       do {
-        try await fsService.sendMessage(message: message, toChat: chatID)
+        try await fsService.sendMessage(message: message, toChatWithID: chatID)
       } catch {
         print(error)
       }

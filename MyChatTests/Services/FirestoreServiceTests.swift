@@ -12,7 +12,7 @@ import FirebaseFirestore
 //requires Firebase emulator to be restarted before each run
 //no security rules should be enforced
 final class FirestoreServiceTests: XCTestCase {
-  private var dbService: RealFireStoreService!
+  private var dbService: FireStoreService!
   private var appState: AppState!
   
   static var didSetEmulator = false
@@ -27,7 +27,7 @@ final class FirestoreServiceTests: XCTestCase {
       FirestoreServiceTests.didSetEmulator = true
     }
     appState = AppState()
-    dbService = RealFireStoreService(appState: appState)
+    dbService = FireStoreService(appState: appState)
   }
   
   override func tearDownWithError() throws {
@@ -55,7 +55,7 @@ final class FirestoreServiceTests: XCTestCase {
     //when
     try! await dbService.updateChat(chat: chat, withID: chatID)
     do {
-      try await dbService.sendMessage(message: message, toChat: chatID)
+      try await dbService.sendMessage(message: message, toChatWithID: chatID)
     } catch {
     //then
       XCTFail("sendMessage threw: \(error)")
@@ -71,12 +71,12 @@ final class FirestoreServiceTests: XCTestCase {
     dbService.createMessagesListener(withChatID: chatID)
     //when
     try! await dbService.updateChat(chat: chat, withID: chatID)
-    try! await dbService.sendMessage(message: message, toChat: chatID)
+    try! await dbService.sendMessage(message: message, toChatWithID: chatID)
     //then
     var messages = appState.userData.chats[chatID]!.messages!
     XCTAssertEqual(messages.count, 1)
     //when
-    try! await dbService.sendMessage(message: message, toChat: chatID)
+    try! await dbService.sendMessage(message: message, toChatWithID: chatID)
     //then
     messages = appState.userData.chats[chatID]!.messages!
     XCTAssertEqual(messages.count, 2)
@@ -97,7 +97,7 @@ final class FirestoreServiceTests: XCTestCase {
     //then
     XCTAssertEqual(appState.userData.chats.count, 2)
     //when
-    try! await dbService.sendMessage(message: message, toChat: chatID1)
+    try! await dbService.sendMessage(message: message, toChatWithID: chatID1)
     //then
     var messages = appState.userData.chats[chatID1]!.messages!
     XCTAssertEqual(messages.count, 1)

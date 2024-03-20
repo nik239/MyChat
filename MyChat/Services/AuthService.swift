@@ -17,16 +17,16 @@ enum AuthState {
 
 // MARK: - AuthService
 protocol AuthService {
-  func signOut()
-  func deleteAccount() async -> Bool
-  
-  func clearError()
-  
   func signInWithEmailPassword(email: String, password: String) async -> Bool
   func signUpWithEmailPassword(email: String, password: String) async -> Bool
   
   func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest)
   func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>)
+  
+  func signOut()
+  func deleteAccount() async -> Bool
+  
+  func clearError()
 }
 
 
@@ -39,10 +39,10 @@ final class RealAuthService: AuthService {
   
   init(appState: AppState) {
     self.appState = appState
-    registerAuthStateHandler()
+    createAuthStateHandler()
   }
   
-  private func registerAuthStateHandler() {
+  private func createAuthStateHandler() {
     if authStateHandler == nil {
       authStateHandler = Auth.auth().addStateDidChangeListener { auth, user in
         self.appState.update(user: user)
@@ -172,12 +172,6 @@ extension RealAuthService {
   
 // MARK: -StubAuthService
 final class StubAuthService: AuthService {
-  func signOut() { }
-  
-  func deleteAccount() async -> Bool { true }
-  
-  func clearError() { }
-  
   func signInWithEmailPassword(email: String, password: String) async -> Bool { true }
   
   func signUpWithEmailPassword(email: String, password: String) async -> Bool { true }
@@ -185,6 +179,12 @@ final class StubAuthService: AuthService {
   func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) { }
   
   func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) { }
+  
+  func signOut() { }
+  
+  func deleteAccount() async -> Bool { true }
+  
+  func clearError() { }
 }
 
 //extension ASAuthorizationAppleIDCredential {

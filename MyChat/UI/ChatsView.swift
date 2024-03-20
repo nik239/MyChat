@@ -10,14 +10,19 @@ import SwiftUI
 struct ChatsView: View {
   @EnvironmentObject private var viewModel: ChatsViewModel
   var body: some View {
-    ScrollView(.vertical) {
-      ForEach(viewModel.chats ?? []) { chat in
-        ChatPreview(name: chat.name,
-                    date: viewModel.lastMessageDate(chat: chat),
-                    messagePreview: viewModel.messagePreview(chat: chat))
-        Divider()
+    NavigationView {
+      ScrollView(.vertical) {
+        ForEach(viewModel.chats ?? []) { chat in
+          NavigationLink(destination: ChatView()) {
+            ChatPreview(name: chat.name,
+                        date: viewModel.lastMessageDate(chat: chat),
+                        messagePreview: viewModel.messagePreview(chat: chat))
+            Divider()
+          }
+        }
       }
     }
+    .navigationBarTitle("Chats")
   }
 }
 

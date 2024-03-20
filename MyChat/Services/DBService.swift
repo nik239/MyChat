@@ -8,11 +8,12 @@
 import FirebaseFirestore
 import Combine
 
-protocol FireStoreService {
-  func sendMessage(message: Message, toChat id: String) async throws
+protocol DBService {
+  func sendMessage(message: Message, toChatWithID id: String) async throws
+  func updateChat(chat: Chat, withID id: String?) async throws
 }
 
-final class RealFireStoreService: FireStoreService {
+final class FireStoreService: DBService {
   let appState: AppState
   let db: Firestore
   
@@ -33,6 +34,7 @@ final class RealFireStoreService: FireStoreService {
       .removeDuplicates()
       .compactMap { $0 }
       .sink { [weak self] _ in
+        //removes listeners in case a new user signed in during the same session
         self?.listeners.forEach { $0.remove() }
         self?.listeners = []
         self?.createChatsListener(forUser: self?.appState.userData.user?.displayName)
@@ -41,8 +43,8 @@ final class RealFireStoreService: FireStoreService {
   }
 }
 
-// MARK: - RealFireStoreService Creating Listeners
-extension RealFireStoreService {
+// MARK: - FireStoreService Creating Listeners
+extension FireStoreService {
   /// Creates a listener on the chats collection.
   func createChatsListener(forUser userHandle: String?) {
     guard let userHandle = userHandle else {
@@ -105,8 +107,8 @@ extension RealFireStoreService {
   }
 }
 
-// MARK: - RealFireStoreService Writing
-extension RealFireStoreService {
+// MARK: - FireStoreService Writing
+extension FireStoreService {
   /// Creates a chat, optionally specifying its Firestore document id. The id parameter is meant for testing purposes.
   func updateChat(chat: Chat, withID id: String? = nil) async throws {
     let data = try Firestore.Encoder().encode(chat)
@@ -126,7 +128,7 @@ extension RealFireStoreService {
     }
   }
   
-  func sendMessage(message: Message, toChat id: String) async throws {
+  func sendMessage(message: Message, toChatWithID id: String) async throws {
     let data = try Firestore.Encoder().encode(message)
     try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
       db.collection("chats").document(id).collection("messages").document().setData(data){ error in
@@ -141,6 +143,7 @@ extension RealFireStoreService {
 }
 
 // MARK: - StubFireStoreService
-final class StubFireStoreService: FireStoreService {
-  func sendMessage(message: Message, toChat id: String) async throws { }
+final class StubFireStoreService: DBService {
+  func sendMessage(message: Message, toChatWithID id: String) async throws { }
+  func updateChat(chat: Chat, withID id: String?) async throws { }
 }

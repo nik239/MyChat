@@ -30,7 +30,7 @@
 		A849C8F42B9E33F600655D1C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F32B9E33F600655D1C /* SceneDelegate.swift */; };
 		A849C8F62B9E361000655D1C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F52B9E361000655D1C /* ContentView.swift */; };
 		A849C8F82B9E434F00655D1C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F72B9E434F00655D1C /* Helpers.swift */; };
-		A87579432B883D5200289437 /* FireStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87579422B883D5200289437 /* FireStoreService.swift */; };
+		A87579432B883D5200289437 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87579422B883D5200289437 /* DBService.swift */; };
 		A8C7D79F2B9E628100383676 /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C7D79E2B9E628100383676 /* AuthServiceTests.swift */; };
 		A8C7D7A12B9EA79F00383676 /* FirestoreServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C7D7A02B9EA79F00383676 /* FirestoreServiceTests.swift */; };
 		A8D45E532B7880DA0005126C /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D45E522B7880DA0005126C /* EmailLoginView.swift */; };
@@ -85,7 +85,7 @@
 		A849C8F32B9E33F600655D1C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A849C8F52B9E361000655D1C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A849C8F72B9E434F00655D1C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		A87579422B883D5200289437 /* FireStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreService.swift; sourceTree = "<group>"; };
+		A87579422B883D5200289437 /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
 		A8C7D79E2B9E628100383676 /* AuthServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceTests.swift; sourceTree = "<group>"; };
 		A8C7D7A02B9EA79F00383676 /* FirestoreServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceTests.swift; sourceTree = "<group>"; };
 		A8D45E522B7880DA0005126C /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
@@ -99,6 +99,7 @@
 		A8E4FDF82BA171AA00BF9077 /* StringError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringError.swift; sourceTree = "<group>"; };
 		A8E4FDFA2BA2157800BF9077 /* ChatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewModel.swift; sourceTree = "<group>"; };
 		A8FA92AE2BAA8047004D9F2C /* KeyForValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyForValue.swift; sourceTree = "<group>"; };
+		A8FA92B02BAB40A6004D9F2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +145,7 @@
 		A80AADE82B71DE7F00A74DAA /* MyChat */ = {
 			isa = PBXGroup;
 			children = (
+				A8FA92B02BAB40A6004D9F2C /* Info.plist */,
 				A82CFB782B79DAF600E4DE0D /* MyChat.entitlements */,
 				A8D9C0BC2B76BE0D00118CA0 /* GoogleService-Info.plist */,
 				A849C8E32B9BAC7F00655D1C /* Model */,
@@ -243,7 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				A8E4D5802B86F40C00EA0EE7 /* AuthService.swift */,
-				A87579422B883D5200289437 /* FireStoreService.swift */,
+				A87579422B883D5200289437 /* DBService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -405,7 +407,7 @@
 				A83B45C22BA7FC29004FA743 /* ChatViewModel.swift in Sources */,
 				A8D9C0CA2B7878FF00118CA0 /* AuthViewModel.swift in Sources */,
 				A849C8EF2B9D63DE00655D1C /* AppEnvironment.swift in Sources */,
-				A87579432B883D5200289437 /* FireStoreService.swift in Sources */,
+				A87579432B883D5200289437 /* DBService.swift in Sources */,
 				A849C8F42B9E33F600655D1C /* SceneDelegate.swift in Sources */,
 				A849C8F22B9E33DF00655D1C /* AppDelegate.swift in Sources */,
 				A849C8E02B9BA52900655D1C /* ChatPreview.swift in Sources */,
@@ -579,7 +581,7 @@
 				DEVELOPMENT_TEAM = YSWM5SJ596;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = MyChat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -611,7 +613,7 @@
 				DEVELOPMENT_TEAM = YSWM5SJ596;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = MyChat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
