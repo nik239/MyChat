@@ -32,6 +32,7 @@ extension DIContainer {
     let authViewModel: AuthViewModel
     let chatsViewModel: ChatsViewModel
     let chatViewModel: ChatViewModel
+    let profileViewModel: ProfileViewModel
     
     @MainActor
     static var stub: Self {
@@ -39,7 +40,8 @@ extension DIContainer {
                                          appState: .preview),
             chatsViewModel: ChatsViewModel(appState: .preview),
             chatViewModel: ChatViewModel(fsService: StubFireStoreService(),
-                                         appState: .preview))
+                                         appState: .preview),
+            profileViewModel: ProfileViewModel(authService: StubAuthService(), appState: .preview))
     }
   }
 }
@@ -51,5 +53,6 @@ extension View {
       .environmentObject(container.viewModels.authViewModel)
       .environmentObject(container.viewModels.chatsViewModel)
       .environmentObject(container.viewModels.chatViewModel)
+      .environmentObject(container.viewModels.profileViewModel)
   }
 }

@@ -12,7 +12,7 @@ final class ChatViewModel: ObservableObject {
   let appState: AppState
   let fsService: DBService
   
-  var newMessageContent: String = ""
+  @Published var newMessageContent: String = ""
   
   @Published var messages: [Message]?
   init(fsService: DBService, appState: AppState) {

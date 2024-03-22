@@ -19,6 +19,9 @@ struct ChatsView: View {
                         messagePreview: viewModel.messagePreview(chat: chat))
             Divider()
           }
+          .onTapGesture {
+            viewModel.didTapOnChat(chat: chat)
+          }
         }
       }
     }

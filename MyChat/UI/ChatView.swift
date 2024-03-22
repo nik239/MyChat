@@ -36,7 +36,7 @@ struct ChatView: View {
         Button(action: viewModel.sendMessage) {
           Image(systemName: "arrow.up.circle.fill")
             .resizable()
-            .frame(width: 44, height: 44)
+            .frame(width: 35, height: 35)
             .padding(.trailing)
         }
         .disabled(viewModel.newMessageContent.isEmpty)

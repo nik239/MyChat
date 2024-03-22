@@ -21,7 +21,7 @@ struct ContentView: View {
         Text("Running unit tests")
       } else {
         AuthView() {
-          ChatsView()
+          BottomNavigationView()
         }
         .inject(container)
       }

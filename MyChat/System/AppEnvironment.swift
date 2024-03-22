@@ -33,7 +33,13 @@ extension AppEnvironment {
     let chatViewModel = await MainActor.run {
       ChatViewModel(fsService: services.firestoreService, appState: appState)
     }
-    return .init(authViewModel: authViewModel, chatsViewModel: chatsViewModel, chatViewModel: chatViewModel)
+    let profileViewModel = await MainActor.run {
+      ProfileViewModel(authService: services.authService, appState: appState)
+    }
+    return .init(authViewModel: authViewModel,
+                 chatsViewModel: chatsViewModel,
+                 chatViewModel: chatViewModel,
+                 profileViewModel: profileViewModel)
   }
 }
 

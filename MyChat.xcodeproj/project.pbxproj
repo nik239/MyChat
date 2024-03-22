@@ -31,6 +31,8 @@
 		A849C8F62B9E361000655D1C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F52B9E361000655D1C /* ContentView.swift */; };
 		A849C8F82B9E434F00655D1C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F72B9E434F00655D1C /* Helpers.swift */; };
 		A87579432B883D5200289437 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87579422B883D5200289437 /* DBService.swift */; };
+		A87C74CE2BABF03200B179C4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C74CD2BABF03200B179C4 /* ProfileViewModel.swift */; };
+		A87C74D02BACC7AF00B179C4 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C74CF2BACC7AF00B179C4 /* Test.swift */; };
 		A8C7D79F2B9E628100383676 /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C7D79E2B9E628100383676 /* AuthServiceTests.swift */; };
 		A8C7D7A12B9EA79F00383676 /* FirestoreServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C7D7A02B9EA79F00383676 /* FirestoreServiceTests.swift */; };
 		A8D45E532B7880DA0005126C /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D45E522B7880DA0005126C /* EmailLoginView.swift */; };
@@ -47,6 +49,7 @@
 		A8E4FDF92BA171AA00BF9077 /* StringError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4FDF82BA171AA00BF9077 /* StringError.swift */; };
 		A8E4FDFB2BA2157800BF9077 /* ChatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4FDFA2BA2157800BF9077 /* ChatsViewModel.swift */; };
 		A8FA92AF2BAA8047004D9F2C /* KeyForValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FA92AE2BAA8047004D9F2C /* KeyForValue.swift */; };
+		A8FA92B22BAB5768004D9F2C /* BottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FA92B12BAB5768004D9F2C /* BottomNavigationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +89,8 @@
 		A849C8F52B9E361000655D1C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A849C8F72B9E434F00655D1C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		A87579422B883D5200289437 /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
+		A87C74CD2BABF03200B179C4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		A87C74CF2BACC7AF00B179C4 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		A8C7D79E2B9E628100383676 /* AuthServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceTests.swift; sourceTree = "<group>"; };
 		A8C7D7A02B9EA79F00383676 /* FirestoreServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceTests.swift; sourceTree = "<group>"; };
 		A8D45E522B7880DA0005126C /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
@@ -100,6 +105,7 @@
 		A8E4FDFA2BA2157800BF9077 /* ChatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewModel.swift; sourceTree = "<group>"; };
 		A8FA92AE2BAA8047004D9F2C /* KeyForValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyForValue.swift; sourceTree = "<group>"; };
 		A8FA92B02BAB40A6004D9F2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A8FA92B12BAB5768004D9F2C /* BottomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,15 +224,16 @@
 		A8D45E4F2B7879D00005126C /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				A849C8F52B9E361000655D1C /* ContentView.swift */,
 				A80AADEB2B71DE7F00A74DAA /* AuthView.swift */,
 				A8D45E522B7880DA0005126C /* EmailLoginView.swift */,
 				A8D45E542B7880E90005126C /* EmailSignupView.swift */,
-				A849C8DD2B9BA4E100655D1C /* CreateChatView.swift */,
+				A8FA92B12BAB5768004D9F2C /* BottomNavigationView.swift */,
 				A849C8E12B9BA58B00655D1C /* ProfileView.swift */,
 				A8D9C0C72B78773800118CA0 /* ChatsView.swift */,
 				A83B45BF2BA7FBFC004FA743 /* ChatView.swift */,
+				A849C8DD2B9BA4E100655D1C /* CreateChatView.swift */,
 				A849C8F02B9E17D000655D1C /* Components */,
-				A849C8F52B9E361000655D1C /* ContentView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -235,8 +242,10 @@
 			isa = PBXGroup;
 			children = (
 				A8D9C0C92B7878FF00118CA0 /* AuthViewModel.swift */,
+				A87C74CF2BACC7AF00B179C4 /* Test.swift */,
 				A8E4FDFA2BA2157800BF9077 /* ChatsViewModel.swift */,
 				A83B45C12BA7FC29004FA743 /* ChatViewModel.swift */,
+				A87C74CD2BABF03200B179C4 /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -403,6 +412,7 @@
 				A8D45E532B7880DA0005126C /* EmailLoginView.swift in Sources */,
 				A849C8F82B9E434F00655D1C /* Helpers.swift in Sources */,
 				A8FA92AF2BAA8047004D9F2C /* KeyForValue.swift in Sources */,
+				A87C74D02BACC7AF00B179C4 /* Test.swift in Sources */,
 				A83B45C02BA7FBFC004FA743 /* ChatView.swift in Sources */,
 				A83B45C22BA7FC29004FA743 /* ChatViewModel.swift in Sources */,
 				A8D9C0CA2B7878FF00118CA0 /* AuthViewModel.swift in Sources */,
@@ -416,8 +426,10 @@
 				A8D9C0C82B78773800118CA0 /* ChatsView.swift in Sources */,
 				A8E4D57F2B86F11200EA0EE7 /* Sha256.swift in Sources */,
 				A849C8E52B9BACBF00655D1C /* Chat.swift in Sources */,
+				A8FA92B22BAB5768004D9F2C /* BottomNavigationView.swift in Sources */,
 				A80AADEC2B71DE7F00A74DAA /* AuthView.swift in Sources */,
 				A849C8DE2B9BA4E100655D1C /* CreateChatView.swift in Sources */,
+				A87C74CE2BABF03200B179C4 /* ProfileViewModel.swift in Sources */,
 				A849C8E72B9BB04800655D1C /* Message.swift in Sources */,
 				A80AADEA2B71DE7F00A74DAA /* MyChatApp.swift in Sources */,
 				A8E4FDF92BA171AA00BF9077 /* StringError.swift in Sources */,
