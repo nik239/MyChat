@@ -17,6 +17,7 @@ final class ProfileViewModel: ObservableObject {
   init(authService: AuthService, appState: AppState) {
     self.authService = authService
     appState.$userData
+      .receive(on: DispatchQueue.main)
       .map {
         $0.user?.displayName ?? ""
       }

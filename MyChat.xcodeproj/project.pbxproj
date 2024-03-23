@@ -32,7 +32,6 @@
 		A849C8F82B9E434F00655D1C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F72B9E434F00655D1C /* Helpers.swift */; };
 		A87579432B883D5200289437 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87579422B883D5200289437 /* DBService.swift */; };
 		A87C74CE2BABF03200B179C4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C74CD2BABF03200B179C4 /* ProfileViewModel.swift */; };
-		A87C74D02BACC7AF00B179C4 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C74CF2BACC7AF00B179C4 /* Test.swift */; };
 		A8C7D79F2B9E628100383676 /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C7D79E2B9E628100383676 /* AuthServiceTests.swift */; };
 		A8C7D7A12B9EA79F00383676 /* FirestoreServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C7D7A02B9EA79F00383676 /* FirestoreServiceTests.swift */; };
 		A8D45E532B7880DA0005126C /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D45E522B7880DA0005126C /* EmailLoginView.swift */; };
@@ -90,7 +89,6 @@
 		A849C8F72B9E434F00655D1C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		A87579422B883D5200289437 /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
 		A87C74CD2BABF03200B179C4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		A87C74CF2BACC7AF00B179C4 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		A8C7D79E2B9E628100383676 /* AuthServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceTests.swift; sourceTree = "<group>"; };
 		A8C7D7A02B9EA79F00383676 /* FirestoreServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceTests.swift; sourceTree = "<group>"; };
 		A8D45E522B7880DA0005126C /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
@@ -242,7 +240,6 @@
 			isa = PBXGroup;
 			children = (
 				A8D9C0C92B7878FF00118CA0 /* AuthViewModel.swift */,
-				A87C74CF2BACC7AF00B179C4 /* Test.swift */,
 				A8E4FDFA2BA2157800BF9077 /* ChatsViewModel.swift */,
 				A83B45C12BA7FC29004FA743 /* ChatViewModel.swift */,
 				A87C74CD2BABF03200B179C4 /* ProfileViewModel.swift */,
@@ -412,7 +409,6 @@
 				A8D45E532B7880DA0005126C /* EmailLoginView.swift in Sources */,
 				A849C8F82B9E434F00655D1C /* Helpers.swift in Sources */,
 				A8FA92AF2BAA8047004D9F2C /* KeyForValue.swift in Sources */,
-				A87C74D02BACC7AF00B179C4 /* Test.swift in Sources */,
 				A83B45C02BA7FBFC004FA743 /* ChatView.swift in Sources */,
 				A83B45C22BA7FC29004FA743 /* ChatViewModel.swift in Sources */,
 				A8D9C0CA2B7878FF00118CA0 /* AuthViewModel.swift in Sources */,

@@ -15,10 +15,12 @@ final class ChatViewModel: ObservableObject {
   @Published var newMessageContent: String = ""
   
   @Published var messages: [Message]?
+  
   init(fsService: DBService, appState: AppState) {
     self.appState = appState
     self.fsService = fsService
     appState.$userData
+      .receive(on: DispatchQueue.main)
       .map {
         $0.selectedChat?.messages
       }

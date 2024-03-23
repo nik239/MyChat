@@ -16,6 +16,7 @@ final class ChatsViewModel: ObservableObject {
   init(appState: AppState) {
     self.appState = appState
     appState.$userData
+      .receive(on: DispatchQueue.main)
       .map {
         Array($0.chats.values).sorted() {
           //sort chats by date of last message sent
