@@ -30,6 +30,7 @@
 		A849C8F42B9E33F600655D1C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F32B9E33F600655D1C /* SceneDelegate.swift */; };
 		A849C8F62B9E361000655D1C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F52B9E361000655D1C /* ContentView.swift */; };
 		A849C8F82B9E434F00655D1C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F72B9E434F00655D1C /* Helpers.swift */; };
+		A872C3892BB0B560006968C3 /* AddButtonBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A872C3882BB0B560006968C3 /* AddButtonBorderModifier.swift */; };
 		A87579432B883D5200289437 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87579422B883D5200289437 /* DBService.swift */; };
 		A87C74CE2BABF03200B179C4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C74CD2BABF03200B179C4 /* ProfileViewModel.swift */; };
 		A8C7D79F2B9E628100383676 /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C7D79E2B9E628100383676 /* AuthServiceTests.swift */; };
@@ -87,6 +88,7 @@
 		A849C8F32B9E33F600655D1C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A849C8F52B9E361000655D1C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A849C8F72B9E434F00655D1C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		A872C3882BB0B560006968C3 /* AddButtonBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonBorderModifier.swift; sourceTree = "<group>"; };
 		A87579422B883D5200289437 /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
 		A87C74CD2BABF03200B179C4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		A8C7D79E2B9E628100383676 /* AuthServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceTests.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 			children = (
 				A849C8DF2B9BA52900655D1C /* ChatPreview.swift */,
 				A83B45C32BA802EC004FA743 /* MessageBubble.swift */,
+				A872C3882BB0B560006968C3 /* AddButtonBorderModifier.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8E4FDFB2BA2157800BF9077 /* ChatsViewModel.swift in Sources */,
+				A872C3892BB0B560006968C3 /* AddButtonBorderModifier.swift in Sources */,
 				A8D45E552B7880E90005126C /* EmailSignupView.swift in Sources */,
 				A849C8E92B9D189100655D1C /* ListenerManager.swift in Sources */,
 				A83B45C42BA802EC004FA743 /* MessageBubble.swift in Sources */,

@@ -25,6 +25,7 @@ protocol AuthService {
   
   func signOut()
   func deleteAccount() async -> Bool
+  func changeUserHandle(newUserHandle: String) async
   
   func clearError()
 }
@@ -69,6 +70,19 @@ final class RealAuthService: AuthService {
     catch {
       self.appState.update(authError: error.localizedDescription)
       return false
+    }
+  }
+  
+  func changeUserHandle(newUserHandle: String) async {
+    guard let changeRequest = appState.userData.user?.createProfileChangeRequest() else {
+      return
+    }
+    changeRequest.displayName = newUserHandle
+    do {
+      try await changeRequest.commitChanges()
+    }
+    catch {
+      print("Unable to update the user's displayname: \(error.localizedDescription)")
     }
   }
   
@@ -172,6 +186,7 @@ extension RealAuthService {
   
 // MARK: -StubAuthService
 final class StubAuthService: AuthService {
+  
   func signInWithEmailPassword(email: String, password: String) async -> Bool { true }
   
   func signUpWithEmailPassword(email: String, password: String) async -> Bool { true }
@@ -185,6 +200,8 @@ final class StubAuthService: AuthService {
   func deleteAccount() async -> Bool { true }
   
   func clearError() { }
+  
+  func changeUserHandle(newUserHandle: String) async { }
 }
 
 //extension ASAuthorizationAppleIDCredential {

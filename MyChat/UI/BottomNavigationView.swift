@@ -21,7 +21,7 @@ struct BottomNavigationView: View {
           Image(systemName: "gear")
           Text("Settings")
         }
-    }
+      }
   }
 }
 

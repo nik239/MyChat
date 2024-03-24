@@ -11,17 +11,22 @@ import SwiftUI
 final class ProfileViewModel: ObservableObject {
   let authService: AuthService
   
-  @Published var userHandle: String = "SomeUser"
-  @Published var isEdditing: Bool = false
+  @Published var userHandle: String = "Unknown"
   
   init(authService: AuthService, appState: AppState) {
     self.authService = authService
     appState.$userData
       .receive(on: DispatchQueue.main)
       .map {
-        $0.user?.displayName ?? ""
+        $0.user?.displayName ?? "Unknown"
       }
       .assign(to: &$userHandle)
+  }
+  
+  func updateUserHandle() {
+    Task {
+      await authService.changeUserHandle(newUserHandle: userHandle)
+    }
   }
   
   func signOut() {
