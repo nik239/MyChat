@@ -70,18 +70,3 @@ final class ChatsViewModel: ObservableObject {
   }
 }
 
-//MARK: -StubChatsViewModel
-//@MainActor
-//final class StubChatsViewModel: ChatsViewModel {
-//  @Published var chats: [Chat]? = [Chat(members: [], name: "Sam"),
-//                                  Chat(members: [], name: "Merry"),
-//                                  Chat(members:[], name: "Pipppin")]
-//  
-//  nonisolated func messagePreview(chat: Chat) -> String {
-//    "Hey, what's up. Hope everything is well. Do you have the ring? I was wondering if I could I borrow it for a little while."
-//  }
-//  
-//  nonisolated func lastMessageDate(chat: Chat) -> String {
-//    "Yesterday"
-//  }
-//}

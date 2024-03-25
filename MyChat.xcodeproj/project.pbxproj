@@ -31,6 +31,8 @@
 		A849C8F42B9E33F600655D1C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F32B9E33F600655D1C /* SceneDelegate.swift */; };
 		A849C8F62B9E361000655D1C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F52B9E361000655D1C /* ContentView.swift */; };
 		A849C8F82B9E434F00655D1C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F72B9E434F00655D1C /* Helpers.swift */; };
+		A854B0AD2BB1FA1600BD2AEC /* TextEditorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A854B0AC2BB1FA1600BD2AEC /* TextEditorExample.swift */; };
+		A854B0AF2BB2162400BD2AEC /* FontConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A854B0AE2BB2162400BD2AEC /* FontConversion.swift */; };
 		A872C3892BB0B560006968C3 /* AddButtonBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A872C3882BB0B560006968C3 /* AddButtonBorderModifier.swift */; };
 		A87579432B883D5200289437 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87579422B883D5200289437 /* DBService.swift */; };
 		A87C74CE2BABF03200B179C4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C74CD2BABF03200B179C4 /* ProfileViewModel.swift */; };
@@ -90,6 +92,8 @@
 		A849C8F32B9E33F600655D1C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A849C8F52B9E361000655D1C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A849C8F72B9E434F00655D1C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		A854B0AC2BB1FA1600BD2AEC /* TextEditorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorExample.swift; sourceTree = "<group>"; };
+		A854B0AE2BB2162400BD2AEC /* FontConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontConversion.swift; sourceTree = "<group>"; };
 		A872C3882BB0B560006968C3 /* AddButtonBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonBorderModifier.swift; sourceTree = "<group>"; };
 		A87579422B883D5200289437 /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
 		A87C74CD2BABF03200B179C4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -237,6 +241,7 @@
 				A83B45BF2BA7FBFC004FA743 /* ChatView.swift */,
 				A849C8DD2B9BA4E100655D1C /* CreateChatView.swift */,
 				A849C8F02B9E17D000655D1C /* Components */,
+				A854B0AC2BB1FA1600BD2AEC /* TextEditorExample.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -270,6 +275,7 @@
 				A849C8F72B9E434F00655D1C /* Helpers.swift */,
 				A8E4FDF82BA171AA00BF9077 /* StringError.swift */,
 				A8FA92AE2BAA8047004D9F2C /* KeyForValue.swift */,
+				A854B0AE2BB2162400BD2AEC /* FontConversion.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -435,10 +441,12 @@
 				A849C8DE2B9BA4E100655D1C /* CreateChatView.swift in Sources */,
 				A87C74CE2BABF03200B179C4 /* ProfileViewModel.swift in Sources */,
 				A849C8E72B9BB04800655D1C /* Message.swift in Sources */,
+				A854B0AF2BB2162400BD2AEC /* FontConversion.swift in Sources */,
 				A80AADEA2B71DE7F00A74DAA /* MyChatApp.swift in Sources */,
 				A8E4FDF92BA171AA00BF9077 /* StringError.swift in Sources */,
 				A849C8EB2B9D5DC200655D1C /* DIContainer.swift in Sources */,
 				A8E4D5812B86F40C00EA0EE7 /* AuthService.swift in Sources */,
+				A854B0AD2BB1FA1600BD2AEC /* TextEditorExample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

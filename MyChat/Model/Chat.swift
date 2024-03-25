@@ -15,6 +15,7 @@ struct Chat: Identifiable {
   var name: String
   
   var messages: [Message]?
+  var userInput: String?
   
   init(members: [String], name: String = ""){
     self.members = members

@@ -9,11 +9,14 @@ import SwiftUI
 
 struct ChatView: View {
   @EnvironmentObject private var viewModel: ChatViewModel
+
   var body: some View {
     VStack {
       HStack {
         Text(viewModel.chatName ?? "")
+          .font(.title2)
       }
+      .padding(.bottom)
       ScrollView(.vertical){
         ForEach(viewModel.messages ?? []) { message in
           HStack {
@@ -31,25 +34,36 @@ struct ChatView: View {
           }
         }
       }
-      HStack {
-        TextField("Message", text: $viewModel.newMessageContent)
-          .textFieldStyle(RoundedBorderTextFieldStyle())
-          .padding()
+      HStack (alignment: .bottom) {
+          TextEditor(text: $viewModel.userInput)
+          .font(.body)
+          .frame(minWidth: viewModel.editorWidth,
+                 maxWidth: viewModel.editorWidth,
+                 maxHeight: viewModel.editorHeight)
+        
+            .onChange(of: viewModel.userInput) { _ in
+              viewModel.editorHeight = min(viewModel.maxHeight, viewModel.calculateTextHeight())
+            }
         
         Button(action: viewModel.sendMessage) {
           Image(systemName: "arrow.up.circle.fill")
             .resizable()
-            .frame(width: 35, height: 35)
-            .padding(.trailing)
+            .frame(width: 30, height: 30)
         }
-        .disabled(viewModel.newMessageContent.isEmpty)
+        .disabled(viewModel.userInput.isEmpty)
       }
+      .padding(5)
+      .overlay(
+        RoundedRectangle(cornerRadius: 20)
+          .stroke(Color.secondary)
+      )
+      .padding()
     }
     .onAppear {
-      viewModel.toggleBottomNavigation()
+      viewModel.preformOnAppear()
     }
     .onDisappear {
-      viewModel.toggleBottomNavigation()
+      viewModel.preformOnDisappear()
     }
   }
 }

@@ -23,6 +23,7 @@ extension AppState {
     
     var chats: [String: Chat] = [:]
     
+    //should use selectedChatID instead, no?
     var selectedChat: Chat? = nil
     var selectedChatID: String? = nil
   }
@@ -71,6 +72,14 @@ extension AppState {
       await MainActor.run {
         userData.selectedChat = selectedChat
         userData.selectedChatID = userData.chats.key(forValue: selectedChat)
+      }
+    }
+  }
+  
+  func update(userInput: String, forChatAtID id: String) {
+    Task {
+      await MainActor.run {
+        userData.chats[id]?.userInput = userInput
       }
     }
   }
