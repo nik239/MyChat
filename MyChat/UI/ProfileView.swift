@@ -62,13 +62,14 @@ struct ProfileView: View {
       }
       .modifier(AddButtonBorder())
       
+      Spacer()
+      
       Button(action: { showAlert = true }) {
         Text("Delete account?")
           .foregroundColor(.red)
       }
       .padding()
       
-      Spacer()
       Spacer()
       Divider()
     }

@@ -14,6 +14,7 @@ final class ChatViewModel: ObservableObject {
   
   @Published var newMessageContent: String = ""
   
+  @Published var chatName: String?
   @Published var messages: [Message]?
   
   init(fsService: DBService, appState: AppState) {
@@ -25,6 +26,12 @@ final class ChatViewModel: ObservableObject {
         $0.selectedChat?.messages
       }
       .assign(to: &$messages)
+    appState.$userData
+      .receive(on: DispatchQueue.main)
+      .map {
+        $0.selectedChat?.name
+      }
+      .assign(to: &$chatName)
   }
   
   func isAuthorSelf(message: Message) -> Bool {
@@ -36,8 +43,6 @@ final class ChatViewModel: ObservableObject {
           let chatID = appState.userData.selectedChatID else {
       return
     }
-
-    
     let message = Message(author: author, content: newMessageContent)
     Task {
       do {
@@ -46,5 +51,9 @@ final class ChatViewModel: ObservableObject {
         print(error)
       }
     }
+  }
+  
+  func toggleBottomNavigation() {
+    appState.toggleBottomNavigation()
   }
 }

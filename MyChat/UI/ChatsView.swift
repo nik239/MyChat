@@ -19,9 +19,9 @@ struct ChatsView: View {
                           date: viewModel.lastMessageDate(chat: chat),
                           messagePreview: viewModel.messagePreview(chat: chat))
             }
-            .onTapGesture {
+            .simultaneousGesture(TapGesture().onEnded {
               viewModel.didTapOnChat(chat: chat)
-            }
+            })
             Divider()
           }
         }

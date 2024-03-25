@@ -36,10 +36,14 @@ extension AppEnvironment {
     let profileViewModel = await MainActor.run {
       ProfileViewModel(authService: services.authService, appState: appState)
     }
+    let bottomNavigationViewModel = await MainActor.run {
+      BottomNavigationViewModel(appState: appState)
+    }
     return .init(authViewModel: authViewModel,
                  chatsViewModel: chatsViewModel,
                  chatViewModel: chatViewModel,
-                 profileViewModel: profileViewModel)
+                 profileViewModel: profileViewModel,
+                 bottomNavigationViewModel: bottomNavigationViewModel)
   }
 }
 

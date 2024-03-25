@@ -11,6 +11,9 @@ struct ChatView: View {
   @EnvironmentObject private var viewModel: ChatViewModel
   var body: some View {
     VStack {
+      HStack {
+        Text(viewModel.chatName ?? "")
+      }
       ScrollView(.vertical){
         ForEach(viewModel.messages ?? []) { message in
           HStack {
@@ -44,6 +47,12 @@ struct ChatView: View {
       //.background(Color.secondarySystemBackground)
       //.padding(.bottom, keyboardHeight())
     }
+//    .onAppear {
+//      viewModel.toggleBottomNavigation()
+//    }
+//    .onDisappear {
+//      viewModel.toggleBottomNavigation()
+//    }
   }
 }
 

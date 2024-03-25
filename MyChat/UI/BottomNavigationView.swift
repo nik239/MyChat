@@ -8,20 +8,25 @@
 import SwiftUI
 
 struct BottomNavigationView: View {
+  @EnvironmentObject private var viewModel: BottomNavigationViewModel
   var body: some View {
-    TabView {
-      ChatsView()
-        .tabItem {
-          Image(systemName: "message")
-          Text("Home")
-        }
-      
-      ProfileView()
-        .tabItem {
-          Image(systemName: "gear")
-          Text("Settings")
-        }
+    if viewModel.showBottomNavigation {
+      TabView {
+        ChatsView()
+          .tabItem {
+            Image(systemName: "message")
+            Text("Home")
+          }
+        
+        ProfileView()
+          .tabItem {
+            Image(systemName: "gear")
+            Text("Settings")
+          }
       }
+    } else {
+      ChatsView()
+    }
   }
 }
 
