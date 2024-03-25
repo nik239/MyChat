@@ -24,6 +24,7 @@ extension AppState {
     var chats: [String: Chat] = [:]
     
     //should use selectedChatID instead, no?
+    //should be in viewRouting?
     var selectedChat: Chat? = nil
     var selectedChatID: String? = nil
   }

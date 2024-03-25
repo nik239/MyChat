@@ -43,3 +43,7 @@ struct Message: Codable, Identifiable {
     try container.encode(timestamp, forKey: .date)
   }
 }
+
+extension Message: Equatable {
+  
+}
