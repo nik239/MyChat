@@ -10,22 +10,19 @@ import SwiftUI
 struct BottomNavigationView: View {
   @EnvironmentObject private var viewModel: BottomNavigationViewModel
   var body: some View {
-    if viewModel.showBottomNavigation {
-      TabView {
-        ChatsView()
-          .tabItem {
-            Image(systemName: "message")
-            Text("Home")
-          }
-        
-        ProfileView()
-          .tabItem {
-            Image(systemName: "gear")
-            Text("Settings")
-          }
-      }
-    } else {
+    TabView {
       ChatsView()
+        .tabItem {
+          Image(systemName: "message")
+          Text("Home")
+        }
+        .toolbar(viewModel.showBottomNavigation ? .visible : .hidden, for: .tabBar)
+      
+      ProfileView()
+        .tabItem {
+          Image(systemName: "gear")
+          Text("Settings")
+        }
     }
   }
 }

@@ -44,15 +44,13 @@ struct ChatView: View {
         }
         .disabled(viewModel.newMessageContent.isEmpty)
       }
-      //.background(Color.secondarySystemBackground)
-      //.padding(.bottom, keyboardHeight())
     }
-//    .onAppear {
-//      viewModel.toggleBottomNavigation()
-//    }
-//    .onDisappear {
-//      viewModel.toggleBottomNavigation()
-//    }
+    .onAppear {
+      viewModel.toggleBottomNavigation()
+    }
+    .onDisappear {
+      viewModel.toggleBottomNavigation()
+    }
   }
 }
 
