@@ -31,7 +31,7 @@ extension AppEnvironment {
       ChatsViewModel(appState: appState)
     }
     let chatViewModel = await MainActor.run {
-      ChatViewModel(fsService: services.firestoreService, appState: appState)
+      ChatViewModel(dbService: services.firestoreService, appState: appState)
     }
     let profileViewModel = await MainActor.run {
       ProfileViewModel(authService: services.authService, appState: appState)

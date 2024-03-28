@@ -41,7 +41,7 @@ extension DIContainer {
       return .init(authViewModel: AuthViewModel(authService: StubAuthService(),
                                          appState: appState),
             chatsViewModel: ChatsViewModel(appState: appState),
-            chatViewModel: ChatViewModel(fsService: StubFireStoreService(),
+            chatViewModel: ChatViewModel(dbService: StubFireStoreService(),
                                          appState: appState),
             profileViewModel: ProfileViewModel(authService: StubAuthService(), appState: appState),
             bottomNavigationViewModel: BottomNavigationViewModel(appState: appState))

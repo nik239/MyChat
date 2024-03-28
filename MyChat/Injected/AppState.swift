@@ -25,7 +25,7 @@ extension AppState {
     
     //should use selectedChatID instead, no?
     //should be in viewRouting?
-    var selectedChat: Chat? = nil
+    // var selectedChat: Chat? = nil
     var selectedChatID: String? = nil
   }
   
@@ -71,8 +71,8 @@ extension AppState {
   func update(selectedChat: Chat) {
     Task {
       await MainActor.run {
-        userData.selectedChat = selectedChat
-        userData.selectedChatID = userData.chats.key(forValue: selectedChat)
+        userData.selectedChatID =
+        userData.chats.key(forValue: selectedChat)
       }
     }
   }

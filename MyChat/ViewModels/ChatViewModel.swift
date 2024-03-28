@@ -6,44 +6,50 @@
 //
 
 import SwiftUI
+import Combine
 
 @MainActor
 final class ChatViewModel: ObservableObject {
   let appState: AppState
-  let fsService: DBService
+  let dbService: DBService
+  
+  var selectedChatObserver: AnyCancellable? = nil
   
   @Published var chatName: String?
   @Published var messages: [Message]?
   
   @Published var userInput: String = ""
-  
   //Text Editor UI
   var editorHeight: CGFloat = 20
   let maxHeight: CGFloat = 100
   let editorWidth: CGFloat = UIScreen.main.bounds.width * 0.75
   let editorFont: Font = .body
   
-  init(fsService: DBService, appState: AppState) {
+  init(dbService: DBService, appState: AppState) {
     self.appState = appState
-    self.fsService = fsService
-    bindToMessages()
-    bindToChatName()
+    self.dbService = dbService
+    self.selectedChatObserver = appState.$userData
+      .compactMap { $0.selectedChatID }
+      .sink { [weak self] id in
+        self?.bindToMessages(withChatID: id)
+        self?.bindToChatName(withChatID: id)
+      }
   }
   
-  private func bindToMessages() {
+  private func bindToMessages(withChatID id: String) {
     appState.$userData
       .receive(on: DispatchQueue.main)
       .map {
-        $0.selectedChat?.messages
+        $0.chats[id]?.messages
       }
       .assign(to: &$messages)
   }
   
-  private func bindToChatName() {
+  private func bindToChatName(withChatID id: String) {
     appState.$userData
       .receive(on: DispatchQueue.main)
       .map {
-        $0.selectedChat?.name
+        $0.chats[id]?.name
       }
       .assign(to: &$chatName)
   }
@@ -60,7 +66,7 @@ extension ChatViewModel {
     let message = Message(author: author, content: userInput)
     Task {
       do {
-        try await fsService.sendMessage(message: message, toChatWithID: chatID)
+        try await dbService.sendMessage(message: message, toChatWithID: chatID)
       } catch {
         print(error)
       }
@@ -81,6 +87,30 @@ extension ChatViewModel {
     textView.sizeToFit()
     return textView.frame.height
   }
+  
+  func calculateTextHeight2() -> CGFloat {
+      let font = UIFont.systemFont(ofSize: 17) // Replace with your font size
+      let attributes: [NSAttributedString.Key: Any] = [.font: font]
+      let textSize = (userInput as NSString).boundingRect(
+          with: CGSize(width: editorWidth, height: CGFloat.greatestFiniteMagnitude),
+          options: [.usesLineFragmentOrigin, .usesFontLeading],
+          attributes: attributes,
+          context: nil
+      ).size
+      
+      return ceil(textSize.height)
+  }
+  
+  func calculateTextHeight3() -> CGFloat {
+      let font = UIFont.systemFont(ofSize: 17) // Replace with your font size
+      let width = editorWidth // Replace with your editor width
+      let text = userInput // Replace with your text
+      
+      let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+      let boundingBox = text.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [.font: font], context: nil)
+      
+      return boundingBox.height
+  }
 }
   
 
@@ -88,7 +118,9 @@ extension ChatViewModel {
 extension ChatViewModel {
   func preformOnAppear() {
     appState.toggleBottomNavigation()
-    userInput = appState.userData.selectedChat?.userInput ?? ""
+    if let selectedChatID = appState.userData.selectedChatID {
+      userInput = appState.userData.chats[selectedChatID]?.userInput ?? ""
+    }
   }
   
   func preformOnDisappear() {

@@ -42,7 +42,7 @@ struct ChatView: View {
                  maxHeight: viewModel.editorHeight)
         
             .onChange(of: viewModel.userInput) { _ in
-              viewModel.editorHeight = min(viewModel.maxHeight, viewModel.calculateTextHeight())
+              viewModel.editorHeight = min(viewModel.maxHeight, viewModel.calculateTextHeight3())
             }
         
         Button(action: viewModel.sendMessage) {
