@@ -17,6 +17,7 @@ final class AuthServiceTests: XCTestCase {
   static var didSetEmulator = false
     
   override func setUpWithError() throws {
+    try super.setUpWithError()
     if !AuthServiceTests.didSetEmulator {
       Auth.auth().useEmulator(withHost:"localhost", port:9099)
       AuthServiceTests.didSetEmulator = true

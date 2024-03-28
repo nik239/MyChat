@@ -23,7 +23,7 @@ struct MockedAuthService: Mock, AuthService {
   
   let actions: MockActions<Action>
   
-  init(expected: [Action]) {
+  init(expected: [Action] = []) {
     self.actions = .init(expected: expected)
   }
   

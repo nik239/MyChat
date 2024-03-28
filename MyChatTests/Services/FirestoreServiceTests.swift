@@ -18,6 +18,7 @@ final class FirestoreServiceTests: XCTestCase {
   static var didSetEmulator = false
   
   override func setUpWithError() throws {
+    try super.setUpWithError()
     if !FirestoreServiceTests.didSetEmulator {
       let settings = Firestore.firestore().settings
       settings.host = "127.0.0.1:8080"

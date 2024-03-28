@@ -32,11 +32,11 @@ final class ChatsViewModel: ObservableObject {
       .assign(to: &$chats)
   }
   
-  nonisolated func messagePreview(chat: Chat) -> String {
+  func messagePreview(chat: Chat) -> String {
     return chat.messages?.last?.content ?? ""
   }
   
-  nonisolated func lastMessageDate(chat: Chat) -> String {
+  func lastMessageDate(chat: Chat) -> String {
     guard let date = chat.messages?.last?.date else {
       return ""
     }

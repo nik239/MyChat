@@ -38,6 +38,7 @@
 		A854B0B82BB2391300BD2AEC /* DIContainerMocked.swift in Sources */ = {isa = PBXBuildFile; fileRef = A854B0B72BB2391300BD2AEC /* DIContainerMocked.swift */; };
 		A872C3892BB0B560006968C3 /* AddButtonBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A872C3882BB0B560006968C3 /* AddButtonBorderModifier.swift */; };
 		A87579432B883D5200289437 /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87579422B883D5200289437 /* DBService.swift */; };
+		A87B72692BB5F51700B7A1EA /* ProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87B72682BB5F51700B7A1EA /* ProfileViewModelTests.swift */; };
 		A87C74CE2BABF03200B179C4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87C74CD2BABF03200B179C4 /* ProfileViewModel.swift */; };
 		A8C7D79F2B9E628100383676 /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C7D79E2B9E628100383676 /* AuthServiceTests.swift */; };
 		A8C7D7A12B9EA79F00383676 /* FirestoreServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C7D7A02B9EA79F00383676 /* FirestoreServiceTests.swift */; };
@@ -102,6 +103,7 @@
 		A854B0B72BB2391300BD2AEC /* DIContainerMocked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainerMocked.swift; sourceTree = "<group>"; };
 		A872C3882BB0B560006968C3 /* AddButtonBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonBorderModifier.swift; sourceTree = "<group>"; };
 		A87579422B883D5200289437 /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
+		A87B72682BB5F51700B7A1EA /* ProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelTests.swift; sourceTree = "<group>"; };
 		A87C74CD2BABF03200B179C4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		A8C7D79E2B9E628100383676 /* AuthServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceTests.swift; sourceTree = "<group>"; };
 		A8C7D7A02B9EA79F00383676 /* FirestoreServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreServiceTests.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		A82CFB702B79AD9E00E4DE0D /* MyChatTests */ = {
 			isa = PBXGroup;
 			children = (
+				A87B72672BB5F4B600B7A1EA /* ViewModels */,
 				A83B45B52BA6A919004FA743 /* UI */,
 				A8C7D79D2B9E623200383676 /* Services */,
 				A854B0B02BB22B4F00BD2AEC /* Mocks */,
@@ -234,6 +237,14 @@
 				A854B0B72BB2391300BD2AEC /* DIContainerMocked.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		A87B72672BB5F4B600B7A1EA /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A87B72682BB5F51700B7A1EA /* ProfileViewModelTests.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		A8C7D79D2B9E623200383676 /* Services */ = {
@@ -474,6 +485,7 @@
 				A854B0B42BB22D0200BD2AEC /* MockedAuthService.swift in Sources */,
 				A83B45B92BA6A9B6004FA743 /* ChatsViewTests.swift in Sources */,
 				A83B45BE2BA6ACB3004FA743 /* AuthViewTests.swift in Sources */,
+				A87B72692BB5F51700B7A1EA /* ProfileViewModelTests.swift in Sources */,
 				A8C7D7A12B9EA79F00383676 /* FirestoreServiceTests.swift in Sources */,
 				A8C7D79F2B9E628100383676 /* AuthServiceTests.swift in Sources */,
 				A854B0B82BB2391300BD2AEC /* DIContainerMocked.swift in Sources */,

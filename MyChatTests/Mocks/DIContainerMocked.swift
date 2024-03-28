@@ -16,11 +16,18 @@ extension DIContainer.ViewModels {
                                         MockedAuthService(expected: authServiceActions),
                                        appState: appState),
           chatsViewModel: ChatsViewModel(appState: appState),
-          chatViewModel: ChatViewModel(fsService: MockedDBService(expected: dbServiceActions),
+          chatViewModel: ChatViewModel(dbService: MockedDBService(expected: dbServiceActions),
                                        appState: appState),
           profileViewModel: ProfileViewModel(authService:
                                               MockedAuthService(expected: authServiceActions),
                                              appState: appState),
           bottomNavigationViewModel: BottomNavigationViewModel(appState: appState))
+  }
+}
+
+extension DIContainer {
+  @MainActor
+  static var mock: Self {
+    .init(viewModels: .mocked())
   }
 }

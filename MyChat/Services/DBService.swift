@@ -53,17 +53,17 @@ extension FireStoreService {
     }
     let listener = db.collection("chats").whereField("members",  arrayContains: userHandle)
       .addSnapshotListener { querySnapshot, error in
-        if let error = error {
-          print(error)
-        }
-        let chats = querySnapshot?.documents
-        chats?.forEach { self.updateChat(withID: $0.documentID, fromDocument: $0)
-        }
+      if let error = error {
+        print(error)
       }
+      let chats = querySnapshot?.documents
+      chats?.forEach { self.updateChat(withID: $0.documentID, fromDocument: $0)
+      }
+    }
     self.listeners.append(listener)
   }
   
-  /// Updates a chat's fields other than messages. If the chat's id is not in the chat table, adds it to the table and creates a listener on the chats messages.
+  /// Updates a chat's fields other than messages. If the chat's id is not in the chat table, adds it to the table and creates a listener on the chat's messages.
   private func updateChat(withID id: String, fromDocument doc: QueryDocumentSnapshot) {
     guard var chatNew = try? doc.data(as: Chat.self) else {
       return
@@ -93,13 +93,16 @@ extension FireStoreService {
         if let error = error {
          print(error)
         }
+        
         let sortedMessages = querySnapshot?.documents.compactMap { doc -> Message? in
           let message = try? doc.data(as: Message.self)
           return message
         }.sorted { $0.date < $1.date }
+        
         guard var chat = self.appState.userData.chats[id] else {
           return
         }
+        
         chat.messages = sortedMessages
         self.appState.update(chatAtID: id, to: chat)
       }
