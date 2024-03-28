@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import Combine
 
 @MainActor
 final class ProfileViewModel: ObservableObject {
   let authService: AuthService
   
   @Published var userHandle: String = "Unknown"
+  
+//  private var cancellables = Set<AnyCancellable>()
   
   init(authService: AuthService, appState: AppState) {
     self.authService = authService
@@ -21,6 +24,15 @@ final class ProfileViewModel: ObservableObject {
         $0.user?.displayName ?? "Unknown"
       }
       .assign(to: &$userHandle)
+    
+//    appState.$userData
+//        .map { $0.user?.displayName ?? "Unknown" }
+//        .sink { displayName in
+//            DispatchQueue.main.async { [weak self] in
+//                self?.userHandle = displayName
+//            }
+//        }
+//        .store(in: &cancellables)
   }
   
   func updateUserHandle() {

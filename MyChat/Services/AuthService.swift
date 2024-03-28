@@ -58,7 +58,7 @@ final class RealAuthService: AuthService {
     }
     catch {
       print(error)
-      self.appState.update(authError: error.localizedDescription)
+      self.appState.update(error: error.localizedDescription)
     }
   }
   
@@ -68,7 +68,7 @@ final class RealAuthService: AuthService {
       return true
     }
     catch {
-      self.appState.update(authError: error.localizedDescription)
+      self.appState.update(error: error.localizedDescription)
       return false
     }
   }
@@ -87,7 +87,7 @@ final class RealAuthService: AuthService {
   }
   
   func clearError() {
-    self.appState.update(authError: "")
+    self.appState.update(error: "")
   }
 }
 
@@ -101,7 +101,7 @@ extension RealAuthService {
     }
     catch {
       print(error)
-      self.appState.update(authError: error.localizedDescription)
+      self.appState.update(error: error.localizedDescription)
       self.appState.update(authState: .unauthenticated)
       return false
     }
@@ -115,7 +115,7 @@ extension RealAuthService {
     }
     catch {
       print(error)
-      self.appState.update(authError: error.localizedDescription)
+      self.appState.update(error: error.localizedDescription)
       self.appState.update(authState: .unauthenticated)
       return false
     }
@@ -133,7 +133,7 @@ extension RealAuthService {
   
   func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) {
     if case .failure(let failure) = result {
-      self.appState.update(authError: failure.localizedDescription)
+      self.appState.update(error: failure.localizedDescription)
     }
     else if case .success(let authorization) = result {
       if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {

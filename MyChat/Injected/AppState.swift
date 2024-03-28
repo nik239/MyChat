@@ -5,8 +5,6 @@
 //  Created by Nikita Ivanov on 21/02/2024.
 //
 
-import Foundation
-import Combine
 import FirebaseAuth
 
 final class AppState: ObservableObject {
@@ -19,13 +17,9 @@ extension AppState {
     var user: User?
     
     var authState: AuthState = .unauthenticated
-    var authError: String = ""
+    var error: String = ""
     
     var chats: [String: Chat] = [:]
-    
-    //should use selectedChatID instead, no?
-    //should be in viewRouting?
-    // var selectedChat: Chat? = nil
     var selectedChatID: String? = nil
   }
   
@@ -60,10 +54,10 @@ extension AppState {
     }
   }
   
-  func update(authError: String) {
+  func update(error: String) {
     Task {
       await MainActor.run {
-        userData.authError = authError
+        userData.error = error
       }
     }
   }

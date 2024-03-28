@@ -35,7 +35,7 @@ final class AuthViewModel: ObservableObject {
   init(authService: AuthService, appState: AppState) {
     self.authService = authService
     self.authState = appState.userData.authState
-    self.errorMessage = appState.userData.authError
+    self.errorMessage = appState.userData.error
     bindToAppState(appState: appState)
     makeIsValidPublisher()
   }
@@ -48,7 +48,7 @@ final class AuthViewModel: ObservableObject {
       
     appState.$userData
       .receive(on: DispatchQueue.main)
-      .map { $0.authError }
+      .map { $0.error }
       .assign(to: &$errorMessage)
   }
   
