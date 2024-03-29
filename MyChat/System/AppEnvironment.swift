@@ -24,21 +24,11 @@ extension AppEnvironment {
   }
   
   private static func configuredInteractors(services: DIContainer.FirebaseServices, appState: AppState) async -> DIContainer.ViewModels {
-    let authViewModel = await MainActor.run {
-      AuthViewModel(authService: services.authService, appState: appState)
-    }
-    let chatsViewModel = await MainActor.run {
-      ChatsViewModel(appState: appState)
-    }
-    let chatViewModel = await MainActor.run {
-      ChatViewModel(dbService: services.firestoreService, appState: appState)
-    }
-    let profileViewModel = await MainActor.run {
-      ProfileViewModel(authService: services.authService, appState: appState)
-    }
-    let bottomNavigationViewModel = await MainActor.run {
-      BottomNavigationViewModel(appState: appState)
-    }
+    let authViewModel = await AuthViewModel(authService: services.authService, appState: appState)
+    let chatsViewModel = await ChatsViewModel(appState: appState)
+    let chatViewModel = await ChatViewModel(dbService: services.firestoreService, appState: appState)
+    let profileViewModel = await ProfileViewModel(authService: services.authService, appState: appState)
+    let bottomNavigationViewModel = await BottomNavigationViewModel(appState: appState)
     return .init(authViewModel: authViewModel,
                  chatsViewModel: chatsViewModel,
                  chatViewModel: chatViewModel,
