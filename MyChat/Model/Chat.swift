@@ -51,3 +51,11 @@ extension Chat: Equatable {
     }
 }
 
+// MARK: - Generate Chat Name
+extension Chat {
+  static func generateName(chat: Chat, user: String) -> String {
+    let otherMembers = chat.members.filter { $0 != user }
+    return otherMembers.joined(separator: ",")
+  }
+}
+

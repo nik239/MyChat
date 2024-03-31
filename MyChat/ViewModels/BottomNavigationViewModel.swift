@@ -14,10 +14,10 @@ final class BottomNavigationViewModel: ObservableObject {
   
   init(appState: AppState) {
     appState.$routing
-      .receive(on: DispatchQueue.main)
       .map {
         return $0.showBottomNavigation
       }
+      .removeDuplicates()
       .assign(to: &$showBottomNavigation)
   }
 }

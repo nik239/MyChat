@@ -46,8 +46,10 @@ final class RealAuthService: AuthService {
   private func createAuthStateHandler() {
     if authStateHandler == nil {
       authStateHandler = Auth.auth().addStateDidChangeListener { auth, user in
-        self.appState.update(user: user)
-        self.appState.update(authState: user == nil ? .unauthenticated : .authenticated)
+        Task {
+          await self.appState.update(user: user)
+          await self.appState.update(authState: user == nil ? .unauthenticated : .authenticated)
+        }
       }
     }
   }
@@ -58,7 +60,9 @@ final class RealAuthService: AuthService {
     }
     catch {
       print(error)
-      self.appState.update(error: error.localizedDescription)
+      Task {
+        await self.appState.update(error: error.localizedDescription)
+      }
     }
   }
   
@@ -68,13 +72,15 @@ final class RealAuthService: AuthService {
       return true
     }
     catch {
-      self.appState.update(error: error.localizedDescription)
+      Task {
+        await self.appState.update(error: error.localizedDescription)
+      }
       return false
     }
   }
   
   func changeUserHandle(newUserHandle: String) async {
-    guard let changeRequest = appState.userData.user?.createProfileChangeRequest() else {
+    guard let changeRequest = await appState.userData.user?.createProfileChangeRequest() else {
       return
     }
     changeRequest.displayName = newUserHandle
@@ -87,36 +93,38 @@ final class RealAuthService: AuthService {
   }
   
   func clearError() {
-    self.appState.update(error: "")
+    Task {
+      await self.appState.update(error: "")
+    }
   }
 }
 
 // MARK: - RealAuthService Email and Password Authentication
 extension RealAuthService {
   func signInWithEmailPassword(email: String, password: String) async -> Bool {
-    self.appState.update(authState: .authenticating)
+    await self.appState.update(authState: .authenticating)
     do {
       try await Auth.auth().signIn(withEmail: email, password: password)
       return true
     }
     catch {
       print(error)
-      self.appState.update(error: error.localizedDescription)
-      self.appState.update(authState: .unauthenticated)
+      await self.appState.update(error: error.localizedDescription)
+      await self.appState.update(authState: .unauthenticated)
       return false
     }
   }
   
   func signUpWithEmailPassword(email: String, password: String) async -> Bool {
-    self.appState.update(authState: .authenticating)
+    await self.appState.update(authState: .authenticating)
     do  {
       try await Auth.auth().createUser(withEmail: email, password: password)
       return true
     }
     catch {
       print(error)
-      self.appState.update(error: error.localizedDescription)
-      self.appState.update(authState: .unauthenticated)
+      await self.appState.update(error: error.localizedDescription)
+      await self.appState.update(authState: .unauthenticated)
       return false
     }
   }
@@ -133,7 +141,9 @@ extension RealAuthService {
   
   func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) {
     if case .failure(let failure) = result {
-      self.appState.update(error: failure.localizedDescription)
+      Task {
+        await self.appState.update(error: failure.localizedDescription)
+      }
     }
     else if case .success(let authorization) = result {
       if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {

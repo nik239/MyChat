@@ -42,13 +42,13 @@ final class AuthViewModel: ObservableObject {
   
   private func bindToAppState(appState: AppState) {
     appState.$userData
-      .receive(on: DispatchQueue.main)
       .map { $0.authState }
+      .removeDuplicates()
       .assign(to: &$authState)
       
     appState.$userData
-      .receive(on: DispatchQueue.main)
       .map { $0.error }
+      .removeDuplicates()
       .assign(to: &$errorMessage)
   }
   

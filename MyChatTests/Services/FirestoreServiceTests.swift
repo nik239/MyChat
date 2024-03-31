@@ -69,7 +69,7 @@ final class FirestoreServiceTests: XCTestCase {
     let chat = Chat(members: [""], name: "testChat")
     appState.update(chatAtID: chatID, to: chat)
     let message = Message(author: "testUser", content: "test")
-    dbService.createMessagesListener(withChatID: chatID)
+    dbService.configureMessagesListener(forChatID: chatID)
     //when
     try! await dbService.updateChat(chat: chat, withID: chatID)
     try! await dbService.sendMessage(message: message, toChatWithID: chatID)
@@ -92,7 +92,7 @@ final class FirestoreServiceTests: XCTestCase {
     let chat2 = Chat(members: ["test_user"], name: "testChat2")
     let message = Message(author: "A", content: "test")
     //when
-    dbService.createChatsListener(forUser: userHandle)
+    dbService.configureListeners(forUser: userHandle)
     try! await dbService.updateChat(chat: chat1, withID: chatID1)
     try! await dbService.updateChat(chat: chat2, withID: chatID2)
     //then

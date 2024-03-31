@@ -19,7 +19,6 @@ final class FireStoreService: DBService {
   
   private var cancellables = Set<AnyCancellable>()
   private var listeners = [ListenerRegistration]()
-  //let listenerManager = ListenerManager()
   
   init(appState: AppState) {
     db = Firestore.firestore()
@@ -29,88 +28,108 @@ final class FireStoreService: DBService {
 
   /// Creates a subscriber that manages listeners upon successful user authentication.
   private func createUserObserver() {
-    appState.$userData
-      .map { $0.user }
-      .removeDuplicates()
-      .compactMap { $0 }
-      .sink { [weak self] _ in
-        //removes listeners in case a new user signed in during the same session
-        self?.listeners.forEach { $0.remove() }
-        self?.listeners = []
-        self?.createChatsListener(forUser: self?.appState.userData.user?.displayName)
+    Task {
+      let userValues = await appState.$userData.compactMap{$0.user}.removeDuplicates().values
+      for await user in userValues {
+        self.listeners.forEach { $0.remove() }
+        self.listeners = []
+        self.configureListeners(forUser: user.displayName)
       }
-      .store(in: &cancellables)
+    }
   }
 }
 
-// MARK: - FireStoreService Creating Listeners
+// MARK: - FireStoreService Configuring Listeners
 extension FireStoreService {
-  /// Creates a listener on the chats collection.
-  func createChatsListener(forUser userHandle: String?) {
-    guard let userHandle = userHandle else {
+  /// Configures listeners on FireStore collections. Listeners are responsible for updating AppState when new data becomes available.
+  func configureListeners(forUser userID: String?) {
+    guard let userID = userID else {
       assertionFailure("User object is nil.")
       return
     }
-    let listener = db.collection("chats").whereField("members",  arrayContains: userHandle)
+    
+    let listener = db.collection("chats").whereField("members",  arrayContains: userID)
       .addSnapshotListener { querySnapshot, error in
-      if let error = error {
-        print(error)
+        
+      guard let chatDocs = querySnapshot?.documents else {
+        if let error = error {
+          assertionFailure("\(error)")
+        }
+        return
       }
-      let chats = querySnapshot?.documents
-      chats?.forEach { self.updateChat(withID: $0.documentID, fromDocument: $0)
+      
+      Task {
+        let newChatTable = await self.getUpdatedChatTable(from: chatDocs, forUser: userID)
+        await self.appState.update(chats: newChatTable)
       }
     }
+    
     self.listeners.append(listener)
   }
   
-  /// Updates a chat's fields other than messages. If the chat's id is not in the chat table, adds it to the table and creates a listener on the chat's messages.
-  private func updateChat(withID id: String, fromDocument doc: QueryDocumentSnapshot) {
-    guard var chatNew = try? doc.data(as: Chat.self) else {
-      return
+  /// Generates updated ChatsTable.
+  func getUpdatedChatTable(from chatDocs: [QueryDocumentSnapshot], forUser userID: String) async -> ChatTable {
+    var chatTable = await appState.userData.chats
+    
+    await withTaskGroup(of: (String, Chat?).self) { group in
+      for chatDoc in chatDocs {
+        let id = chatDoc.documentID
+        let oldChat = chatTable[id]
+        
+        group.addTask {
+          let updatedChat = self.getUpdatedChat(from: oldChat, with: chatDoc)
+          return (id, updatedChat)
+        }
+      }
+      
+      for await (id, updatedChat) in group {
+        chatTable[id] = updatedChat
+      }
     }
     
-    if chatNew.name == "" {
-      let otherMembers = chatNew.members.filter { $0 != appState.userData.user?.displayName }
-      chatNew.name = otherMembers.joined(separator: ",")
-    }
-    
-    guard var chat = appState.userData.chats[id] else {
-      appState.update(chatAtID: id, to: chatNew)
-      createMessagesListener(withChatID: id)
-      return
-    }
-    
-    chat.members = chatNew.members
-    chat.name = chatNew.name
-    
-    appState.update(chatAtID: id, to: chat)
+    return chatTable
   }
   
-  /// Creates a listener on a chat's messages subcollection. The listener updates the corresponding chat in AppState when a new message is posted. Throws if listener creation fails.
-  func createMessagesListener(withChatID id: String) {
+  /// Updates a chat using a document snapshot, if chat isn't registered, creates a listener on its Messages subcollection
+  func getUpdatedChat(from chatOld: Chat?, with chatDoc: QueryDocumentSnapshot) -> Chat? {
+    guard let chatNew = try? chatDoc.data(as: Chat.self) else {
+      return chatOld
+    }
+    guard var chatOld = chatOld else {
+      configureMessagesListener(forChatID: chatDoc.documentID)
+      return chatNew
+    }
+    chatOld.members = chatNew.members
+    chatOld.name = chatNew.name
+    
+    return chatOld
+  }
+  
+  /// Creates a listener on a chat's messages subcollection. The listener updates the corresponding chat in AppState when a new message is posted.
+  func configureMessagesListener(forChatID id: String) {
     let listener = db.collection("chats").document(id).collection("messages")
       .addSnapshotListener { querySnapshot, error in
         if let error = error {
-         print(error)
+         assertionFailure("\(error)")
         }
         
         let sortedMessages = querySnapshot?.documents.compactMap { doc -> Message? in
           let message = try? doc.data(as: Message.self)
           return message
-        }.sorted { $0.date < $1.date }
+        }
+        .sorted { $0.date < $1.date }
         
-        guard var chat = self.appState.userData.chats[id] else {
-          return
+        Task {
+          await self.appState.update(messagesAtID: id, to: sortedMessages)
         }
         
-        chat.messages = sortedMessages
-        self.appState.update(chatAtID: id, to: chat)
       }
+    
     self.listeners.append(listener)
   }
 }
 
-// MARK: - FireStoreService Writing
+// MARK: - FireStoreService Writing to Firestore
 extension FireStoreService {
   /// Creates a chat, optionally specifying its Firestore document id. The id parameter is meant for testing purposes.
   func updateChat(chat: Chat, withID id: String? = nil) async throws {

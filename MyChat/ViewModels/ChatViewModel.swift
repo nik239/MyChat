@@ -30,6 +30,7 @@ final class ChatViewModel: ObservableObject {
     self.dbService = dbService
     self.selectedChatObserver = appState.$userData
       .compactMap { $0.selectedChatID }
+      .removeDuplicates()
       .sink { [weak self] id in
         self?.bindToMessages(withChatID: id)
         self?.bindToChatName(withChatID: id)

@@ -7,7 +7,8 @@
 
 import FirebaseAuth
 
-final class AppState: ObservableObject {
+@MainActor
+final class AppState {
   @Published private (set) var userData = UserData()
   @Published private (set) var routing = ViewRouting()
 }
@@ -19,7 +20,7 @@ extension AppState {
     var authState: AuthState = .unauthenticated
     var error: String = ""
     
-    var chats: [String: Chat] = [:]
+    var chats: ChatTable = ChatTable()
     var selectedChatID: String? = nil
   }
   
@@ -31,63 +32,43 @@ extension AppState {
 // MARK: - UserData Actions
 extension AppState {
   func update(user: User?) {
-    Task {
-      await MainActor.run {
-        userData.user = user
-      }
-    }
-  }
-  
-  func update(chatAtID id: String, to chat: Chat) {
-    Task {
-      await MainActor.run {
-        userData.chats[id] = chat
-      }
-    }
+    userData.user = user
   }
   
   func update(authState: AuthState) {
-    Task {
-      await MainActor.run {
-        userData.authState = authState
-      }
-    }
+    userData.authState = authState
   }
   
   func update(error: String) {
-    Task {
-      await MainActor.run {
-        userData.error = error
-      }
-    }
+    userData.error = error
+  }
+  
+  func update(chatAtID id: String, to chat: Chat) {
+    userData.chats[id] = chat
+  }
+  
+  func update(messagesAtID id: String, to messages: [Message]?) {
+    userData.chats[id]?.messages = messages
+  }
+  
+  func update(chats: ChatTable) {
+    userData.chats = chats
   }
   
   func update(selectedChat: Chat) {
-    Task {
-      await MainActor.run {
-        userData.selectedChatID =
-        userData.chats.key(forValue: selectedChat)
-      }
-    }
+    userData.selectedChatID =
+    userData.chats.key(forValue: selectedChat)
   }
   
   func update(userInput: String, forChatAtID id: String) {
-    Task {
-      await MainActor.run {
-        userData.chats[id]?.userInput = userInput
-      }
-    }
+    userData.chats[id]?.userInput = userInput
   }
 }
 
 // MARK: - ViewRouting Actions
 extension AppState {
   func toggleBottomNavigation() {
-    Task {
-      await MainActor.run {
-        routing.showBottomNavigation.toggle()
-      }
-    }
+    routing.showBottomNavigation.toggle()
   }
 }
 
