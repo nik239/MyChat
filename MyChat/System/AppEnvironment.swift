@@ -10,12 +10,12 @@ struct AppEnvironment {
 }
 
 extension AppEnvironment {
-  static func bootstrap() async -> AppEnvironment {
+  static func bootstrap() -> AppEnvironment {
 //    let appState = AppState()
 //    let services = configuredServices(appState: appState)
 //    let viewModels = await configuredInteractors(services: services, appState: appState)
 //    let container = DIContainer(viewModels: viewModels)
-    let container = await DIContainer.preview
+    let container = DIContainer.preview
     return AppEnvironment(container: container)
   }
   
@@ -23,12 +23,12 @@ extension AppEnvironment {
     return .init(authService: RealAuthService(appState: appState), firestoreService: FireStoreService(appState: appState))
   }
   
-  private static func configuredInteractors(services: DIContainer.FirebaseServices, appState: AppState) async -> DIContainer.ViewModels {
-    let authViewModel = await AuthViewModel(authService: services.authService, appState: appState)
-    let chatsViewModel = await ChatsViewModel(appState: appState)
-    let chatViewModel = await ChatViewModel(dbService: services.firestoreService, appState: appState)
-    let profileViewModel = await ProfileViewModel(authService: services.authService, appState: appState)
-    let bottomNavigationViewModel = await BottomNavigationViewModel(appState: appState)
+  private static func configuredInteractors(services: DIContainer.FirebaseServices, appState: AppState) -> DIContainer.ViewModels {
+    let authViewModel = AuthViewModel(authService: services.authService, appState: appState)
+    let chatsViewModel = ChatsViewModel(appState: appState)
+    let chatViewModel = ChatViewModel(dbService: services.firestoreService, appState: appState)
+    let profileViewModel = ProfileViewModel(authService: services.authService, appState: appState)
+    let bottomNavigationViewModel = BottomNavigationViewModel(appState: appState)
     return .init(authViewModel: authViewModel,
                  chatsViewModel: chatsViewModel,
                  chatViewModel: chatViewModel,

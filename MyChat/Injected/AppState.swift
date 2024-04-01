@@ -9,8 +9,17 @@ import FirebaseAuth
 
 @MainActor
 final class AppState {
-  @Published private (set) var userData = UserData()
-  @Published private (set) var routing = ViewRouting()
+  @Published private (set) var userData: UserData = UserData()
+  @Published private (set) var routing: ViewRouting = ViewRouting()
+  
+  nonisolated init(userData: UserData, routing: ViewRouting) {
+    Task {
+      await MainActor.run {
+        self.userData = userData
+        self.routing = routing
+      }
+    }
+  }
 }
 
 extension AppState {
@@ -75,8 +84,7 @@ extension AppState {
 #if DEBUG
 // MARK: - Preview
 extension AppState {
-  static var preview: AppState {
-    let preview = AppState()
+  nonisolated static var preview: AppState {
     var chat1 = Chat(members: [], name: "Sam")
     var chat2 = Chat(members: [], name: "Merry")
     var chat3 = Chat(members:[], name: "Pipppin")
@@ -85,18 +93,13 @@ extension AppState {
     chat1.messages = [Message(author: "Sam", content: messageContent)]
     chat2.messages = [Message(author: "Merry", content: messageContent2)]
     chat3.messages = [Message(author: "Pippin", content: messageContent)]
-    preview.update(chatAtID: "1", to: chat1)
-    preview.update(chatAtID: "2", to: chat2)
-    preview.update(chatAtID: "3", to: chat3)
-//    preview.update(chatAtID: "4", to: chat1)
-//    preview.update(chatAtID: "5", to: chat2)
-//    preview.update(chatAtID: "6", to: chat3)
-//    preview.update(chatAtID: "7", to: chat1)
-//    preview.update(chatAtID: "8", to: chat2)
-//    preview.update(chatAtID: "9", to: chat3)
-    preview.update(selectedChat: chat1)
-    preview.update(authState: .authenticated)
-    
+    let userData = AppState.UserData(user: nil,
+                                     authState: .authenticated,
+                                     error: "",
+                                     chats: ["1": chat1, "2": chat2, "3": chat3],
+                                     selectedChatID: nil)
+    let routing = AppState.ViewRouting(showBottomNavigation: true)
+    let preview = AppState(userData: userData, routing: routing)
     return preview
   }
 }

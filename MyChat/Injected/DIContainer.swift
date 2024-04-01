@@ -18,7 +18,6 @@ struct DIContainer {
 
 #if DEBUG
 extension DIContainer {
-  @MainActor
   static var preview: Self {
     .init(viewModels: .stub)
   }
@@ -34,7 +33,6 @@ extension DIContainer {
     let profileViewModel: ProfileViewModel
     let bottomNavigationViewModel: BottomNavigationViewModel
     
-    @MainActor
     static var stub: Self {
       let appState = AppState.preview
       return .init(authViewModel: AuthViewModel(authService: StubAuthService(),
