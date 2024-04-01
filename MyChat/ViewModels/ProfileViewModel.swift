@@ -7,22 +7,19 @@
 
 import SwiftUI
 import Combine
-import Foundation
 
 @MainActor
 final class ProfileViewModel: ObservableObject {
   let authService: AuthService
   
+  let appState: AppState
+  var appStateSub: AnyCancellable?
+  
   @Published var userHandle: String = "Unknown"
   
-  init(authService: AuthService, appState: AppState) {
+  nonisolated init(authService: AuthService, appState: AppState) {
     self.authService = authService
-    appState.$userData
-      .map {
-        $0.user?.displayName ?? "Unknown"
-      }
-      .removeDuplicates()
-      .assign(to: &$userHandle)
+    self.appState = appState
   }
   
   func updateUserHandle() {
@@ -39,5 +36,19 @@ final class ProfileViewModel: ObservableObject {
     Task {
       await authService.deleteAccount()
     }
+  }
+}
+
+//MARK: - ProfileViewModel State Subscription Managment
+extension ProfileViewModel {
+  func subscribeToState() {
+    self.appStateSub = appState.$userData
+      .map { $0.user?.displayName ?? "Unknown"}
+      .removeDuplicates()
+      .sink { self.userHandle = $0 }
+  }
+  
+  func unsubscribeFromState() {
+    appStateSub?.cancel()
   }
 }

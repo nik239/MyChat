@@ -28,6 +28,12 @@ struct ChatsView: View {
       }
     }
     .navigationBarTitle("Chats")
+    .onAppear {
+      viewModel.subscribeToState()
+    }
+    .onDisappear {
+      viewModel.unsubscribeFromState()
+    }
   }
 }
 

@@ -71,6 +71,8 @@ extension FireStoreService {
   func getUpdatedChatTable(from chatDocs: [QueryDocumentSnapshot], forUser userID: String) async -> ChatTable {
     var chatTable = await appState.userData.chats
     
+    // TaskGroup here introduces unnescessary complexity without a clear preformance benefit
+    // It's implemented largely for the sake of exercise
     await withTaskGroup(of: (String, Chat?).self) { group in
       for chatDoc in chatDocs {
         let id = chatDoc.documentID

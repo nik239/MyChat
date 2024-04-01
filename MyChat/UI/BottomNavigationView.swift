@@ -24,6 +24,12 @@ struct BottomNavigationView: View {
           Text("Settings")
         }
     }
+    .onAppear {
+      viewModel.subscribeToState()
+    }
+    .onDisappear {
+      viewModel.unsubscribeFromState()
+    }
   }
 }
 

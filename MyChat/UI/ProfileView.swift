@@ -73,6 +73,12 @@ struct ProfileView: View {
       Spacer()
       Divider()
     }
+    .onAppear {
+      viewModel.subscribeToState()
+    }
+    .onDisappear {
+      viewModel.unsubscribeFromState()
+    }
     .alert(isPresented: $showAlert) {
       Alert(
         title: Text("Confirm Deletion"),

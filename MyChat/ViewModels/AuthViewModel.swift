@@ -5,7 +5,6 @@
 //  Created by Nikita Ivanov on 10/02/2024.
 //
 
-import Foundation
 import SwiftUI
 import Combine
 import AuthenticationServices
@@ -18,11 +17,12 @@ enum AuthFlow {
 @MainActor
 final class AuthViewModel: ObservableObject {
   let authService: AuthService
+  let appState: AppState
   
-//  private var cancellables = Set<AnyCancellable>()
+  private var appStateSubs = Set<AnyCancellable>()
   
-  @Published var authState: AuthState
-  @Published var errorMessage: String
+  @Published var authState: AuthState = .unauthenticated
+  @Published var errorMessage: String = ""
   
   @Published var email = ""
   @Published var password = ""
@@ -32,43 +32,41 @@ final class AuthViewModel: ObservableObject {
   
   @Published var isValid  = false
   
-  init(authService: AuthService, appState: AppState) {
+  nonisolated init(authService: AuthService, appState: AppState) {
     self.authService = authService
-    self.authState = appState.userData.authState
-    self.errorMessage = appState.userData.error
-    bindToAppState(appState: appState)
-    makeIsValidPublisher()
+    self.appState = appState
+    Task {
+      await MainActor.run {
+        subscribeToState()
+        makeIsValidPublisher()
+      }
+    }
   }
   
-  private func bindToAppState(appState: AppState) {
+  private func subscribeToState() {
     appState.$userData
       .map { $0.authState }
       .removeDuplicates()
-      .assign(to: &$authState)
-      
+      .sink {
+        self.authState = $0
+      }
+      .store(in: &appStateSubs)
     appState.$userData
       .map { $0.error }
       .removeDuplicates()
-      .assign(to: &$errorMessage)
+      .sink {
+        self.errorMessage = $0
+      }
+      .store(in: &appStateSubs)
   }
-  
-//  private func bindAppState(appState: AppState) {
-//    appState.$userData
-//      .receive(on: RunLoop.main)
-//      .sink { [weak self] userData in
-//        self?.authState = userData.authState
-//        self?.errorMessage = userData.authError
-//      }
-//      .store(in: &cancellables)
-//  }
   
   private func makeIsValidPublisher() {
     $flow
       .combineLatest($email, $password, $confirmPassword)
       .map { flow, email, password, confirmPassword in
         flow == .login
-          ? !(email.isEmpty || password.isEmpty)
-          : !(email.isEmpty || password.isEmpty || confirmPassword.isEmpty)
+        ? !(email.isEmpty || password.isEmpty)
+        : !(email.isEmpty || password.isEmpty || confirmPassword.isEmpty)
       }
       .assign(to: &$isValid)
   }

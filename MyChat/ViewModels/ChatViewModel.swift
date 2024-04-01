@@ -10,10 +10,10 @@ import Combine
 
 @MainActor
 final class ChatViewModel: ObservableObject {
-  let appState: AppState
   let dbService: DBService
   
-  var selectedChatObserver: AnyCancellable? = nil
+  let appState: AppState
+  var appStateSubs = Set<AnyCancellable>()
   
   @Published var chatName: String?
   @Published var messages: [Message]?
@@ -25,34 +25,34 @@ final class ChatViewModel: ObservableObject {
   let editorWidth: CGFloat = UIScreen.main.bounds.width * 0.75
   let editorFont: Font = .body
   
-  init(dbService: DBService, appState: AppState) {
+  nonisolated init(dbService: DBService, appState: AppState) {
     self.appState = appState
     self.dbService = dbService
-    self.selectedChatObserver = appState.$userData
-      .compactMap { $0.selectedChatID }
-      .removeDuplicates()
-      .sink { [weak self] id in
-        self?.bindToMessages(withChatID: id)
-        self?.bindToChatName(withChatID: id)
-      }
+  }
+  
+  func subscribeToState(selectedChatId id: String) {
+    bindToMessages(withChatID: id)
+    bindToChatName(withChatID: id)
+  }
+  
+  func unsubscribeFromState() {
+    appStateSubs.removeAll()
   }
   
   private func bindToMessages(withChatID id: String) {
     appState.$userData
-      .receive(on: DispatchQueue.main)
-      .map {
-        $0.chats[id]?.messages
-      }
-      .assign(to: &$messages)
+      .compactMap { $0.chats[id]?.messages }
+      .removeDuplicates()
+      .sink { self.messages = $0 }
+      .store(in: &appStateSubs)
   }
   
   private func bindToChatName(withChatID id: String) {
     appState.$userData
-      .receive(on: DispatchQueue.main)
-      .map {
-        $0.chats[id]?.name
-      }
-      .assign(to: &$chatName)
+      .compactMap { $0.chats[id]?.name }
+      .removeDuplicates()
+      .sink { self.chatName = $0 }
+      .store(in: &appStateSubs)
   }
 }
 
@@ -120,12 +120,14 @@ extension ChatViewModel {
   func preformOnAppear() {
     appState.toggleBottomNavigation()
     if let selectedChatID = appState.userData.selectedChatID {
+      subscribeToState(selectedChatId: selectedChatID)
       userInput = appState.userData.chats[selectedChatID]?.userInput ?? ""
     }
   }
   
   func preformOnDisappear() {
     appState.toggleBottomNavigation()
+    unsubscribeFromState()
     backUpUserInput()
   }
   

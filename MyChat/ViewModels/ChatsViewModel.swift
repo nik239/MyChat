@@ -5,30 +5,41 @@
 //  Created by Nikita Ivanov on 13/03/2024.
 //
 
-import Foundation
 import SwiftUI
 import Combine
 
 @MainActor
 final class ChatsViewModel: ObservableObject {
-  @Published var chats: [Chat]?
   let appState: AppState
-  init(appState: AppState) {
+  private var appStateSub: AnyCancellable?
+  
+  @Published var chats: [Chat]?
+  
+  nonisolated init(appState: AppState) {
     self.appState = appState
-    appState.$userData
-      .map {
-        Array($0.chats.values).sorted() {
-          //sort chats by date of last message sent
-          guard let date0 = $0.messages?.last?.date else {
-            return false
-          }
-          guard let date1 = $1.messages?.last?.date else {
-            return true
-          }
-          return date0 > date1
-        }
+  }
+  
+  func subscribeToState() {
+    appStateSub = appState.$userData
+      .compactMap { Array($0.chats.values) }
+      .removeDuplicates()
+      .sink { chatsArr in
+        self.chats = chatsArr.sorted() {self.isMoreRecent($0, then: $1)}
       }
-      .assign(to: &$chats)
+  }
+  
+  func unsubscribeFromState() {
+    appStateSub?.cancel()
+  }
+  
+  func isMoreRecent(_ chat1: Chat, then chat2: Chat) -> Bool {
+    guard let date0 = chat1.messages?.last?.date else {
+      return false
+    }
+    guard let date1 = chat2.messages?.last?.date else {
+      return true
+    }
+    return date0 > date1
   }
   
   func messagePreview(chat: Chat) -> String {
@@ -64,7 +75,7 @@ final class ChatsViewModel: ObservableObject {
     return dateFormatter.string(from: date)
   }
   
-  nonisolated func didTapOnChat(chat: Chat) {
+  func didTapOnChat(chat: Chat) {
     Task {
       await appState.update(selectedChat: chat)
     }

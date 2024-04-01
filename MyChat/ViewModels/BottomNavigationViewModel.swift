@@ -12,13 +12,22 @@ import Combine
 final class BottomNavigationViewModel: ObservableObject {
   @Published var showBottomNavigation: Bool = true
   
-  init(appState: AppState) {
-    appState.$routing
-      .map {
-        return $0.showBottomNavigation
-      }
-      .removeDuplicates()
-      .assign(to: &$showBottomNavigation)
+  let appState: AppState
+  var appStateSub: AnyCancellable?
+  
+  nonisolated init(appState: AppState) {
+    self.appState = appState
+  }
+  
+  func subscribeToState() {
+    appStateSub = appState.$routing
+    .map { $0.showBottomNavigation }
+    .removeDuplicates()
+    .sink { self.showBottomNavigation = $0 }
+  }
+  
+  func unsubscribeFromState() {
+    appStateSub?.cancel()
   }
 }
 
