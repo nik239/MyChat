@@ -28,7 +28,7 @@ extension AppState {
     var user: User?
     
     var authState: AuthState = .unauthenticated
-    var error: String = ""
+    var error: String?
     
     var chats: ChatTable = ChatTable()
     var selectedChatID: String? = nil
@@ -49,7 +49,7 @@ extension AppState {
     userData.authState = authState
   }
   
-  func update(error: String) {
+  func update(error: String?) {
     userData.error = error
   }
   

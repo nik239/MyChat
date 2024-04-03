@@ -94,7 +94,7 @@ final class RealAuthService: AuthService {
   
   func clearError() {
     Task {
-      await self.appState.update(error: "")
+      await self.appState.update(error: nil)
     }
   }
 }

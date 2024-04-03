@@ -52,7 +52,7 @@ final class AuthViewModel: ObservableObject {
       }
       .store(in: &appStateSubs)
     appState.$userData
-      .map { $0.error }
+      .map { $0.error ?? "" }
       .removeDuplicates()
       .sink {
         self.errorMessage = $0
