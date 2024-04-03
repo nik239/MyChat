@@ -21,57 +21,60 @@ final class ProfileViewModelTests: XCTestCase {
     sut = ProfileViewModel(authService: mockedAuthService, appState: appState)
   }
   
-  func test_updateUserHandle() async {
+  @MainActor
+  func test_updateUserHandle() {
     //given
     let newHandle = "New Handle"
-    await MainActor.run {
-      sut.userHandle = newHandle
-    }
+    sut.userHandle = newHandle
     //expected
     mockedAuthService.actions = .init(expected: [.changeUserHandle(newUserHandle: newHandle)])
     //when
-    await sut.updateUserHandle()
+    sut.updateUserHandle()
     //then
     mockedAuthService.verify()
   }
   
-  func test_signOut() async {
+  @MainActor
+  func test_signOut() {
     //expected
     mockedAuthService.actions = .init(expected: [.signOut])
     //when
-    await sut.signOut()
+    sut.signOut()
     //then
     mockedAuthService.verify()
   }
   
-  func test_deleteAccount() async {
+  @MainActor
+  func test_deleteAccount() {
     //expected
     mockedAuthService.actions = .init(expected: [.deleteAccount])
     //when
-    await sut.deleteAccount()
+    sut.deleteAccount()
     //then
     mockedAuthService.verify()
   }
   
-  func test_subscribeToState() async {
+  @MainActor
+  func test_subscribeToState() {
     //given
-    var subscription = await sut.appStateSub
-    let userHandle = await sut.userHandle
+    var subscription = sut.appStateSub
+    let userHandle = sut.userHandle
     //then
     XCTAssertNil(subscription)
     XCTAssertEqual(userHandle, "Unknown")
     //when
-    await sut.subscribeToState()
-    subscription = await sut.appStateSub
+    sut.subscribeToState()
+    subscription = sut.appStateSub
     //then
     XCTAssertNotNil(subscription)
   }
   
-  func test_unsubscribeFromState() async {
+  @MainActor
+  func test_unsubscribeFromState() {
     //given
-    await sut.subscribeToState()
-    await sut.unsubscribeFromState()
-    let subscription = await sut.appStateSub
+    sut.subscribeToState()
+    sut.unsubscribeFromState()
+    let subscription = sut.appStateSub
     //then
     XCTAssertNil(subscription)
   }

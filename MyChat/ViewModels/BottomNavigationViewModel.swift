@@ -28,6 +28,7 @@ final class BottomNavigationViewModel: ObservableObject {
   
   func unsubscribeFromState() {
     appStateSub?.cancel()
+    appStateSub = nil
   }
 }
 
