@@ -11,11 +11,11 @@ struct AppEnvironment {
 
 extension AppEnvironment {
   static func bootstrap() -> AppEnvironment {
-//    let appState = AppState()
-//    let services = configuredServices(appState: appState)
-//    let viewModels = configuredInteractors(services: services, appState: appState)
-//    let container = DIContainer(viewModels: viewModels)
-    let container = DIContainer.preview
+    let appState = AppState()
+    let services = configuredServices(appState: appState)
+    let viewModels = configuredInteractors(services: services, appState: appState)
+    let container = DIContainer(viewModels: viewModels)
+//    let container = DIContainer.preview
     return AppEnvironment(container: container)
   }
   

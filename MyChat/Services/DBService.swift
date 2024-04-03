@@ -33,7 +33,7 @@ final class FireStoreService: DBService {
       for await user in userValues {
         self.listeners.forEach { $0.remove() }
         self.listeners = []
-        self.configureListeners(forUser: user.displayName)
+        self.configureListeners(forUser: user.uid)
       }
     }
   }

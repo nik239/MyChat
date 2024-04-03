@@ -95,7 +95,7 @@ extension AppState {
       chat2.messages = [Message(author: "Merry", content: messageContent2)]
       chat3.messages = [Message(author: "Pippin", content: messageContent)]
       let userData = AppState.UserData(user: nil,
-                                       authState: .authenticated,
+                                       authState: .unauthenticated,
                                        error: "",
                                        chats: ["1": chat1, "2": chat2, "3": chat3],
                                        selectedChatID: "1")

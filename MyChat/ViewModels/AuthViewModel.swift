@@ -19,7 +19,7 @@ final class AuthViewModel: ObservableObject {
   let authService: AuthService
   let appState: AppState
   
-  private var appStateSubs = Set<AnyCancellable>()
+  var appStateSubs = Set<AnyCancellable>()
   
   @Published var authState: AuthState = .unauthenticated
   @Published var errorMessage: String = ""
@@ -61,6 +61,7 @@ final class AuthViewModel: ObservableObject {
   }
   
   private func makeIsValidPublisher() {
+    //AuthViewModel is not responsible for checking that the passwords match
     $flow
       .combineLatest($email, $password, $confirmPassword)
       .map { flow, email, password, confirmPassword in

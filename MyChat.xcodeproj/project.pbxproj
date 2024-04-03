@@ -57,6 +57,8 @@
 		A8E4FDF92BA171AA00BF9077 /* StringError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4FDF82BA171AA00BF9077 /* StringError.swift */; };
 		A8E4FDFB2BA2157800BF9077 /* ChatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E4FDFA2BA2157800BF9077 /* ChatsViewModel.swift */; };
 		A8EF71142BBDBE810008E935 /* BottomNavigationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EF71132BBDBE810008E935 /* BottomNavigationViewModelTests.swift */; };
+		A8EF71162BBDCC950008E935 /* BottomNavigationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EF71152BBDCC950008E935 /* BottomNavigationViewTests.swift */; };
+		A8EF71182BBDCDA00008E935 /* AuthViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EF71172BBDCDA00008E935 /* AuthViewModelTests.swift */; };
 		A8FA92AF2BAA8047004D9F2C /* KeyForValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FA92AE2BAA8047004D9F2C /* KeyForValue.swift */; };
 		A8FA92B22BAB5768004D9F2C /* BottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FA92B12BAB5768004D9F2C /* BottomNavigationView.swift */; };
 /* End PBXBuildFile section */
@@ -121,6 +123,8 @@
 		A8E4FDF82BA171AA00BF9077 /* StringError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringError.swift; sourceTree = "<group>"; };
 		A8E4FDFA2BA2157800BF9077 /* ChatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewModel.swift; sourceTree = "<group>"; };
 		A8EF71132BBDBE810008E935 /* BottomNavigationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationViewModelTests.swift; sourceTree = "<group>"; };
+		A8EF71152BBDCC950008E935 /* BottomNavigationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationViewTests.swift; sourceTree = "<group>"; };
+		A8EF71172BBDCDA00008E935 /* AuthViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModelTests.swift; sourceTree = "<group>"; };
 		A8FA92AE2BAA8047004D9F2C /* KeyForValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyForValue.swift; sourceTree = "<group>"; };
 		A8FA92B02BAB40A6004D9F2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A8FA92B12BAB5768004D9F2C /* BottomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationView.swift; sourceTree = "<group>"; };
@@ -176,8 +180,8 @@
 				A8E4D5872B871E0900EA0EE7 /* System */,
 				A8E4D5822B86F54600EA0EE7 /* Injected */,
 				A8E4D57C2B86F0CE00EA0EE7 /* Services */,
-				A8D45E4F2B7879D00005126C /* UI */,
 				A8D9C0CB2B78792000118CA0 /* ViewModels */,
+				A8D45E4F2B7879D00005126C /* UI */,
 				A8E4D57D2B86F0E200EA0EE7 /* Utilities */,
 				A80AADED2B71DE8C00A74DAA /* Assets.xcassets */,
 				A80AADEF2B71DE8C00A74DAA /* Preview Content */,
@@ -196,9 +200,9 @@
 		A82CFB702B79AD9E00E4DE0D /* MyChatTests */ = {
 			isa = PBXGroup;
 			children = (
+				A8C7D79D2B9E623200383676 /* Services */,
 				A87B72672BB5F4B600B7A1EA /* ViewModels */,
 				A83B45B52BA6A919004FA743 /* UI */,
-				A8C7D79D2B9E623200383676 /* Services */,
 				A854B0B02BB22B4F00BD2AEC /* Mocks */,
 				A83B50842BBCB52300B9D49F /* TestingHelpers */,
 			);
@@ -210,6 +214,7 @@
 			children = (
 				A83B45B82BA6A9B6004FA743 /* ChatsViewTests.swift */,
 				A83B45BD2BA6ACB3004FA743 /* AuthViewTests.swift */,
+				A8EF71152BBDCC950008E935 /* BottomNavigationViewTests.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -258,6 +263,7 @@
 			children = (
 				A87B72682BB5F51700B7A1EA /* ProfileViewModelTests.swift */,
 				A8EF71132BBDBE810008E935 /* BottomNavigationViewModelTests.swift */,
+				A8EF71172BBDCDA00008E935 /* AuthViewModelTests.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -496,6 +502,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8EF71182BBDCDA00008E935 /* AuthViewModelTests.swift in Sources */,
 				A854B0B42BB22D0200BD2AEC /* MockedAuthService.swift in Sources */,
 				A8EF71142BBDBE810008E935 /* BottomNavigationViewModelTests.swift in Sources */,
 				A83B45B92BA6A9B6004FA743 /* ChatsViewTests.swift in Sources */,
@@ -505,6 +512,7 @@
 				A8C7D79F2B9E628100383676 /* AuthServiceTests.swift in Sources */,
 				A854B0B82BB2391300BD2AEC /* DIContainerMocked.swift in Sources */,
 				A83B50862BBCB56600B9D49F /* untilEqual.swift in Sources */,
+				A8EF71162BBDCC950008E935 /* BottomNavigationViewTests.swift in Sources */,
 				A854B0B62BB235B100BD2AEC /* MockedDBService.swift in Sources */,
 				A854B0B22BB22B6F00BD2AEC /* Mock.swift in Sources */,
 			);

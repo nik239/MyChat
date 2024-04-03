@@ -14,7 +14,6 @@ private enum FocusableField {
 
 struct LoginView: View {
   @EnvironmentObject var viewModel: AuthViewModel
-  @Environment(\.dismiss) var dismiss
   
   @FocusState private var focus: FocusableField?
   
