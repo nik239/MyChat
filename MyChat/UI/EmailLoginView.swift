@@ -18,14 +18,6 @@ struct LoginView: View {
   
   @FocusState private var focus: FocusableField?
   
-  private func signInWithEmailPassword() {
-    Task {
-      if await viewModel.signInWithEmailPassword() == true {
-        dismiss()
-      }
-    }
-  }
-  
   var body: some View {
     VStack {
       Text("Login")
@@ -53,7 +45,7 @@ struct LoginView: View {
           .focused($focus, equals: .password)
           .submitLabel(.go)
           .onSubmit {
-            signInWithEmailPassword()
+            viewModel.signInWithEmailPassword()
           }
       }
       .padding(.vertical, 6)
@@ -68,7 +60,7 @@ struct LoginView: View {
       }
     }
     
-    Button(action: signInWithEmailPassword) {
+    Button(action: viewModel.signInWithEmailPassword) {
       if viewModel.authState != .authenticating {
         Text("Login")
           .padding(.vertical, 8)

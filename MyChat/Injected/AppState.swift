@@ -12,9 +12,10 @@ final class AppState {
   @Published private (set) var userData: UserData = UserData()
   @Published private (set) var routing: ViewRouting = ViewRouting()
   
-  nonisolated init(userData: UserData, routing: ViewRouting) {
+  nonisolated init(userData: UserData = UserData(),
+                   routing: ViewRouting = ViewRouting()) {
     Task {
-      await MainActor.run {
+       await MainActor.run {
         self.userData = userData
         self.routing = routing
       }
@@ -85,22 +86,22 @@ extension AppState {
 // MARK: - Preview
 extension AppState {
   nonisolated static var preview: AppState {
-    var chat1 = Chat(members: [], name: "Sam")
-    var chat2 = Chat(members: [], name: "Merry")
-    var chat3 = Chat(members:[], name: "Pipppin")
-    let messageContent = "Hey, what's up. Hope everything is well. Do you have the ring? I was wondering if I could I borrow it for a little while."
-    let messageContent2 = "Hey, this is Merry. Hope everything is well. Do you have the ring? I was wondering if I could I borrow it for a little while."
-    chat1.messages = [Message(author: "Sam", content: messageContent)]
-    chat2.messages = [Message(author: "Merry", content: messageContent2)]
-    chat3.messages = [Message(author: "Pippin", content: messageContent)]
-    let userData = AppState.UserData(user: nil,
-                                     authState: .authenticated,
-                                     error: "",
-                                     chats: ["1": chat1, "2": chat2, "3": chat3],
-                                     selectedChatID: nil)
-    let routing = AppState.ViewRouting(showBottomNavigation: true)
-    let preview = AppState(userData: userData, routing: routing)
-    return preview
+      var chat1 = Chat(members: [], name: "Sam")
+      var chat2 = Chat(members: [], name: "Merry")
+      var chat3 = Chat(members: [], name: "Pipppin")
+      let messageContent = "Hey, what's up. Hope everything is well. Do you have the ring? I was wondering if I could I borrow it for a little while."
+      let messageContent2 = "Hey, this is Merry. Hope everything is well. Do you have the ring? I was wondering if I could I borrow it for a little while."
+      chat1.messages = [Message(author: "Sam", content: messageContent)]
+      chat2.messages = [Message(author: "Merry", content: messageContent2)]
+      chat3.messages = [Message(author: "Pippin", content: messageContent)]
+      let userData = AppState.UserData(user: nil,
+                                       authState: .authenticated,
+                                       error: "",
+                                       chats: ["1": chat1, "2": chat2, "3": chat3],
+                                       selectedChatID: "1")
+      let routing = AppState.ViewRouting(showBottomNavigation: true)
+      let preview = AppState(userData: userData, routing: routing)
+      return preview
   }
 }
 #endif

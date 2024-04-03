@@ -87,12 +87,12 @@ final class AuthViewModel: ObservableObject {
 
 // MARK: - Authentication
 extension AuthViewModel {
-  func signInWithEmailPassword() async -> Bool {
-    await authService.signInWithEmailPassword(email: self.email, password: self.password)
+  func signInWithEmailPassword() {
+    authService.signInWithEmailPassword(email: self.email, password: self.password)
   }
   
-  func signUpWithEmailPassword() async -> Bool {
-    await authService.signUpWithEmailPassword(email: self.email, password: self.password)
+  func signUpWithEmailPassword() {
+    authService.signUpWithEmailPassword(email: self.email, password: self.password)
   }
   
   func handleSignInWithApple(_ request: ASAuthorizationAppleIDRequest) {

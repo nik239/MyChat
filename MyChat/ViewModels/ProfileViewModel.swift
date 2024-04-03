@@ -23,9 +23,7 @@ final class ProfileViewModel: ObservableObject {
   }
   
   func updateUserHandle() {
-    Task {
-      await authService.changeUserHandle(newUserHandle: userHandle)
-    }
+    authService.changeUserHandle(newUserHandle: userHandle)
   }
   
   func signOut() {
@@ -33,9 +31,7 @@ final class ProfileViewModel: ObservableObject {
   }
   
   func deleteAccount() {
-    Task {
-      await authService.deleteAccount()
-    }
+    authService.deleteAccount()
   }
 }
 
@@ -50,5 +46,6 @@ extension ProfileViewModel {
   
   func unsubscribeFromState() {
     appStateSub?.cancel()
+    appStateSub = nil
   }
 }

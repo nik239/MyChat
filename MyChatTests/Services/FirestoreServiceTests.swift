@@ -67,19 +67,19 @@ final class FirestoreServiceTests: XCTestCase {
     //given
     let chatID = "test2"
     let chat = Chat(members: [""], name: "testChat")
-    appState.update(chatAtID: chatID, to: chat)
+    await appState.update(chatAtID: chatID, to: chat)
     let message = Message(author: "testUser", content: "test")
     dbService.configureMessagesListener(forChatID: chatID)
     //when
     try! await dbService.updateChat(chat: chat, withID: chatID)
     try! await dbService.sendMessage(message: message, toChatWithID: chatID)
     //then
-    var messages = appState.userData.chats[chatID]!.messages!
+    var messages = await appState.userData.chats[chatID]!.messages!
     XCTAssertEqual(messages.count, 1)
     //when
     try! await dbService.sendMessage(message: message, toChatWithID: chatID)
     //then
-    messages = appState.userData.chats[chatID]!.messages!
+    messages = await appState.userData.chats[chatID]!.messages!
     XCTAssertEqual(messages.count, 2)
   }
   
@@ -96,18 +96,19 @@ final class FirestoreServiceTests: XCTestCase {
     try! await dbService.updateChat(chat: chat1, withID: chatID1)
     try! await dbService.updateChat(chat: chat2, withID: chatID2)
     //then
-    XCTAssertEqual(appState.userData.chats.count, 2)
+    let actualChatsCount = await appState.userData.chats.count
+    XCTAssertEqual(actualChatsCount, 2)
     //when
     try! await dbService.sendMessage(message: message, toChatWithID: chatID1)
     //then
-    var messages = appState.userData.chats[chatID1]!.messages!
+    var messages = await appState.userData.chats[chatID1]!.messages!
     XCTAssertEqual(messages.count, 1)
     //when
     chat1.name = "new_name"
     try! await dbService.updateChat(chat: chat1, withID: chatID1)
-    let chatNewName = appState.userData.chats[chatID1]!.name
+    let chatNewName = await appState.userData.chats[chatID1]!.name
     XCTAssertEqual(chatNewName, "new_name")
-    messages = appState.userData.chats[chatID1]!.messages!
+    messages = await appState.userData.chats[chatID1]!.messages!
     XCTAssertEqual(messages.count, 1)
   }
 }

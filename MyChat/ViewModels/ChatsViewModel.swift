@@ -76,9 +76,7 @@ final class ChatsViewModel: ObservableObject {
   }
   
   func didTapOnChat(chat: Chat) {
-    Task {
-      await appState.update(selectedChat: chat)
-    }
+    appState.update(selectedChat: chat)
   }
 }
 

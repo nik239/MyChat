@@ -9,7 +9,7 @@ import XCTest
 @testable import MyChat
 import AuthenticationServices
 
-struct MockedAuthService: Mock, AuthService {
+final class MockedAuthService: Mock, AuthService {
   enum Action: Equatable {
     case signInWithEmailPassword(email: String, password: String)
     case signUpWithEmailPassword(email: String, password: String)
@@ -21,20 +21,18 @@ struct MockedAuthService: Mock, AuthService {
     case clearError
   }
   
-  let actions: MockActions<Action>
+  var actions: MockActions<Action>
   
   init(expected: [Action] = []) {
     self.actions = .init(expected: expected)
   }
   
-  func signInWithEmailPassword(email: String, password: String) async -> Bool {
+  func signInWithEmailPassword(email: String, password: String) {
     register(.signInWithEmailPassword(email: email, password: password))
-    return true
   }
   
-  func signUpWithEmailPassword(email: String, password: String) async -> Bool {
+  func signUpWithEmailPassword(email: String, password: String) {
     register(.signUpWithEmailPassword(email: email, password: password))
-    return true
   }
   
   func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) {}
@@ -45,12 +43,11 @@ struct MockedAuthService: Mock, AuthService {
     register(.signOut)
   }
   
-  func deleteAccount() async -> Bool {
+  func deleteAccount() {
     register(.deleteAccount)
-    return true
   }
   
-  func changeUserHandle(newUserHandle: String) async {
+  func changeUserHandle(newUserHandle: String) {
     register(.changeUserHandle(newUserHandle: newUserHandle))
   }
   

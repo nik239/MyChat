@@ -36,13 +36,13 @@ struct ChatView: View {
       }
       HStack (alignment: .bottom) {
           TextEditor(text: $viewModel.userInput)
-          .font(.body)
+          .font(viewModel.editorFont)
           .frame(minWidth: viewModel.editorWidth,
                  maxWidth: viewModel.editorWidth,
                  maxHeight: viewModel.editorHeight)
         
-            .onChange(of: viewModel.userInput) { _ in
-              viewModel.editorHeight = min(viewModel.maxHeight, viewModel.calculateTextHeight3())
+          .onChange(of: viewModel.userInput, initial: false) {
+              viewModel.editorHeight = min(viewModel.maxHeight, viewModel.calculateTextHeight())
             }
         
         Button(action: viewModel.sendMessage) {
@@ -54,7 +54,7 @@ struct ChatView: View {
       }
       .padding(5)
       .overlay(
-        RoundedRectangle(cornerRadius: 20)
+        RoundedRectangle(cornerRadius: 15)
           .stroke(Color.secondary)
       )
       .padding()

@@ -82,35 +82,14 @@ extension ChatViewModel {
   }
   
   func calculateTextHeight() -> CGFloat {
+    if userInput == "" {
+      return 20
+    }
     let textView = UITextView(frame: CGRect(x: 0, y: 0, width: editorWidth, height: CGFloat.greatestFiniteMagnitude))
     textView.text = userInput
-    textView.font = UIFont.preferredFont(forTextStyle: .body)
+    textView.font = UIFont.preferredFont(from: editorFont)
     textView.sizeToFit()
     return textView.frame.height
-  }
-  
-  func calculateTextHeight2() -> CGFloat {
-      let font = UIFont.systemFont(ofSize: 17) // Replace with your font size
-      let attributes: [NSAttributedString.Key: Any] = [.font: font]
-      let textSize = (userInput as NSString).boundingRect(
-          with: CGSize(width: editorWidth, height: CGFloat.greatestFiniteMagnitude),
-          options: [.usesLineFragmentOrigin, .usesFontLeading],
-          attributes: attributes,
-          context: nil
-      ).size
-      
-      return ceil(textSize.height)
-  }
-  
-  func calculateTextHeight3() -> CGFloat {
-      let font = UIFont.systemFont(ofSize: 17) // Replace with your font size
-      let width = editorWidth // Replace with your editor width
-      let text = userInput // Replace with your text
-      
-      let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-      let boundingBox = text.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [.font: font], context: nil)
-      
-      return boundingBox.height
   }
 }
   

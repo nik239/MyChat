@@ -17,15 +17,15 @@ enum AuthState {
 
 // MARK: - AuthService
 protocol AuthService {
-  func signInWithEmailPassword(email: String, password: String) async -> Bool
-  func signUpWithEmailPassword(email: String, password: String) async -> Bool
+  func signInWithEmailPassword(email: String, password: String)
+  func signUpWithEmailPassword(email: String, password: String)
   
   func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest)
   func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>)
   
   func signOut()
-  func deleteAccount() async -> Bool
-  func changeUserHandle(newUserHandle: String) async
+  func deleteAccount()
+  func changeUserHandle(newUserHandle: String)
   
   func clearError()
 }
@@ -66,29 +66,29 @@ final class RealAuthService: AuthService {
     }
   }
   
-  func deleteAccount() async -> Bool {
-    do {
-      try await self.appState.userData.user?.delete()
-      return true
-    }
-    catch {
-      Task {
+  func deleteAccount() {
+    Task {
+      do {
+        try await self.appState.userData.user?.delete()
+      }
+      catch {
         await self.appState.update(error: error.localizedDescription)
       }
-      return false
     }
   }
   
-  func changeUserHandle(newUserHandle: String) async {
-    guard let changeRequest = await appState.userData.user?.createProfileChangeRequest() else {
-      return
-    }
-    changeRequest.displayName = newUserHandle
-    do {
-      try await changeRequest.commitChanges()
-    }
-    catch {
-      print("Unable to update the user's displayname: \(error.localizedDescription)")
+  func changeUserHandle(newUserHandle: String) {
+    Task {
+      guard let changeRequest = await appState.userData.user?.createProfileChangeRequest() else {
+        return
+      }
+      changeRequest.displayName = newUserHandle
+      do {
+        try await changeRequest.commitChanges()
+      }
+      catch {
+        print("Unable to update the user's displayname: \(error.localizedDescription)")
+      }
     }
   }
   
@@ -101,31 +101,31 @@ final class RealAuthService: AuthService {
 
 // MARK: - RealAuthService Email and Password Authentication
 extension RealAuthService {
-  func signInWithEmailPassword(email: String, password: String) async -> Bool {
-    await self.appState.update(authState: .authenticating)
-    do {
-      try await Auth.auth().signIn(withEmail: email, password: password)
-      return true
-    }
-    catch {
-      print(error)
-      await self.appState.update(error: error.localizedDescription)
-      await self.appState.update(authState: .unauthenticated)
-      return false
+  func signInWithEmailPassword(email: String, password: String) {
+    Task {
+      await self.appState.update(authState: .authenticating)
+      do {
+        try await Auth.auth().signIn(withEmail: email, password: password)
+      }
+      catch {
+        print(error)
+        await self.appState.update(error: error.localizedDescription)
+        await self.appState.update(authState: .unauthenticated)
+      }
     }
   }
   
-  func signUpWithEmailPassword(email: String, password: String) async -> Bool {
-    await self.appState.update(authState: .authenticating)
-    do  {
-      try await Auth.auth().createUser(withEmail: email, password: password)
-      return true
-    }
-    catch {
-      print(error)
-      await self.appState.update(error: error.localizedDescription)
-      await self.appState.update(authState: .unauthenticated)
-      return false
+  func signUpWithEmailPassword(email: String, password: String) {
+    Task {
+      await self.appState.update(authState: .authenticating)
+      do  {
+        try await Auth.auth().createUser(withEmail: email, password: password)
+      }
+      catch {
+        print(error)
+        await self.appState.update(error: error.localizedDescription)
+        await self.appState.update(authState: .unauthenticated)
+      }
     }
   }
 }
@@ -197,9 +197,9 @@ extension RealAuthService {
 // MARK: -StubAuthService
 final class StubAuthService: AuthService {
   
-  func signInWithEmailPassword(email: String, password: String) async -> Bool { true }
+  func signInWithEmailPassword(email: String, password: String) { }
   
-  func signUpWithEmailPassword(email: String, password: String) async -> Bool { true }
+  func signUpWithEmailPassword(email: String, password: String) { }
   
   func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) { }
   
@@ -207,11 +207,11 @@ final class StubAuthService: AuthService {
   
   func signOut() { }
   
-  func deleteAccount() async -> Bool { true }
+  func deleteAccount()  { }
   
   func clearError() { }
   
-  func changeUserHandle(newUserHandle: String) async { }
+  func changeUserHandle(newUserHandle: String) { }
 }
 
 //extension ASAuthorizationAppleIDCredential {
