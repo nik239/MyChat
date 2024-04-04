@@ -18,6 +18,10 @@ struct SignupView: View {
 
   @FocusState private var focus: FocusableField?
   
+  #if DEBUG
+  let inspection = Inspection<Self>()
+  #endif
+  
   var body: some View {
     VStack {
       Text("Sign up")
@@ -100,6 +104,9 @@ struct SignupView: View {
       }
       .padding([.top, .bottom], 50)
     }
+    #if DEBUG
+    .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
+    #endif
   }
 }
 

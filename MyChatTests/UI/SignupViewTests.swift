@@ -1,5 +1,5 @@
 //
-//  EmailLoginViewTests.swift
+//  SignupViewTests.swift
 //  MyChatTests
 //
 //  Created by Nikita Ivanov on 04/04/2024.
@@ -9,39 +9,40 @@ import XCTest
 import ViewInspector
 @testable import MyChat
 
-final class LoginViewTests: XCTestCase {
-  var sut: LoginView!
+final class SignupViewTests: XCTestCase {
+  var sut: SignupView!
   
   override func setUpWithError() throws {
     try super.setUpWithError()
-    sut = LoginView()
+    sut = SignupView()
   }
   
   @MainActor
-  func test_login() {
+  func test_signup() {
     //given
     let email = "some@email.com"
     let password = "testtest"
-    let mockAuthService = MockedAuthService(expected: [.signInWithEmailPassword(email: email, password: password)])
+    let mockAuthService = MockedAuthService(expected: [.signUpWithEmailPassword(email: email, password: password)])
     let viewModel = AuthViewModel(authService: mockAuthService, appState: AppState())
     
     let exp = sut.inspection.inspect { view in
       //when
-      let loginBtn = try view.find(button: "Login")
+      let signupBtn = try view.find(button: "Sign up")
       //then
-      XCTAssertTrue(loginBtn.isDisabled())
+      XCTAssertTrue(signupBtn.isDisabled())
       //when
       viewModel.email = email
       viewModel.password = password
+      viewModel.confirmPassword = password
 
     }
     
     let exp2 = sut.inspection.inspect(onReceive: viewModel.$password) { view in
-      let loginBtn = try view.find(button: "Login")
+      let signupBtn = try view.find(button: "Sign up")
       //then
-      XCTAssertFalse(loginBtn.isDisabled())
+      XCTAssertFalse(signupBtn.isDisabled())
       //when
-      try loginBtn.tap()
+      try signupBtn.tap()
       //then
       mockAuthService.verify()
     }
@@ -56,11 +57,11 @@ final class LoginViewTests: XCTestCase {
     
     let exp = sut.inspection.inspect { view in
       //when
-      let signUpBtn = try view.find(button: "Sign up")
-      try signUpBtn.tap()
+      let loginBtn = try view.find(button: "Log in")
+      try loginBtn.tap()
       let flow = try view.actualView().viewModel.flow
       //then
-      XCTAssertEqual(flow, .signUp)
+      XCTAssertEqual(flow, .login)
     }
   }
 }
