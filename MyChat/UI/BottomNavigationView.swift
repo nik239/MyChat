@@ -8,20 +8,23 @@
 import SwiftUI
 
 struct BottomNavigationView: View {
-  @EnvironmentObject private var viewModel: BottomNavigationViewModel
+  @EnvironmentObject var viewModel: BottomNavigationViewModel
+  
+  #if DEBUG
+  let inspection = Inspection<Self>()
+  #endif
+  
   var body: some View {
     TabView {
       ChatsView()
         .tabItem {
           Image(systemName: "message")
-          Text("Home")
         }
         .toolbar(viewModel.showBottomNavigation ? .visible : .hidden, for: .tabBar)
       
       ProfileView()
         .tabItem {
           Image(systemName: "gear")
-          Text("Settings")
         }
     }
     .onAppear {
@@ -30,10 +33,15 @@ struct BottomNavigationView: View {
     .onDisappear {
       viewModel.unsubscribeFromState()
     }
+    #if DEBUG
+    .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
+    #endif
   }
 }
 
+#if DEBUG
 #Preview {
     BottomNavigationView()
     .inject(.preview)
 }
+#endif

@@ -14,9 +14,9 @@ struct MockedDBService: Mock, DBService {
     case updateChat(chat: Chat, withID: String?)
   }
   
-  let actions: MockActions<Action>
+  var actions: MockActions<Action>
   
-  init(expected: [Action]){
+  init(expected: [Action] = []){
     self.actions = .init(expected: expected)
   }
   

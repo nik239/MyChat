@@ -15,7 +15,11 @@ struct ProfileView: View {
   //so SwiftUI can't focus on it and resets focus to false
   @FocusState private var isEditing: Bool
   @State private var isTextField = false
-  @State private var showAlert = false
+  @State var showAlert = false
+  
+  #if DEBUG
+  let inspection = Inspection<Self>()
+  #endif
   
   var body: some View {
     VStack(alignment: .center) {
@@ -73,6 +77,9 @@ struct ProfileView: View {
       Spacer()
       Divider()
     }
+    #if DEBUG
+    .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
+    #endif
     .onAppear {
       viewModel.subscribeToState()
     }
