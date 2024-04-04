@@ -5,8 +5,6 @@
 //  Created by Nikita Ivanov on 17/03/2024.
 //
 
-//view(AuthView<EmptyView>.self).vStack().signInWithAppleButton(1)
-
 import XCTest
 import ViewInspector
 import SwiftUI

@@ -10,22 +10,22 @@ import Combine
 
 struct ContentView: View {
   private let container: DIContainer
-  private let  isRunningTests: Bool
+  private let isRunningTests: Bool
   
   init(container: DIContainer, isRunningTests: Bool = ProcessInfo.processInfo.isRunningTests) {
     self.container = container
     self.isRunningTests = isRunningTests
   }
-    var body: some View {
-      if isRunningTests {
-        Text("Running unit tests")
-      } else {
-        AuthView() {
-          BottomNavigationView()
-        }
-        .inject(container)
+  var body: some View {
+    if isRunningTests {
+      Text("Running unit tests")
+    } else {
+      AuthView() {
+        BottomNavigationView()
       }
+      .inject(container)
     }
+  }
 }
 
 #if DEBUG

@@ -17,6 +17,10 @@ struct LoginView: View {
   
   @FocusState private var focus: FocusableField?
   
+  #if DEBUG
+  let inspection = Inspection<Self>()
+  #endif
+  
   var body: some View {
     VStack {
       Text("Login")
@@ -85,6 +89,9 @@ struct LoginView: View {
       }
     }
     .padding([.top, .bottom], 50)
+    #if DEBUG
+    .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
+    #endif
   }
 }
 
