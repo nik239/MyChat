@@ -17,7 +17,7 @@ final class BottomNavigationViewTests: XCTestCase {
       XCTAssertNoThrow(try view.tabView().view(ProfileView.self, 1).tabItem())
     }
     
-    ViewHosting.host(view: sut.inject(.preview))
+    ViewHosting.host(view: sut.inject(.stub(appState: AppState())))
     wait(for: [exp], timeout: 0.1)
   }
 }

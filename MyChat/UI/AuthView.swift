@@ -12,9 +12,13 @@ struct AuthView <Content:View> : View {
   @Environment(\.colorScheme) var colorScheme
   
   @EnvironmentObject private var viewModel: AuthViewModel
-  @State private var presentingCredentialsView = false
+  @State var presentingCredentialsView = false
   
   @ViewBuilder var content: () -> Content
+  
+  #if DEBUG
+  let inspection = Inspection<Self>()
+  #endif
   
   var body: some View {
     switch viewModel.authState {
@@ -42,6 +46,9 @@ struct AuthView <Content:View> : View {
         .frame(maxWidth: 300, maxHeight: 50)
         .cornerRadius(8)
       }
+      #if DEBUG
+      .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
+      #endif
       .sheet(isPresented: $presentingCredentialsView) {
         switch viewModel.flow {
         case .login:
@@ -52,6 +59,7 @@ struct AuthView <Content:View> : View {
             .environmentObject(viewModel)
         }
       }
+      .tag("login")
     case .authenticated:
       content()
     }

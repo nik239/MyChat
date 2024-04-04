@@ -77,9 +77,6 @@ struct ProfileView: View {
       Spacer()
       Divider()
     }
-    #if DEBUG
-    .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
-    #endif
     .onAppear {
       viewModel.subscribeToState()
     }
@@ -96,6 +93,9 @@ struct ProfileView: View {
         secondaryButton: .cancel {}
       )
     }
+    #if DEBUG
+    .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
+    #endif
   }
 }
 
