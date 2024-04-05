@@ -53,6 +53,7 @@ extension AppState {
     userData.error = error
   }
   
+  /// Updates the chat dictionary at specified id, if the id doesn't exist creates a Chat at that id.
   func update(chatAtID id: String, to chat: Chat) {
     userData.chats[id] = chat
   }
@@ -102,6 +103,12 @@ extension AppState {
       let routing = AppState.ViewRouting(showBottomNavigation: true)
       let preview = AppState(userData: userData, routing: routing)
       return preview
+  }
+}
+
+extension AppState {
+  func update(selectedChatID: String) {
+    userData.selectedChatID = selectedChatID
   }
 }
 #endif

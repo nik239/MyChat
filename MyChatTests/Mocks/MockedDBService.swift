@@ -8,10 +8,24 @@
 import XCTest
 @testable import MyChat
 
-struct MockedDBService: Mock, DBService {
+final class MockedDBService: Mock, DBService {
   enum Action: Equatable {
     case sendMessage(message: Message, toChatWithID: String)
     case updateChat(chat: Chat, withID: String?)
+    
+    //Need simplified Message equality check for testing
+    static func ==(lhs: Action, rhs: Action) -> Bool {
+      switch (lhs, rhs) {
+      case let (.sendMessage(lhsMessage, lhsChatID), .sendMessage(rhsMessage, rhsChatID)):
+        return lhsChatID == rhsChatID && lhsMessage.content == rhsMessage.content
+          
+      case let (.updateChat(lhsChat, lhsID), .updateChat(rhsChat, rhsID)):
+        return lhsChat == rhsChat && lhsID == rhsID
+        
+      case (.sendMessage, _), (.updateChat, _):
+        return false
+      }
+    }
   }
   
   var actions: MockActions<Action>

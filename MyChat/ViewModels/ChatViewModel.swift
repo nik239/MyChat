@@ -37,6 +37,7 @@ final class ChatViewModel: ObservableObject {
   
   func unsubscribeFromState() {
     appStateSubs.removeAll()
+    appStateSubs = Set<AnyCancellable>()
   }
   
   private func bindToMessages(withChatID id: String) {
@@ -60,10 +61,17 @@ final class ChatViewModel: ObservableObject {
 // MARK: ChatViewModel - sendMessage
 extension ChatViewModel {
   func sendMessage() {
+    #if DEBUG
+    let author = appState.userData.user?.displayName ?? "tester"
+    guard let chatID = appState.userData.selectedChatID else {
+      return
+    }
+    #else
     guard let author = appState.userData.user?.displayName,
           let chatID = appState.userData.selectedChatID else {
       return
     }
+    #endif
     let message = Message(author: author, content: userInput)
     Task {
       do {
@@ -81,15 +89,16 @@ extension ChatViewModel {
     return message.author == appState.userData.user?.displayName
   }
   
-  func calculateTextHeight() -> CGFloat {
+  func calculateTextHeight() {
     if userInput == "" {
-      return 20
+      editorHeight = 20
+      return
     }
     let textView = UITextView(frame: CGRect(x: 0, y: 0, width: editorWidth, height: CGFloat.greatestFiniteMagnitude))
     textView.text = userInput
     textView.font = UIFont.preferredFont(from: editorFont)
     textView.sizeToFit()
-    return textView.frame.height
+    editorHeight =  min(textView.frame.height, maxHeight)
   }
 }
   

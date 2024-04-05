@@ -11,7 +11,7 @@ import Combine
 @MainActor
 final class ChatsViewModel: ObservableObject {
   let appState: AppState
-  private var appStateSub: AnyCancellable?
+  var appStateSub: AnyCancellable?
   
   @Published var chats: [Chat]?
   
@@ -30,6 +30,7 @@ final class ChatsViewModel: ObservableObject {
   
   func unsubscribeFromState() {
     appStateSub?.cancel()
+    appStateSub = nil
   }
   
   func isMoreRecent(_ chat1: Chat, then chat2: Chat) -> Bool {

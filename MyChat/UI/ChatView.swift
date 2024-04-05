@@ -46,8 +46,8 @@ struct ChatView: View {
                  maxHeight: viewModel.editorHeight)
         
           .onChange(of: viewModel.userInput, initial: false) {
-              viewModel.editorHeight = min(viewModel.maxHeight, viewModel.calculateTextHeight())
-            }
+            viewModel.calculateTextHeight()
+          }
         
         Button(action: viewModel.sendMessage) {
           Image(systemName: "arrow.up.circle.fill")
