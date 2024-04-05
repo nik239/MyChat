@@ -9,6 +9,10 @@ import SwiftUI
 
 struct ChatView: View {
   @EnvironmentObject private var viewModel: ChatViewModel
+  
+  #if DEBUG
+  let inspection = Inspection<Self>()
+  #endif
 
   var body: some View {
     VStack {
@@ -50,6 +54,7 @@ struct ChatView: View {
             .resizable()
             .frame(width: 30, height: 30)
         }
+        .tag("send button")
         .disabled(viewModel.userInput.isEmpty)
       }
       .padding(5)
@@ -65,6 +70,9 @@ struct ChatView: View {
     .onDisappear {
       viewModel.preformOnDisappear()
     }
+    #if DEBUG
+    .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
+    #endif
   }
 }
 

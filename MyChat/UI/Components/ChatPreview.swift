@@ -27,6 +27,7 @@ struct ChatPreview: View {
         .font(.subheadline)
         .foregroundColor(.secondary)
         .lineLimit(2)
+        .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
     }
     .padding()
   }
