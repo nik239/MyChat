@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseFunctions
 import AuthenticationServices
 
 enum AuthState {
@@ -25,7 +26,7 @@ protocol AuthService {
   
   func signOut()
   func deleteAccount()
-  func changeUserHandle(newUserHandle: String)
+  func changeDisplayName(newName: String)
   
   func clearError()
 }
@@ -77,21 +78,6 @@ final class RealAuthService: AuthService {
     }
   }
   
-  func changeUserHandle(newUserHandle: String) {
-    Task {
-      guard let changeRequest = await appState.userData.user?.createProfileChangeRequest() else {
-        return
-      }
-      changeRequest.displayName = newUserHandle
-      do {
-        try await changeRequest.commitChanges()
-      }
-      catch {
-        print("Unable to update the user's displayname: \(error.localizedDescription)")
-      }
-    }
-  }
-  
   func clearError() {
     Task {
       await self.appState.update(error: nil)
@@ -125,6 +111,52 @@ extension RealAuthService {
         print(error)
         await self.appState.update(error: error.localizedDescription)
         await self.appState.update(authState: .unauthenticated)
+      }
+    }
+  }
+}
+
+// MARK: -RealAuthService Update displayName
+extension RealAuthService {
+  func setDisplayName(newName: String) {
+    Task {
+      guard let changeRequest = await appState.userData.user?.createProfileChangeRequest() else {
+        return
+      }
+      changeRequest.displayName = newName
+      do {
+        try await changeRequest.commitChanges()
+      }
+      catch {
+        print("Unable to update the user's displayname: \(error.localizedDescription)")
+      }
+    }
+  }
+  func changeDisplayName(newName: String) {
+    Task {
+      guard let changeRequest = await appState.userData.user?.createProfileChangeRequest() else {
+        return
+      }
+      changeRequest.displayName = newName
+      do {
+        try await requestFSupdate(newName: newName)
+        try await changeRequest.commitChanges()
+      }
+      catch {
+        print("Unable to update the user's displayname: \(error.localizedDescription)")
+      }
+    }
+  }
+  
+  func requestFSupdate(newName: String) async throws {
+    let _ : Void = try await withCheckedThrowingContinuation { continuation in
+      let request = ["new_name": newName]
+      Functions.functions().httpsCallable("updateDisplayName").call(request) { _, error in
+        if let error = error {
+          continuation.resume(throwing: error)
+        } else {
+          continuation.resume()
+        }
       }
     }
   }
@@ -211,7 +243,7 @@ final class StubAuthService: AuthService {
   
   func clearError() { }
   
-  func changeUserHandle(newUserHandle: String) { }
+  func changeDisplayName(newName: String) { }
 }
 
 //extension ASAuthorizationAppleIDCredential {

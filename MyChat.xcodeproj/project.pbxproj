@@ -68,6 +68,7 @@
 		A8EF71262BBF80CC0008E935 /* ChatViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EF71252BBF80CC0008E935 /* ChatViewTests.swift */; };
 		A8EF71282BBF87A50008E935 /* ChatViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EF71272BBF87A50008E935 /* ChatViewModelTests.swift */; };
 		A8EF712A2BBFC00E0008E935 /* ChatsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EF71292BBFC00E0008E935 /* ChatsViewModelTests.swift */; };
+		A8EF712D2BC07D550008E935 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = A8EF712C2BC07D550008E935 /* FirebaseFunctions */; };
 		A8FA92AF2BAA8047004D9F2C /* KeyForValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FA92AE2BAA8047004D9F2C /* KeyForValue.swift */; };
 		A8FA92B22BAB5768004D9F2C /* BottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FA92B12BAB5768004D9F2C /* BottomNavigationView.swift */; };
 /* End PBXBuildFile section */
@@ -156,6 +157,7 @@
 				A8E4FDF32BA11D9900BF9077 /* FirebaseAppCheck in Frameworks */,
 				A8E4FDF52BA11D9900BF9077 /* FirebaseAuth in Frameworks */,
 				A8E4FDF72BA11D9900BF9077 /* FirebaseFirestore in Frameworks */,
+				A8EF712D2BC07D550008E935 /* FirebaseFunctions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +178,7 @@
 				A80AADE82B71DE7F00A74DAA /* MyChat */,
 				A82CFB702B79AD9E00E4DE0D /* MyChatTests */,
 				A80AADE72B71DE7F00A74DAA /* Products */,
+				A8EF712B2BC07D550008E935 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -375,6 +378,13 @@
 			path = System;
 			sourceTree = "<group>";
 		};
+		A8EF712B2BC07D550008E935 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -395,6 +405,7 @@
 				A8E4FDF22BA11D9900BF9077 /* FirebaseAppCheck */,
 				A8E4FDF42BA11D9900BF9077 /* FirebaseAuth */,
 				A8E4FDF62BA11D9900BF9077 /* FirebaseFirestore */,
+				A8EF712C2BC07D550008E935 /* FirebaseFunctions */,
 			);
 			productName = MyChat;
 			productReference = A80AADE62B71DE7F00A74DAA /* MyChat.app */;
@@ -855,6 +866,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A8E4FDF12BA11D9900BF9077 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		A8EF712C2BC07D550008E935 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A8E4FDF12BA11D9900BF9077 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

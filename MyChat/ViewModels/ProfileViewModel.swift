@@ -23,7 +23,7 @@ final class ProfileViewModel: ObservableObject {
   }
   
   func updateUserHandle() {
-    authService.changeUserHandle(newUserHandle: userHandle)
+    authService.changeDisplayName(newName: userHandle)
   }
   
   func signOut() {

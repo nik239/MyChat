@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseCore
 import FirebaseAuth
+import FirebaseFunctions
 import FirebaseFirestore
 
 @main
@@ -17,6 +18,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     FirebaseApp.configure()
     #if DEBUG
     Auth.auth().useEmulator(withHost:"localhost", port:9099)
+    Functions.functions().useEmulator(withHost: "http://127.0.0.1", port: 5001)
     let settings = Firestore.firestore().settings
     settings.host = "127.0.0.1:8080"
     settings.cacheSettings = MemoryCacheSettings()

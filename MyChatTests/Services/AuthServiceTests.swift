@@ -7,6 +7,7 @@
 
 import XCTest
 import FirebaseAuth
+import FirebaseFunctions
 @testable import MyChat
 
 //requires Firebase emulator to be restarted between runs
@@ -116,5 +117,24 @@ final class AuthServiceTests: XCTestCase {
     let error = appState.userData.error
     XCTAssertNotNil(user)
     XCTAssertNil(error)
+  }
+}
+
+extension AuthServiceTests {
+  @MainActor
+  func test_RequestFSupdate() async {
+    //given
+    Functions.functions().useEmulator(withHost: "http://127.0.0.1", port: 5001)
+    authService.signUpWithEmailPassword(email: "test@mail.com", password: "testtest")
+    authService.setDisplayName(newName: "donkey")
+    await untilEqual(appState.userData.authState, to: .authenticated)
+    let chat1 = Chat(members: ["donkey","horse","cow"])
+    let chat2 = Chat(members: ["donkey","shrek","dragon"])
+    let dbService = FireStoreService(appState: appState)
+    try! await dbService.updateChat(chat: chat1)
+    
+    //try! await dbService.updateChat(chat: chat2)
+    try? await Task.sleep(nanoseconds: UInt64(2_000_000_000))
+    try! await authService.requestFSupdate(newName: "lord donkey")
   }
 }
