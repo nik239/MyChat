@@ -18,15 +18,15 @@ enum AuthState {
 
 // MARK: - AuthService
 protocol AuthService {
-  func signInWithEmailPassword(email: String, password: String)
-  func signUpWithEmailPassword(email: String, password: String)
+  func signInWithEmailPassword(email: String, password: String) async
+  func signUpWithEmailPassword(email: String, password: String) async
   
   func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest)
   func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>)
   
   func signOut()
-  func deleteAccount()
-  func changeDisplayName(newName: String)
+  func deleteAccount() async
+  func changeDisplayName(newName: String) async
   
   func clearError()
 }
@@ -67,12 +67,12 @@ final class RealAuthService: AuthService {
     }
   }
   
-  func deleteAccount() {
-    Task {
-      do {
-        try await self.appState.userData.user?.delete()
-      }
-      catch {
+  func deleteAccount() async {
+    do {
+      try await self.appState.userData.user?.delete()
+    }
+    catch {
+      Task {
         await self.appState.update(error: error.localizedDescription)
       }
     }
@@ -87,67 +87,63 @@ final class RealAuthService: AuthService {
 
 // MARK: - RealAuthService Email and Password Authentication
 extension RealAuthService {
-  func signInWithEmailPassword(email: String, password: String) {
-    Task {
-      await self.appState.update(authState: .authenticating)
-      do {
-        try await Auth.auth().signIn(withEmail: email, password: password)
-      }
-      catch {
-        print(error)
-        await self.appState.update(error: error.localizedDescription)
-        await self.appState.update(authState: .unauthenticated)
-      }
+  func signInWithEmailPassword(email: String, password: String) async {
+    await self.appState.update(authState: .authenticating)
+    do {
+      try await Auth.auth().signIn(withEmail: email, password: password)
+    }
+    catch {
+      print(error)
+      await self.appState.update(error: error.localizedDescription)
+      await self.appState.update(authState: .unauthenticated)
     }
   }
   
-  func signUpWithEmailPassword(email: String, password: String) {
-    Task {
-      await self.appState.update(authState: .authenticating)
-      do  {
-        try await Auth.auth().createUser(withEmail: email, password: password)
-      }
-      catch {
-        print(error)
-        await self.appState.update(error: error.localizedDescription)
-        await self.appState.update(authState: .unauthenticated)
-      }
+  func signUpWithEmailPassword(email: String, password: String) async {
+    await self.appState.update(authState: .authenticating)
+    do  {
+      try await Auth.auth().createUser(withEmail: email, password: password)
+    }
+    catch {
+      print(error)
+      await self.appState.update(error: error.localizedDescription)
+      await self.appState.update(authState: .unauthenticated)
     }
   }
 }
 
 // MARK: -RealAuthService Update displayName
 extension RealAuthService {
-  func setDisplayName(newName: String) {
-    Task {
-      guard let changeRequest = await appState.userData.user?.createProfileChangeRequest() else {
-        return
-      }
-      changeRequest.displayName = newName
-      do {
-        try await changeRequest.commitChanges()
-      }
-      catch {
-        print("Unable to update the user's displayname: \(error.localizedDescription)")
-      }
+  func setDisplayName(newName: String) async {
+    guard let changeRequest = await appState.userData.user?.createProfileChangeRequest() else {
+      return
     }
-  }
-  func changeDisplayName(newName: String) {
-    Task {
-      guard let changeRequest = await appState.userData.user?.createProfileChangeRequest() else {
-        return
-      }
-      changeRequest.displayName = newName
-      do {
-        try await requestFSupdate(newName: newName)
-        try await changeRequest.commitChanges()
-      }
-      catch {
-        print("Unable to update the user's displayname: \(error.localizedDescription)")
-      }
+    changeRequest.displayName = newName
+    do {
+      try await requestFSupdate(newName: newName)
+      try await changeRequest.commitChanges()
+    }
+    catch {
+      print("Unable to update the user's displayname: \(error.localizedDescription)")
     }
   }
   
+  func changeDisplayName(newName: String) async {
+    guard let changeRequest = await appState.userData.user?.createProfileChangeRequest() else {
+      return
+    }
+    changeRequest.displayName = newName
+    do {
+      try await requestFSupdate(newName: newName)
+      try await changeRequest.commitChanges()
+    }
+    catch {
+      print("Unable to update the user's displayname: \(error.localizedDescription)")
+    }
+  }
+  
+  /// Updates username in FireStore. Throws if the username is taken.
+  /// Unfortunately Firebase provides no straightforward way to trigger side-effects when a user changes their displayName.
   func requestFSupdate(newName: String) async throws {
     let _ : Void = try await withCheckedThrowingContinuation { continuation in
       let request = ["new_name": newName]

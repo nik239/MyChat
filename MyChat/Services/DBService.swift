@@ -68,7 +68,8 @@ extension FireStoreService {
   }
   
   /// Generates updated ChatsTable.
-  func getUpdatedChatTable(from chatDocs: [QueryDocumentSnapshot], forUser userID: String) async -> ChatTable {
+  func getUpdatedChatTable(from chatDocs: [QueryDocumentSnapshot],
+                           forUser userID: String) async -> ChatTable {
     var chatTable = await appState.userData.chats
     
     // TaskGroup here introduces unnescessary complexity without a clear preformance benefit
@@ -107,7 +108,7 @@ extension FireStoreService {
     return chatOld
   }
   
-  /// Creates a listener on a chat's messages subcollection. The listener updates the corresponding chat in AppState when a new message is posted.
+  /// Creates a listener on a chat's messages subcollection. The listener updates chat in appState when a new message is posted.
   func configureMessagesListener(forChatID id: String) {
     let listener = db.collection("chats").document(id).collection("messages")
       .addSnapshotListener { querySnapshot, error in
@@ -163,6 +164,12 @@ extension FireStoreService {
         }
       }
     }
+  }
+}
+
+extension FireStoreService {
+  func isNameAvailable(name: String) {
+    
   }
 }
 

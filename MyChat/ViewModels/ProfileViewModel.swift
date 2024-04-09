@@ -23,7 +23,9 @@ final class ProfileViewModel: ObservableObject {
   }
   
   func updateUserHandle() {
-    authService.changeDisplayName(newName: userHandle)
+    Task {
+      await authService.changeDisplayName(newName: userHandle)
+    }
   }
   
   func signOut() {
@@ -31,7 +33,9 @@ final class ProfileViewModel: ObservableObject {
   }
   
   func deleteAccount() {
-    authService.deleteAccount()
+    Task {
+      await authService.deleteAccount()
+    }
   }
 }
 
