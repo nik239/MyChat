@@ -47,7 +47,7 @@ final class MockedAuthService: Mock, AuthService {
     register(.deleteAccount)
   }
   
-  func changeDisplayName(newName: String) {
+  func setUsername(newName: String) {
     register(.changeUserHandle(newUserHandle: newName))
   }
   

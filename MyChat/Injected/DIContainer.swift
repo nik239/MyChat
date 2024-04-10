@@ -32,6 +32,7 @@ extension DIContainer {
     let chatViewModel: ChatViewModel
     let profileViewModel: ProfileViewModel
     let bottomNavigationViewModel: BottomNavigationViewModel
+    let usernameViewModel: UsernameViewModel
     
     static var stub: Self {
       let appState = AppState.preview
@@ -40,8 +41,11 @@ extension DIContainer {
             chatsViewModel: ChatsViewModel(appState: appState),
             chatViewModel: ChatViewModel(dbService: StubFireStoreService(),
                                          appState: appState),
-            profileViewModel: ProfileViewModel(authService: StubAuthService(), appState: appState),
-            bottomNavigationViewModel: BottomNavigationViewModel(appState: appState))
+            profileViewModel: ProfileViewModel(authService: StubAuthService(),
+                                               appState: appState),
+            bottomNavigationViewModel: BottomNavigationViewModel(appState: appState),
+            usernameViewModel: UsernameViewModel(appState: appState,
+                                                 authService: StubAuthService()))
     }
   }
 }
@@ -55,5 +59,6 @@ extension View {
       .environmentObject(container.viewModels.chatViewModel)
       .environmentObject(container.viewModels.profileViewModel)
       .environmentObject(container.viewModels.bottomNavigationViewModel)
+      .environmentObject(container.viewModels.usernameViewModel)
   }
 }

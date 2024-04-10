@@ -11,24 +11,31 @@ import Combine
 @MainActor
 final class BottomNavigationViewModel: ObservableObject {
   @Published var showBottomNavigation: Bool = true
+  @Published var userNameIsNil: Bool = true
   
   let appState: AppState
-  var appStateSub: AnyCancellable?
+  var appStateSubs = Set<AnyCancellable>()
   
   nonisolated init(appState: AppState) {
     self.appState = appState
   }
   
   func subscribeToState() {
-    appStateSub = appState.$routing
-    .map { $0.showBottomNavigation }
-    .removeDuplicates()
-    .sink { self.showBottomNavigation = $0 }
+    appState.$routing
+      .map { $0.showBottomNavigation }
+      .removeDuplicates()
+      .sink { self.showBottomNavigation = $0 }
+      .store(in: &appStateSubs)
+    appState.$userData
+      .map { $0.user?.displayName }
+      .removeDuplicates()
+      .sink { self.userNameIsNil = $0 == nil }
+      .store(in: &appStateSubs)
   }
   
   func unsubscribeFromState() {
-    appStateSub?.cancel()
-    appStateSub = nil
+    appStateSubs.removeAll()
+    appStateSubs = Set<AnyCancellable>()
   }
 }
 

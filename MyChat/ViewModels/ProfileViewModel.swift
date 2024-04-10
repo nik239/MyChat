@@ -24,7 +24,7 @@ final class ProfileViewModel: ObservableObject {
   
   func updateUserHandle() {
     Task {
-      await authService.changeDisplayName(newName: userHandle)
+      try await authService.setUsername(newName: userHandle)
     }
   }
   

@@ -10,6 +10,10 @@
 		A80AADEC2B71DE7F00A74DAA /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80AADEB2B71DE7F00A74DAA /* AuthView.swift */; };
 		A80AADEE2B71DE8C00A74DAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A80AADED2B71DE8C00A74DAA /* Assets.xcassets */; };
 		A80AADF12B71DE8C00A74DAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A80AADF02B71DE8C00A74DAA /* Preview Assets.xcassets */; };
+		A8125C142BC5AC920007D720 /* SetUsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8125C132BC5AC920007D720 /* SetUsernameView.swift */; };
+		A8125C162BC5B7760007D720 /* UsernameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8125C152BC5B7760007D720 /* UsernameViewModel.swift */; };
+		A8125C182BC5BBEA0007D720 /* RealAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8125C172BC5BBEA0007D720 /* RealAuthService.swift */; };
+		A8125C1A2BC5BC7A0007D720 /* RealDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8125C192BC5BC7A0007D720 /* RealDBService.swift */; };
 		A83B45B92BA6A9B6004FA743 /* ChatsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83B45B82BA6A9B6004FA743 /* ChatsViewTests.swift */; };
 		A83B45BC2BA6AB92004FA743 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = A83B45BB2BA6AB92004FA743 /* ViewInspector */; };
 		A83B45BE2BA6ACB3004FA743 /* AuthViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83B45BD2BA6ACB3004FA743 /* AuthViewTests.swift */; };
@@ -88,6 +92,10 @@
 		A80AADEB2B71DE7F00A74DAA /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		A80AADED2B71DE8C00A74DAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A80AADF02B71DE8C00A74DAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A8125C132BC5AC920007D720 /* SetUsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUsernameView.swift; sourceTree = "<group>"; };
+		A8125C152BC5B7760007D720 /* UsernameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameViewModel.swift; sourceTree = "<group>"; };
+		A8125C172BC5BBEA0007D720 /* RealAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealAuthService.swift; sourceTree = "<group>"; };
+		A8125C192BC5BC7A0007D720 /* RealDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealDBService.swift; sourceTree = "<group>"; };
 		A82CFB6F2B79AD9D00E4DE0D /* MyChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A82CFB782B79DAF600E4DE0D /* MyChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyChat.entitlements; sourceTree = "<group>"; };
 		A83B45B82BA6A9B6004FA743 /* ChatsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewTests.swift; sourceTree = "<group>"; };
@@ -315,6 +323,7 @@
 				A8D45E542B7880E90005126C /* EmailSignupView.swift */,
 				A8FA92B12BAB5768004D9F2C /* BottomNavigationView.swift */,
 				A849C8E12B9BA58B00655D1C /* ProfileView.swift */,
+				A8125C132BC5AC920007D720 /* SetUsernameView.swift */,
 				A8D9C0C72B78773800118CA0 /* ChatsView.swift */,
 				A83B45BF2BA7FBFC004FA743 /* ChatView.swift */,
 				A849C8DD2B9BA4E100655D1C /* CreateChatView.swift */,
@@ -331,6 +340,7 @@
 				A8E4FDFA2BA2157800BF9077 /* ChatsViewModel.swift */,
 				A83B45C12BA7FC29004FA743 /* ChatViewModel.swift */,
 				A87C74CD2BABF03200B179C4 /* ProfileViewModel.swift */,
+				A8125C152BC5B7760007D720 /* UsernameViewModel.swift */,
 				A841D3E92BB0DB850059F443 /* BottomNavigationViewModel.swift */,
 			);
 			path = ViewModels;
@@ -341,6 +351,8 @@
 			children = (
 				A8E4D5802B86F40C00EA0EE7 /* AuthService.swift */,
 				A87579422B883D5200289437 /* DBService.swift */,
+				A8125C172BC5BBEA0007D720 /* RealAuthService.swift */,
+				A8125C192BC5BC7A0007D720 /* RealDBService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -504,6 +516,7 @@
 				A8D45E552B7880E90005126C /* EmailSignupView.swift in Sources */,
 				A8EF711A2BBDE6840008E935 /* Inspection.swift in Sources */,
 				A849C8E92B9D189100655D1C /* ListenerManager.swift in Sources */,
+				A8125C1A2BC5BC7A0007D720 /* RealDBService.swift in Sources */,
 				A83B45C42BA802EC004FA743 /* MessageBubble.swift in Sources */,
 				A849C8E22B9BA58B00655D1C /* ProfileView.swift in Sources */,
 				A8D45E532B7880DA0005126C /* EmailLoginView.swift in Sources */,
@@ -522,6 +535,7 @@
 				A8E4D5842B86F62600EA0EE7 /* AppState.swift in Sources */,
 				A849C8F62B9E361000655D1C /* ContentView.swift in Sources */,
 				A8D9C0C82B78773800118CA0 /* ChatsView.swift in Sources */,
+				A8125C162BC5B7760007D720 /* UsernameViewModel.swift in Sources */,
 				A8E4D57F2B86F11200EA0EE7 /* Sha256.swift in Sources */,
 				A849C8E52B9BACBF00655D1C /* Chat.swift in Sources */,
 				A8FA92B22BAB5768004D9F2C /* BottomNavigationView.swift in Sources */,
@@ -531,9 +545,11 @@
 				A849C8E72B9BB04800655D1C /* Message.swift in Sources */,
 				A854B0AF2BB2162400BD2AEC /* FontConversion.swift in Sources */,
 				A8E4FDF92BA171AA00BF9077 /* StringError.swift in Sources */,
+				A8125C182BC5BBEA0007D720 /* RealAuthService.swift in Sources */,
 				A849C8EB2B9D5DC200655D1C /* DIContainer.swift in Sources */,
 				A8E4D5812B86F40C00EA0EE7 /* AuthService.swift in Sources */,
 				A854B0AD2BB1FA1600BD2AEC /* TextEditorExample.swift in Sources */,
+				A8125C142BC5AC920007D720 /* SetUsernameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

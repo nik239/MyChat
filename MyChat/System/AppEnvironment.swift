@@ -20,20 +20,27 @@ extension AppEnvironment {
   }
   
   private static func configuredServices(appState: AppState) -> DIContainer.FirebaseServices {
-    return .init(authService: RealAuthService(appState: appState), firestoreService: FireStoreService(appState: appState))
+    
+    return .init(authService: RealAuthService(appState: appState),
+                 firestoreService: FireStoreService(appState: appState))
   }
   
-  private static func configuredInteractors(services: DIContainer.FirebaseServices, appState: AppState) -> DIContainer.ViewModels {
+  private static func configuredInteractors(services: DIContainer.FirebaseServices,
+                                            appState: AppState)
+  -> DIContainer.ViewModels {
     let authViewModel = AuthViewModel(authService: services.authService, appState: appState)
     let chatsViewModel = ChatsViewModel(appState: appState)
     let chatViewModel = ChatViewModel(dbService: services.firestoreService, appState: appState)
     let profileViewModel = ProfileViewModel(authService: services.authService, appState: appState)
     let bottomNavigationViewModel = BottomNavigationViewModel(appState: appState)
+    let usernameViewModel = UsernameViewModel(appState: appState, authService: services.authService)
+    
     return .init(authViewModel: authViewModel,
                  chatsViewModel: chatsViewModel,
                  chatViewModel: chatViewModel,
                  profileViewModel: profileViewModel,
-                 bottomNavigationViewModel: bottomNavigationViewModel)
+                 bottomNavigationViewModel: bottomNavigationViewModel,
+                 usernameViewModel: usernameViewModel)
   }
 }
 

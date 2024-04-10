@@ -33,6 +33,9 @@ struct BottomNavigationView: View {
     .onDisappear {
       viewModel.unsubscribeFromState()
     }
+    .fullScreenCover(isPresented: $viewModel.userNameIsNil) {
+      SetUsernameView()
+    }
     #if DEBUG
     .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
     #endif
