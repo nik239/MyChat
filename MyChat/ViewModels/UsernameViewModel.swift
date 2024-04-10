@@ -23,17 +23,17 @@ final class UsernameViewModel: ObservableObject {
 
   @Published var usernameState: UsernameState = .notSet
   @Published var userEntry: String = ""
-  @Published var error: String?
+  @Published var error: String = ""
   
   
-  nonisolated init(appState: AppState, authService: AuthService){
+  nonisolated init(authService: AuthService, appState: AppState){
     self.appState = appState
     self.authService = authService
   }
   
   func subscribeToState() {
     appStateSub = appState.$userData
-      .map { $0.error }
+      .map { $0.error ?? ""}
       .removeDuplicates()
       .sink { self.error = $0 }
   }

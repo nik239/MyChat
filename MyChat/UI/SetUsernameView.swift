@@ -10,15 +10,22 @@ import SwiftUI
 struct SetUsernameView: View {
   @EnvironmentObject var viewModel: UsernameViewModel
   @FocusState private var isEditing: Bool
+  
+  #if DEBUG
+  let inspection = Inspection<Self>()
+  #endif
+  
   var body: some View {
     if viewModel.usernameState == .updating {
       ProgressView()
+        .tag("progress")
     } else {
       VStack (alignment: .leading) {
         Text("Please come up with a unique username")
           .font(.title)
           .foregroundColor(.cyan)
           .padding()
+          .tag("prompt")
         TextField("username...", text: $viewModel.userEntry)
           .font(.title)
           .multilineTextAlignment(.leading)
@@ -27,10 +34,12 @@ struct SetUsernameView: View {
           .onSubmit {
             viewModel.setUsername()
           }
+          .tag("username field")
         if viewModel.usernameState == .error {
-          Text("Error")
+          Text(viewModel.error)
             .foregroundColor(.red)
             .padding()
+            .tag("error")
         }
       }
       .onAppear() {
@@ -40,6 +49,9 @@ struct SetUsernameView: View {
       .onDisappear() {
         viewModel.unsubscribeFromState()
       }
+      #if DEBUG
+      .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
+      #endif
     }
   }
 }

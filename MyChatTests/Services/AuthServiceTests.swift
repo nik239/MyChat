@@ -126,7 +126,7 @@ extension AuthServiceTests {
     //given
     Functions.functions().useEmulator(withHost: "http://127.0.0.1", port: 5001)
     await authService.signUpWithEmailPassword(email: "test5@mail.com", password: "testtest")
-    await authService.setDisplayName(newName: "donkey")
+    try! await authService.setUsername(newName: "donkey")
     await untilEqual(appState.userData.authState, to: .authenticated)
     let chat1 = Chat(members: ["donkey","horse","cow"])
     let chat2 = Chat(members: ["donkey","shrek","dragon"])

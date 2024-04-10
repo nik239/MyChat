@@ -19,7 +19,7 @@ struct DIContainer {
 #if DEBUG
 extension DIContainer {
   static var preview: Self {
-    .init(viewModels: .stub)
+    .init(viewModels: .stub())
   }
 }
 #endif
@@ -34,8 +34,7 @@ extension DIContainer {
     let bottomNavigationViewModel: BottomNavigationViewModel
     let usernameViewModel: UsernameViewModel
     
-    static var stub: Self {
-      let appState = AppState.preview
+    static func stub(appState: AppState = .preview) -> ViewModels {
       return .init(authViewModel: AuthViewModel(authService: StubAuthService(),
                                          appState: appState),
             chatsViewModel: ChatsViewModel(appState: appState),
@@ -44,8 +43,8 @@ extension DIContainer {
             profileViewModel: ProfileViewModel(authService: StubAuthService(),
                                                appState: appState),
             bottomNavigationViewModel: BottomNavigationViewModel(appState: appState),
-            usernameViewModel: UsernameViewModel(appState: appState,
-                                                 authService: StubAuthService()))
+            usernameViewModel: UsernameViewModel(authService: StubAuthService(),
+                                                 appState: appState))
     }
   }
 }

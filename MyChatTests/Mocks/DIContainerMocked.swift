@@ -15,7 +15,8 @@ extension DIContainer.ViewModels {
           chatsViewModel: ChatsViewModel(appState: appState),
           chatViewModel: ChatViewModel(dbService: dbService, appState: appState),
           profileViewModel: ProfileViewModel(authService: authService, appState: appState),
-          bottomNavigationViewModel: BottomNavigationViewModel(appState: appState))
+          bottomNavigationViewModel: BottomNavigationViewModel(appState: appState),
+          usernameViewModel: UsernameViewModel(authService: authService, appState: appState))
   }
 }
 
@@ -25,18 +26,7 @@ extension DIContainer {
   }
   
   static func stub(appState: AppState) -> DIContainer {
-    let viewModels = ViewModels(authViewModel:
-                                  AuthViewModel(authService: StubAuthService(),
-                                                appState: appState),
-                                chatsViewModel:
-                                  ChatsViewModel(appState: appState),
-                                chatViewModel: 
-                                  ChatViewModel(dbService: StubFireStoreService(),
-                                                appState: appState),
-                                profileViewModel: 
-                                  ProfileViewModel(authService: StubAuthService(),               appState: appState),
-                                bottomNavigationViewModel:
-                                  BottomNavigationViewModel(appState: appState))
+    let viewModels = ViewModels.stub(appState: appState)
     return .init(viewModels: viewModels)
   }
 }

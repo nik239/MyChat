@@ -27,7 +27,7 @@ final class ProfileViewModelTests: XCTestCase {
     let newHandle = "New Handle"
     sut.userHandle = newHandle
     //expected
-    mockedAuthService.actions = .init(expected: [.changeUserHandle(newUserHandle: newHandle)])
+    mockedAuthService.actions = .init(expected: [.setUsername(newName: newHandle)])
     //when
     sut.updateUserHandle()
     //then

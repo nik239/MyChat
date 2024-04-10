@@ -17,7 +17,7 @@ final class MockedAuthService: Mock, AuthService {
     //case handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>)
     case signOut
     case deleteAccount
-    case changeUserHandle(newUserHandle: String)
+    case setUsername(newName: String)
     case clearError
   }
   
@@ -48,7 +48,7 @@ final class MockedAuthService: Mock, AuthService {
   }
   
   func setUsername(newName: String) {
-    register(.changeUserHandle(newUserHandle: newName))
+    register(.setUsername(newName: newName))
   }
   
   func clearError() {
