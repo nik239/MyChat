@@ -44,6 +44,11 @@ final class UsernameViewModel: ObservableObject {
   }
   
   func setUsername() {
+    guard userEntry != "" else {
+      appState.update(error: "Username can't be blank")
+      usernameState = .error
+      return
+    }
     usernameState = .updating
     Task {
       do {

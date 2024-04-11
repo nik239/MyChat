@@ -24,11 +24,11 @@ final class FireStoreService: DBService {
   /// Creates a subscriber that manages listeners upon successful user authentication.
   private func createUserObserver() {
     Task {
-      let userValues = await appState.$userData.compactMap{$0.user}.removeDuplicates().values
+      let userValues = await appState.$userData.compactMap{$0.user?.displayName}.removeDuplicates().values
       for await user in userValues {
         self.listeners.forEach { $0.remove() }
         self.listeners = []
-        self.configureListeners(forUser: user.uid)
+        self.configureListeners(forUser: user)
       }
     }
   }

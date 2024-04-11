@@ -99,19 +99,18 @@ extension RealAuthService {
     changeRequest.displayName = newName
     do {
       try await requestFSupdate(newName: newName)
+      // if .commitChanges throws after requestFSupdate succeeds, not good
       try await changeRequest.commitChanges()
     }
     catch {
       print("Unable to update the user's displayname: \(error.localizedDescription)")
-      Task {
-        await self.appState.update(error: "\(error)")
-      }
+      await self.appState.update(error: "\(error)")
       throw error
     }
   }
   
   /// Updates username in FireStore. Throws if the username is taken.
-  /// Unfortunately, Firebase provides no straightforward way to trigger side-effects when a user changes their displayName.
+  /// Unfortunately, Firebase doesn't provide a straightforward way to trigger side-effects when a user changes their displayName.
   func requestFSupdate(newName: String) async throws {
     let _ : Void = try await withCheckedThrowingContinuation { continuation in
       let request = ["new_name": newName]

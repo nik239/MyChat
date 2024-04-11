@@ -20,12 +20,12 @@ final class BottomNavigationViewModelTests: XCTestCase {
   
   @MainActor 
   func test_subscribeToState() {
-    XCTAssertNil(sut.appStateSubs)
+    XCTAssertEqual(sut.appStateSubs.count, 0)
     XCTAssertTrue(sut.showBottomNavigation)
     //when
     sut.subscribeToState()
     //then
-    XCTAssertNotNil(sut.appStateSubs)
+    XCTAssertEqual(sut.appStateSubs.count, 2)
     //when
     appState.toggleBottomNavigation()
     //then
@@ -39,7 +39,7 @@ final class BottomNavigationViewModelTests: XCTestCase {
     //when
     sut.unsubscribeFromState()
     //then
-    XCTAssertNil(sut.appStateSubs)
+    XCTAssertEqual(sut.appStateSubs.count, 0)
     //when
     appState.toggleBottomNavigation()
     //then
