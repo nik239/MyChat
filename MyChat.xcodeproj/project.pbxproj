@@ -14,6 +14,7 @@
 		A8125C162BC5B7760007D720 /* UsernameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8125C152BC5B7760007D720 /* UsernameViewModel.swift */; };
 		A8125C182BC5BBEA0007D720 /* RealAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8125C172BC5BBEA0007D720 /* RealAuthService.swift */; };
 		A8125C1A2BC5BC7A0007D720 /* RealDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8125C192BC5BC7A0007D720 /* RealDBService.swift */; };
+		A81D03402BC9D90100463E97 /* CreateChatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D033F2BC9D90100463E97 /* CreateChatButton.swift */; };
 		A83B45B92BA6A9B6004FA743 /* ChatsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83B45B82BA6A9B6004FA743 /* ChatsViewTests.swift */; };
 		A83B45BC2BA6AB92004FA743 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = A83B45BB2BA6AB92004FA743 /* ViewInspector */; };
 		A83B45BE2BA6ACB3004FA743 /* AuthViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83B45BD2BA6ACB3004FA743 /* AuthViewTests.swift */; };
@@ -98,6 +99,7 @@
 		A8125C152BC5B7760007D720 /* UsernameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameViewModel.swift; sourceTree = "<group>"; };
 		A8125C172BC5BBEA0007D720 /* RealAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealAuthService.swift; sourceTree = "<group>"; };
 		A8125C192BC5BC7A0007D720 /* RealDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealDBService.swift; sourceTree = "<group>"; };
+		A81D033F2BC9D90100463E97 /* CreateChatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChatButton.swift; sourceTree = "<group>"; };
 		A82CFB6F2B79AD9D00E4DE0D /* MyChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A82CFB782B79DAF600E4DE0D /* MyChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyChat.entitlements; sourceTree = "<group>"; };
 		A83B45B82BA6A9B6004FA743 /* ChatsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewTests.swift; sourceTree = "<group>"; };
@@ -230,6 +232,31 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		A81D033C2BC9D7D300463E97 /* ChatsView */ = {
+			isa = PBXGroup;
+			children = (
+				A849C8DF2B9BA52900655D1C /* ChatPreview.swift */,
+			);
+			path = ChatsView;
+			sourceTree = "<group>";
+		};
+		A81D033D2BC9D7E500463E97 /* ChatView */ = {
+			isa = PBXGroup;
+			children = (
+				A83B45C32BA802EC004FA743 /* MessageBubble.swift */,
+				A872C3882BB0B560006968C3 /* AddButtonBorderModifier.swift */,
+			);
+			path = ChatView;
+			sourceTree = "<group>";
+		};
+		A81D033E2BC9D8A800463E97 /* CreateChatView */ = {
+			isa = PBXGroup;
+			children = (
+				A81D033F2BC9D90100463E97 /* CreateChatButton.swift */,
+			);
+			path = CreateChatView;
+			sourceTree = "<group>";
+		};
 		A82CFB702B79AD9E00E4DE0D /* MyChatTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,9 +307,9 @@
 		A849C8F02B9E17D000655D1C /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A849C8DF2B9BA52900655D1C /* ChatPreview.swift */,
-				A83B45C32BA802EC004FA743 /* MessageBubble.swift */,
-				A872C3882BB0B560006968C3 /* AddButtonBorderModifier.swift */,
+				A81D033E2BC9D8A800463E97 /* CreateChatView */,
+				A81D033C2BC9D7D300463E97 /* ChatsView */,
+				A81D033D2BC9D7E500463E97 /* ChatView */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -526,6 +553,7 @@
 				A83B45C42BA802EC004FA743 /* MessageBubble.swift in Sources */,
 				A849C8E22B9BA58B00655D1C /* ProfileView.swift in Sources */,
 				A8D45E532B7880DA0005126C /* EmailLoginView.swift in Sources */,
+				A81D03402BC9D90100463E97 /* CreateChatButton.swift in Sources */,
 				A849C8F82B9E434F00655D1C /* Helpers.swift in Sources */,
 				A8FA92AF2BAA8047004D9F2C /* KeyForValue.swift in Sources */,
 				A83B45C02BA7FBFC004FA743 /* ChatView.swift in Sources */,
