@@ -12,6 +12,7 @@ struct AuthView <Content:View> : View {
   @Environment(\.colorScheme) var colorScheme
   
   @EnvironmentObject private var viewModel: AuthViewModel
+  
   @State var presentingCredentialsView = false
   
   @ViewBuilder var content: () -> Content

@@ -11,6 +11,7 @@ import Combine
 enum UsernameState {
   case notSet
   case updating
+  case set
   case error
 }
 

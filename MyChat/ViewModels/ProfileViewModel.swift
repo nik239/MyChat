@@ -13,18 +13,28 @@ final class ProfileViewModel: ObservableObject {
   let authService: AuthService
   
   let appState: AppState
-  var appStateSub: AnyCancellable?
+  var appStateSubs = Set<AnyCancellable>()
   
-  @Published var userHandle: String = "Unknown"
+  @Published var username: String = "Unknown"
+  @Published var usernameState: UsernameState = .set
+  @Published var error: String = ""
+  @Published var showAlert = false
+  
   
   nonisolated init(authService: AuthService, appState: AppState) {
     self.authService = authService
     self.appState = appState
   }
   
-  func updateUserHandle() {
+  func setUserName() {
     Task {
-      try await authService.setUsername(newName: userHandle)
+      usernameState = .updating
+      do {
+        try await authService.setUsername(newName: username)
+        usernameState = .set
+      } catch {
+        usernameState = .error
+      }
     }
   }
   
@@ -42,14 +52,20 @@ final class ProfileViewModel: ObservableObject {
 //MARK: - ProfileViewModel State Subscription Managment
 extension ProfileViewModel {
   func subscribeToState() {
-    self.appStateSub = appState.$userData
+    appState.$userData
       .map { $0.user?.displayName ?? "Unknown"}
       .removeDuplicates()
-      .sink { self.userHandle = $0 }
+      .sink { self.username = $0 }
+      .store(in: &appStateSubs)
+    appState.$userData
+      .map { $0.error ?? ""}
+      .removeDuplicates()
+      .sink { self.error = $0 }
+      .store(in: &appStateSubs)
   }
   
   func unsubscribeFromState() {
-    appStateSub?.cancel()
-    appStateSub = nil
+    appStateSubs.removeAll()
+    appStateSubs = Set<AnyCancellable>()
   }
 }

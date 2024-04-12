@@ -9,13 +9,8 @@ import SwiftUI
 
 struct ProfileView: View {
   @EnvironmentObject var viewModel: ProfileViewModel
-  
-  //Using isEdditing for both focus and if/else doesn't work, because
-  //TextField is not a part of the view hierarchy when isEditing is set true
-  //so SwiftUI can't focus on it and resets focus to false
+
   @FocusState private var isEditing: Bool
-  @State private var isTextField = false
-  @State var showAlert = false
   
   #if DEBUG
   let inspection = Inspection<Self>()
@@ -35,25 +30,33 @@ struct ProfileView: View {
       
       HStack() {
         Spacer()
-        if isTextField {
-          TextField("Username", text: $viewModel.userHandle)
+        switch viewModel.usernameState {
+        case .notSet:
+          TextField("Username", text: $viewModel.username)
             .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
             .multilineTextAlignment(.center)
             .focused($isEditing)
             .onSubmit {
-              isTextField = false
-              viewModel.updateUserHandle()
+              viewModel.setUserName()
             }
-        } else {
-          Text(viewModel.userHandle)
+        case .updating:
+          ProgressView()
+        case .set, .error:
+          Text(viewModel.username)
             .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
         }
         Spacer()
       }
       
+      if viewModel.error != "" {
+        Text(viewModel.error)
+          .foregroundColor(.red)
+          .padding()
+      }
+      
       Button(action: {
         isEditing = true
-        isTextField = true
+        viewModel.usernameState = .notSet
       }) {
         Text("Change username")
           .foregroundColor(.green)
@@ -68,7 +71,7 @@ struct ProfileView: View {
       
       Spacer()
       
-      Button(action: { showAlert = true }) {
+      Button(action: { viewModel.showAlert = true }) {
         Text("Delete account?")
           .foregroundColor(.red)
       }
@@ -83,7 +86,7 @@ struct ProfileView: View {
     .onDisappear {
       viewModel.unsubscribeFromState()
     }
-    .alert(isPresented: $showAlert) {
+    .alert(isPresented: $viewModel.showAlert) {
       Alert(
         title: Text("Confirm Deletion"),
         message: Text("Are you sure you want to delete your account?"),
