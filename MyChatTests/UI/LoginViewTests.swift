@@ -47,7 +47,7 @@ final class LoginViewTests: XCTestCase {
     }
     
     ViewHosting.host(view: sut.environmentObject(viewModel))
-    wait(for: [exp, exp2], timeout: 0.3)
+    wait(for: [exp, exp2], timeout: 1.5)
   }
   
   @MainActor

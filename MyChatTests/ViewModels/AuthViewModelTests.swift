@@ -133,7 +133,7 @@ final class AuthViewModelTests: XCTestCase {
   }
   
   @MainActor
-  func test_signInWithEmailPassword() {
+  func test_signInWithEmailPassword() async {
     //given
     let email = "someemail"
     let password = "somepasswrod"
@@ -144,11 +144,12 @@ final class AuthViewModelTests: XCTestCase {
     sut.password = password
     sut.signInWithEmailPassword()
     //then
+    try? await Task.sleep(nanoseconds: UInt64(1_000_000))
     mockedAuthService.verify()
   }
   
   @MainActor
-  func test_signUpWithEmailPassword() {
+  func test_signUpWithEmailPassword() async {
     //given
     let email = "someemail"
     let password = "somepasswrod"
@@ -159,6 +160,7 @@ final class AuthViewModelTests: XCTestCase {
     sut.password = password
     sut.signUpWithEmailPassword()
     //then
+    try? await Task.sleep(nanoseconds: UInt64(1_000_000))
     mockedAuthService.verify()
   }
 }

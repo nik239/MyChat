@@ -32,6 +32,7 @@ final class ProfileViewTests: XCTestCase {
     wait(for: [exp], timeout: 0.1)
   }
   
+  @MainActor
   func test_deleteAccount() {
     let mockAuthService = MockedAuthService(expected: [.deleteAccount])
     let container = DIContainer(viewModels: .mocked(authService: mockAuthService))
@@ -40,7 +41,7 @@ final class ProfileViewTests: XCTestCase {
       let delBtn1 = try view.find(button: "Delete account?")
       try delBtn1.tap()
       //then
-      XCTAssertTrue(try view.actualView().showAlert)
+      XCTAssertTrue(try view.actualView().viewModel.showAlert)
     }
     
     ViewHosting.host(view: sut.inject(container))

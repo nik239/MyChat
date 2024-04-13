@@ -81,7 +81,7 @@ final class ChatsViewModelTests: XCTestCase {
     //then
     XCTAssertEqual(sut.lastMessageDate(chat: chat), "")
     //when
-    let yesterday = Calendar.current.date(byAdding: DateComponents(hour: -12), to: .now)
+    let yesterday = Calendar.current.date(byAdding: DateComponents(hour: -24), to: .now)
     let message = Message(author: "tester", content: "test", date: yesterday!)
     chat.messages = [message]
     //then
@@ -103,6 +103,7 @@ final class ChatsViewModelTests: XCTestCase {
     var chat = Chat(members: ["tester"])
     sut.didTapOnChat(chat: chat)
     //then
-    XCTAssertEqual(appState.userData.selectedChatID, appState.userData.chats.key(forValue: chat))
+    XCTAssertEqual(appState.userData.value.selectedChatID,
+                   appState.userData.value.chats.key(forValue: chat))
   }
 }

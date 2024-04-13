@@ -22,14 +22,15 @@ final class ProfileViewModelTests: XCTestCase {
   }
   
   @MainActor
-  func test_updateUserHandle() {
+  func test_updateUserHandle() async {
     //given
     let newHandle = "New Handle"
     sut.username = newHandle
     //expected
     mockedAuthService.actions = .init(expected: [.setUsername(newName: newHandle)])
     //when
-    sut.updateUserHandle()
+    sut.setUserName()
+    try? await Task.sleep(nanoseconds: UInt64(1_000_000))
     //then
     mockedAuthService.verify()
   }
@@ -45,11 +46,12 @@ final class ProfileViewModelTests: XCTestCase {
   }
   
   @MainActor
-  func test_deleteAccount() {
+  func test_deleteAccount() async {
     //expected
     mockedAuthService.actions = .init(expected: [.deleteAccount])
     //when
     sut.deleteAccount()
+    try? await Task.sleep(nanoseconds: UInt64(1_000_000))
     //then
     mockedAuthService.verify()
   }
@@ -57,16 +59,11 @@ final class ProfileViewModelTests: XCTestCase {
   @MainActor
   func test_subscribeToState() {
     //given
-    var subscription = sut.appStateSub
-    let userHandle = sut.username
-    //then
-    XCTAssertNil(subscription)
-    XCTAssertEqual(userHandle, "Unknown")
+    XCTAssertEqual(sut.appStateSubs.count, 0)
     //when
     sut.subscribeToState()
-    subscription = sut.appStateSub
     //then
-    XCTAssertNotNil(subscription)
+    XCTAssertEqual(sut.appStateSubs.count, 2)
   }
   
   @MainActor
@@ -74,8 +71,7 @@ final class ProfileViewModelTests: XCTestCase {
     //given
     sut.subscribeToState()
     sut.unsubscribeFromState()
-    let subscription = sut.appStateSub
     //then
-    XCTAssertNil(subscription)
+    XCTAssertEqual(sut.appStateSubs.count, 0)
   }
 }

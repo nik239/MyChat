@@ -105,7 +105,7 @@ final class ChatViewModelTests: XCTestCase {
     //when
     sut.backUpUserInput()
     //then
-    XCTAssertEqual(testInput, appState.userData.chats[id]?.userInput)
+    XCTAssertEqual(testInput, appState.userData.value.chats[id]?.userInput)
   }
   
   @MainActor
@@ -116,11 +116,11 @@ final class ChatViewModelTests: XCTestCase {
     chat.userInput = testInput
     appState.update(chatAtID: "test", to: chat)
     appState.update(selectedChat: chat)
-    XCTAssertTrue(appState.routing.showBottomNavigation)
+    XCTAssertTrue(appState.routing.value.showBottomNavigation)
     //when
     sut.preformOnAppear()
     //then
-    XCTAssertFalse(appState.routing.showBottomNavigation)
+    XCTAssertFalse(appState.routing.value.showBottomNavigation)
     XCTAssertEqual(sut.appStateSubs.count, 2)
     XCTAssertEqual(sut.userInput, testInput)
   }
@@ -131,11 +131,11 @@ final class ChatViewModelTests: XCTestCase {
     sut.subscribeToState(selectedChatId: "test")
     appState.toggleBottomNavigation()
     XCTAssertEqual(sut.appStateSubs.count, 2)
-    XCTAssertFalse(appState.routing.showBottomNavigation)
+    XCTAssertFalse(appState.routing.value.showBottomNavigation)
     //when
     sut.preformOnDisappear()
     //then
-    XCTAssertTrue(appState.routing.showBottomNavigation)
+    XCTAssertTrue(appState.routing.value.showBottomNavigation)
     XCTAssertEqual(sut.appStateSubs.count, 0)
   }
 }
