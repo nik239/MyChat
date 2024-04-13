@@ -16,6 +16,7 @@
 		A8125C1A2BC5BC7A0007D720 /* RealDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8125C192BC5BC7A0007D720 /* RealDBService.swift */; };
 		A81D03402BC9D90100463E97 /* CreateChatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D033F2BC9D90100463E97 /* CreateChatButton.swift */; };
 		A81D03422BCA3A1C00463E97 /* CreateChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D03412BCA3A1B00463E97 /* CreateChatViewModel.swift */; };
+		A81D03442BCB512000463E97 /* AddChatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D03432BCB512000463E97 /* AddChatButton.swift */; };
 		A83B45B92BA6A9B6004FA743 /* ChatsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83B45B82BA6A9B6004FA743 /* ChatsViewTests.swift */; };
 		A83B45BC2BA6AB92004FA743 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = A83B45BB2BA6AB92004FA743 /* ViewInspector */; };
 		A83B45BE2BA6ACB3004FA743 /* AuthViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83B45BD2BA6ACB3004FA743 /* AuthViewTests.swift */; };
@@ -102,6 +103,7 @@
 		A8125C192BC5BC7A0007D720 /* RealDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealDBService.swift; sourceTree = "<group>"; };
 		A81D033F2BC9D90100463E97 /* CreateChatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChatButton.swift; sourceTree = "<group>"; };
 		A81D03412BCA3A1B00463E97 /* CreateChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChatViewModel.swift; sourceTree = "<group>"; };
+		A81D03432BCB512000463E97 /* AddChatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatButton.swift; sourceTree = "<group>"; };
 		A82CFB6F2B79AD9D00E4DE0D /* MyChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A82CFB782B79DAF600E4DE0D /* MyChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyChat.entitlements; sourceTree = "<group>"; };
 		A83B45B82BA6A9B6004FA743 /* ChatsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewTests.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				A849C8DF2B9BA52900655D1C /* ChatPreview.swift */,
+				A81D03432BCB512000463E97 /* AddChatButton.swift */,
 			);
 			path = ChatsView;
 			sourceTree = "<group>";
@@ -564,6 +567,7 @@
 				A841D3EA2BB0DB850059F443 /* BottomNavigationViewModel.swift in Sources */,
 				A8B98AD62BB9E05300E96E51 /* ChatTable.swift in Sources */,
 				A8D9C0CA2B7878FF00118CA0 /* AuthViewModel.swift in Sources */,
+				A81D03442BCB512000463E97 /* AddChatButton.swift in Sources */,
 				A849C8EF2B9D63DE00655D1C /* AppEnvironment.swift in Sources */,
 				A87579432B883D5200289437 /* DBService.swift in Sources */,
 				A849C8F42B9E33F600655D1C /* SceneDelegate.swift in Sources */,

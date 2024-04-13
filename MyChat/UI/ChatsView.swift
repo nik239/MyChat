@@ -15,8 +15,15 @@ struct ChatsView: View {
   #endif
   
   var body: some View {
-    NavigationView {
-      VStack (alignment: .leading) {
+    
+    VStack (alignment: .leading) {
+      HStack {
+        Spacer()
+        AddChatButton(createChat: viewModel.didTapAddBtn)
+        .padding(5)
+      }
+      Spacer()
+      NavigationStack {
         ScrollView(.vertical) {
           ForEach(viewModel.chats ?? []) { chat in
             NavigationLink(destination: ChatView()) {
@@ -31,11 +38,11 @@ struct ChatsView: View {
           }
         }
       }
+      Spacer()
     }
     .sheet(isPresented: $viewModel.showingCreateChat) {
       CreateChatView()
     }
-    .navigationBarTitle("Chats")
     .onAppear {
       viewModel.subscribeToState()
     }
