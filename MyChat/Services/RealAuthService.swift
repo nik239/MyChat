@@ -47,7 +47,7 @@ final class RealAuthService: AuthService {
   
   func deleteAccount() async {
     do {
-      try await self.appState.userData.user?.delete()
+      try await self.appState.userData.value.user?.delete()
     }
     catch {
       Task {
@@ -93,7 +93,7 @@ extension RealAuthService {
 // MARK: -RealAuthService Update username
 extension RealAuthService {
   func setUsername(newName: String) async throws {
-    guard let changeRequest = await appState.userData.user?.createProfileChangeRequest() else {
+    guard let changeRequest = await appState.userData.value.user?.createProfileChangeRequest() else {
       return
     }
     changeRequest.displayName = newName

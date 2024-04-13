@@ -21,12 +21,12 @@ final class BottomNavigationViewModel: ObservableObject {
   }
   
   func subscribeToState() {
-    appState.$routing
+    appState.routing
       .map { $0.showBottomNavigation }
       .removeDuplicates()
       .sink { self.showBottomNavigation = $0 }
       .store(in: &appStateSubs)
-    appState.$userData
+    appState.userData
       .map { $0.user?.displayName }
       .removeDuplicates()
       .sink { self.userNameIsNil = $0 == nil }

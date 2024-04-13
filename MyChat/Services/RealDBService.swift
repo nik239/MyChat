@@ -12,25 +12,29 @@ final class FireStoreService: DBService {
   let appState: AppState
   let db: Firestore
   
-  private var cancellables = Set<AnyCancellable>()
+  private var appStateSub: AnyCancellable?
   private var listeners = [ListenerRegistration]()
   
   init(appState: AppState) {
     db = Firestore.firestore()
     self.appState = appState
-    createUserObserver()
+    Task {
+      await createUserObserver()
+    }
   }
 
   /// Creates a subscriber that manages listeners upon successful user authentication.
-  private func createUserObserver() {
-    Task {
-      let userValues = await appState.$userData.compactMap{$0.user?.displayName}.removeDuplicates().values
-      for await user in userValues {
-        self.listeners.forEach { $0.remove() }
-        self.listeners = []
-        self.configureListeners(forUser: user)
+  private func createUserObserver() async {
+      await MainActor.run {
+        appStateSub = appState.userData
+          .compactMap{ $0.user?.displayName }
+          .removeDuplicates()
+          .sink { username in
+            self.listeners.forEach { $0.remove() }
+            self.listeners = []
+            self.configureListeners(forUser: username)
+          }
       }
-    }
   }
 }
 
@@ -65,7 +69,7 @@ extension FireStoreService {
   /// Generates updated ChatsTable.
   func getUpdatedChatTable(from chatDocs: [QueryDocumentSnapshot],
                            forUser userID: String) async -> ChatTable {
-    var chatTable = await appState.userData.chats
+    var chatTable = await appState.userData.value.chats
     
     // TaskGroup here introduces unnescessary complexity without a clear preformance benefit
     // It's implemented largely for the sake of exercise

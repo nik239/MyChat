@@ -33,7 +33,7 @@ final class UsernameViewModel: ObservableObject {
   }
   
   func subscribeToState() {
-    appStateSub = appState.$userData
+    appStateSub = appState.userData
       .map { $0.error ?? ""}
       .removeDuplicates()
       .sink { self.error = $0 }

@@ -41,7 +41,7 @@ final class ChatViewModel: ObservableObject {
   }
   
   private func bindToMessages(withChatID id: String) {
-    appState.$userData
+    appState.userData
       .compactMap { $0.chats[id]?.messages }
       .removeDuplicates()
       .sink { self.messages = $0 }
@@ -49,7 +49,7 @@ final class ChatViewModel: ObservableObject {
   }
   
   private func bindToChatName(withChatID id: String) {
-    appState.$userData
+    appState.userData
       .compactMap { $0.chats[id]?.name }
       .removeDuplicates()
       .sink { self.chatName = $0 }
@@ -62,8 +62,8 @@ final class ChatViewModel: ObservableObject {
 extension ChatViewModel {
   func sendMessage() {
     #if DEBUG
-    let author = appState.userData.user?.displayName ?? "tester"
-    guard let chatID = appState.userData.selectedChatID else {
+    let author = appState.userData.value.user?.displayName ?? "tester"
+    guard let chatID = appState.userData.value.selectedChatID else {
       return
     }
     #else
@@ -86,7 +86,7 @@ extension ChatViewModel {
 //MARK: - ChatViewModel - UI
 extension ChatViewModel {
   func isAuthorSelf(message: Message) -> Bool {
-    return message.author == appState.userData.user?.displayName
+    return message.author == appState.userData.value.user?.displayName
   }
   
   func calculateTextHeight() {
@@ -107,9 +107,9 @@ extension ChatViewModel {
 extension ChatViewModel {
   func preformOnAppear() {
     appState.toggleBottomNavigation()
-    if let selectedChatID = appState.userData.selectedChatID {
+    if let selectedChatID = appState.userData.value.selectedChatID {
       subscribeToState(selectedChatId: selectedChatID)
-      userInput = appState.userData.chats[selectedChatID]?.userInput ?? ""
+      userInput = appState.userData.value.chats[selectedChatID]?.userInput ?? ""
     }
   }
   
@@ -120,7 +120,7 @@ extension ChatViewModel {
   }
   
   func backUpUserInput() {
-    guard let chatID = appState.userData.selectedChatID else {
+    guard let chatID = appState.userData.value.selectedChatID else {
       return
     }
     appState.update(userInput: userInput, forChatAtID: chatID)

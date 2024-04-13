@@ -6,20 +6,17 @@
 //
 
 import FirebaseAuth
+import Combine
 
 @MainActor
 final class AppState {
-  @Published private (set) var userData: UserData = UserData()
-  @Published private (set) var routing: ViewRouting = ViewRouting()
+  private (set) var userData: CurrentValueSubject<UserData, Never>// = UserData()
+  private (set) var routing: CurrentValueSubject<ViewRouting, Never>// = ViewRouting()
   
   nonisolated init(userData: UserData = UserData(),
                    routing: ViewRouting = ViewRouting()) {
-    Task {
-       await MainActor.run {
-        self.userData = userData
-        self.routing = routing
-      }
-    }
+    self.userData = CurrentValueSubject<UserData,Never>(userData)
+    self.routing = CurrentValueSubject<ViewRouting,Never>(routing)
   }
 }
 
@@ -30,8 +27,8 @@ extension AppState {
     var authState: AuthState = .unauthenticated
     var error: String?
     
-    var chats: ChatTable = ChatTable()
     var selectedChatID: String? = nil
+    var chats: ChatTable = ChatTable()
   }
   
   struct ViewRouting {
@@ -42,44 +39,44 @@ extension AppState {
 // MARK: - UserData Actions
 extension AppState {
   func update(user: User?) {
-    userData.user = user
+    userData.value.user = user
   }
   
   func update(authState: AuthState) {
-    userData.authState = authState
+    userData.value.authState = authState
   }
   
   func update(error: String?) {
-    userData.error = error
+    userData.value.error = error
   }
   
   /// Updates the chat dictionary at specified id, if the id doesn't exist creates a Chat at that id.
   func update(chatAtID id: String, to chat: Chat) {
-    userData.chats[id] = chat
+    userData.value.chats[id] = chat
   }
   
   func update(messagesAtID id: String, to messages: [Message]?) {
-    userData.chats[id]?.messages = messages
+    userData.value.chats[id]?.messages = messages
   }
   
   func update(chats: ChatTable) {
-    userData.chats = chats
+    userData.value.chats = chats
   }
   
   func update(selectedChat: Chat) {
-    userData.selectedChatID =
-    userData.chats.key(forValue: selectedChat)
+    userData.value.selectedChatID =
+    userData.value.chats.key(forValue: selectedChat)
   }
   
   func update(userInput: String, forChatAtID id: String) {
-    userData.chats[id]?.userInput = userInput
+    userData.value.chats[id]?.userInput = userInput
   }
 }
 
 // MARK: - ViewRouting Actions
 extension AppState {
   func toggleBottomNavigation() {
-    routing.showBottomNavigation.toggle()
+    routing.value.showBottomNavigation.toggle()
   }
 }
 
@@ -98,8 +95,8 @@ extension AppState {
       let userData = AppState.UserData(user: nil,
                                        authState: .unauthenticated,
                                        error: "",
-                                       chats: ["1": chat1, "2": chat2, "3": chat3],
-                                       selectedChatID: "1")
+                                       selectedChatID: "1",
+                                       chats: ["1": chat1, "2": chat2, "3": chat3])
       let routing = AppState.ViewRouting(showBottomNavigation: true)
       let preview = AppState(userData: userData, routing: routing)
       return preview
@@ -108,7 +105,7 @@ extension AppState {
 
 extension AppState {
   func update(selectedChatID: String) {
-    userData.selectedChatID = selectedChatID
+    userData.value.selectedChatID = selectedChatID
   }
 }
 #endif

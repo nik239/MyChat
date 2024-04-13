@@ -20,7 +20,7 @@ final class ChatsViewModel: ObservableObject {
   }
   
   func subscribeToState() {
-    appStateSub = appState.$userData
+    appStateSub = appState.userData
       .compactMap { Array($0.chats.values) }
       .removeDuplicates()
       .sink { chatsArr in

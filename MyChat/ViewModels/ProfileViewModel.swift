@@ -52,12 +52,12 @@ final class ProfileViewModel: ObservableObject {
 //MARK: - ProfileViewModel State Subscription Managment
 extension ProfileViewModel {
   func subscribeToState() {
-    appState.$userData
+    appState.userData
       .map { $0.user?.displayName ?? "Unknown"}
       .removeDuplicates()
       .sink { self.username = $0 }
       .store(in: &appStateSubs)
-    appState.$userData
+    appState.userData
       .map { $0.error ?? ""}
       .removeDuplicates()
       .sink { self.error = $0 }

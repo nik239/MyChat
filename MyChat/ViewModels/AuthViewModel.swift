@@ -44,14 +44,14 @@ final class AuthViewModel: ObservableObject {
   }
   
   private func subscribeToState() {
-    appState.$userData
+    appState.userData
       .map { $0.authState }
       .removeDuplicates()
       .sink {
         self.authState = $0
       }
       .store(in: &appStateSubs)
-    appState.$userData
+    appState.userData
       .map { $0.error ?? "" }
       .removeDuplicates()
       .sink {
