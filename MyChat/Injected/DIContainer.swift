@@ -46,7 +46,8 @@ extension DIContainer {
             bottomNavigationViewModel: BottomNavigationViewModel(appState: appState),
             usernameViewModel: UsernameViewModel(authService: StubAuthService(),
                                                  appState: appState),
-            createChatViewModel: CreateChatViewModel(dbService: StubFireStoreService()))
+            createChatViewModel: CreateChatViewModel(dbService: StubFireStoreService(),
+                                                     appState: appState))
     }
   }
 }

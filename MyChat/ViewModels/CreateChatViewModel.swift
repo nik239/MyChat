@@ -23,7 +23,7 @@ final class CreateChatViewModel: ObservableObject {
 
   @Published var error = ""
   
-  nonisolated init(appState: AppState, dbService: DBService) {
+  nonisolated init(dbService: DBService, appState: AppState) {
     self.appState = appState
     self.dbService = dbService
   }
@@ -32,6 +32,7 @@ final class CreateChatViewModel: ObservableObject {
     members.append(memberEntry)
     allMembers = members.joined(separator: ", ")
     isValid = members != []
+    memberEntry = ""
   }
   
   func createChat() {

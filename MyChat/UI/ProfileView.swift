@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProfileView: View {
   @EnvironmentObject var viewModel: ProfileViewModel
-
   @FocusState private var isEditing: Bool
   
   #if DEBUG

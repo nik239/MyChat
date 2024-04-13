@@ -40,13 +40,23 @@ struct CreateChatView: View {
       
       Text("Members: " + viewModel.allMembers)
         .padding()
-      HStack {
-        
+        .onTapGesture {
+          viewModel.addingMembers = true
+          focusField = .members
+        }
+      
+      if viewModel.error != "" {
+        Text(viewModel.error)
+          .foregroundColor(.red)
       }
+      
       if viewModel.addingMembers {
         HStack (alignment: .bottom) {
           TextField("Enter username", text: $viewModel.memberEntry)
             .focused($focusField, equals: .members)
+            .onSubmit {
+              viewModel.addingMembers = false
+            }
           Button(action: viewModel.addMember) {
             Image(systemName: "plus.circle")
               .resizable()

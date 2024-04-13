@@ -10,8 +10,8 @@ import Combine
 
 @MainActor
 final class AppState {
-  private (set) var userData: CurrentValueSubject<UserData, Never>// = UserData()
-  private (set) var routing: CurrentValueSubject<ViewRouting, Never>// = ViewRouting()
+  private (set) var userData: CurrentValueSubject<UserData, Never>
+  private (set) var routing: CurrentValueSubject<ViewRouting, Never>
   
   nonisolated init(userData: UserData = UserData(),
                    routing: ViewRouting = ViewRouting()) {
@@ -67,6 +67,10 @@ extension AppState {
   func update(selectedChat: Chat) {
     userData.value.selectedChatID =
     userData.value.chats.key(forValue: selectedChat)
+  }
+  
+  func update(userInput: String, forChatAtID id: String) {
+    userData.value.chats[id]?.userInput = userInput
   }
 }
 

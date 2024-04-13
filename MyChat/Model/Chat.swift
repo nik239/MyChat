@@ -59,3 +59,15 @@ extension Chat {
   }
 }
 
+// MARK: - isMoreRecent
+extension Chat {
+  static func isMoreRecent(_ chat1: Chat, then chat2: Chat) -> Bool {
+    guard let date0 = chat1.messages?.last?.date else {
+      return false
+    }
+    guard let date1 = chat2.messages?.last?.date else {
+      return true
+    }
+    return date0 > date1
+  }
+}

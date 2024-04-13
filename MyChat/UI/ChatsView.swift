@@ -20,9 +20,9 @@ struct ChatsView: View {
         ScrollView(.vertical) {
           ForEach(viewModel.chats ?? []) { chat in
             NavigationLink(destination: ChatView()) {
-                ChatPreview(name: chat.name,
-                            date: viewModel.lastMessageDate(chat: chat),
-                            messagePreview: viewModel.messagePreview(chat: chat))
+              ChatPreview(name: chat.name,
+                          date: viewModel.lastMessageDate(chat: chat),
+                          messagePreview: viewModel.messagePreview(chat: chat))
             }
             .simultaneousGesture(TapGesture().onEnded {
               viewModel.didTapOnChat(chat: chat)
@@ -31,6 +31,9 @@ struct ChatsView: View {
           }
         }
       }
+    }
+    .sheet(isPresented: $viewModel.showingCreateChat) {
+      CreateChatView()
     }
     .navigationBarTitle("Chats")
     .onAppear {

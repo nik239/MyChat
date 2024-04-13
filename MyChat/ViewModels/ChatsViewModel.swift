@@ -11,38 +11,51 @@ import Combine
 @MainActor
 final class ChatsViewModel: ObservableObject {
   let appState: AppState
-  var appStateSub: AnyCancellable?
+  var appStateSubs = Set<AnyCancellable>()
   
   @Published var chats: [Chat]?
+  @Published var showingCreateChat: Bool = false
   
   nonisolated init(appState: AppState) {
     self.appState = appState
   }
   
   func subscribeToState() {
-    appStateSub = appState.userData
+    appState.userData
       .compactMap { Array($0.chats.values) }
       .removeDuplicates()
       .sink { chatsArr in
-        self.chats = chatsArr.sorted() {self.isMoreRecent($0, then: $1)}
+        self.chats = chatsArr.sorted() {Chat.isMoreRecent($0, then: $1)}
       }
+      .store(in: &appStateSubs)
+    
+    appState.routing
+      .map { $0.showCreateChatView }
+      .removeDuplicates()
+      .sink {
+        self.showingCreateChat = $0
+      }
+      .store(in: &appStateSubs)
   }
   
   func unsubscribeFromState() {
-    appStateSub?.cancel()
-    appStateSub = nil
+    appStateSubs.removeAll()
+  }
+}
+
+//MARK: -ChatsViewModel Interaction
+extension ChatsViewModel {
+  func didTapOnChat(chat: Chat) {
+    appState.update(selectedChat: chat)
   }
   
-  func isMoreRecent(_ chat1: Chat, then chat2: Chat) -> Bool {
-    guard let date0 = chat1.messages?.last?.date else {
-      return false
-    }
-    guard let date1 = chat2.messages?.last?.date else {
-      return true
-    }
-    return date0 > date1
+  func didTapAddBtn() {
+    appState.toggleShowCreateChatView()
   }
-  
+}
+
+//MARK: - ChatsViewModel Presentation
+extension ChatsViewModel {
   func messagePreview(chat: Chat) -> String {
     return chat.messages?.last?.content ?? ""
   }
@@ -72,12 +85,8 @@ final class ChatsViewModel: ObservableObject {
     
     dateFormatter.dateStyle = .short
     dateFormatter.timeStyle = .none
-
+    
     return dateFormatter.string(from: date)
-  }
-  
-  func didTapOnChat(chat: Chat) {
-    appState.update(selectedChat: chat)
   }
 }
 
