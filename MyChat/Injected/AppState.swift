@@ -33,6 +33,7 @@ extension AppState {
   
   struct ViewRouting {
     var showBottomNavigation = true
+    var showCreateChatView = false
   }
 }
 
@@ -67,16 +68,16 @@ extension AppState {
     userData.value.selectedChatID =
     userData.value.chats.key(forValue: selectedChat)
   }
-  
-  func update(userInput: String, forChatAtID id: String) {
-    userData.value.chats[id]?.userInput = userInput
-  }
 }
 
 // MARK: - ViewRouting Actions
 extension AppState {
   func toggleBottomNavigation() {
     routing.value.showBottomNavigation.toggle()
+  }
+  
+  func toggleShowCreateChatView() {
+    routing.value.showCreateChatView.toggle()
   }
 }
 

@@ -34,13 +34,15 @@ extension AppEnvironment {
     let profileViewModel = ProfileViewModel(authService: services.authService, appState: appState)
     let bottomNavigationViewModel = BottomNavigationViewModel(appState: appState)
     let usernameViewModel = UsernameViewModel(authService: services.authService, appState: appState)
+    let createChatViewModel = CreateChatViewModel(dbService: services.firestoreService)
     
     return .init(authViewModel: authViewModel,
                  chatsViewModel: chatsViewModel,
                  chatViewModel: chatViewModel,
                  profileViewModel: profileViewModel,
                  bottomNavigationViewModel: bottomNavigationViewModel,
-                 usernameViewModel: usernameViewModel)
+                 usernameViewModel: usernameViewModel,
+                 createChatViewModel: createChatViewModel)
   }
 }
 

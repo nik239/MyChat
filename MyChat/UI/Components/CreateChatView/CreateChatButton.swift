@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CreateChatButton: View {
   let createChat: () -> ()
+  let isDisabled: Bool
     var body: some View {
       Button(action: createChat) {
         HStack{
@@ -19,7 +20,7 @@ struct CreateChatButton: View {
             .foregroundColor(.white)
         }
         .padding(10)
-        .background(.blue)
+        .background(isDisabled ? .blue : .gray)
         .cornerRadius(10)
       }
     }
@@ -27,6 +28,6 @@ struct CreateChatButton: View {
 
 #if DEBUG
 #Preview {
-  CreateChatButton(createChat: {})
+  CreateChatButton(createChat: {}, isDisabled: false)
 }
 #endif

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CreateChatView: View {
-  @State var isValid = true
+  @EnvironmentObject var viewModel: CreateChatViewModel
   
   enum Field: Hashable {
     case name
@@ -16,47 +16,42 @@ struct CreateChatView: View {
   }
   
   @FocusState var focusField: Field?
-  @State var addingMembers = false
-  
-  @State var memberEntry: String = ""
-  @State var chatNameEntry: String = ""
-  
   
   var body: some View {
     VStack (alignment: .leading) {
       HStack {
         Spacer()
-        CreateChatButton(createChat: {})
+        CreateChatButton(createChat: viewModel.createChat,
+                         isDisabled: viewModel.isValid)
+        .disabled(viewModel.isValid)
         .padding()
       }
       Spacer()
       HStack {
         Text("Name:")
-        TextField("(Optional)", text: $chatNameEntry)
+        TextField("(Optional)", text: $viewModel.chatNameEntry)
           .focused($focusField, equals: .name)
           .onSubmit {
             focusField = .members
-            addingMembers = true
+            viewModel.addingMembers = true
           }
       }
       .padding()
       
-      Text("Members: user1, user2, user3")
+      Text("Members: " + viewModel.allMembers)
         .padding()
       HStack {
         
       }
-      if addingMembers {
+      if viewModel.addingMembers {
         HStack (alignment: .bottom) {
-          TextField("Enter username", text: $memberEntry)
+          TextField("Enter username", text: $viewModel.memberEntry)
             .focused($focusField, equals: .members)
-          Button(action: {print("adding member")}) {
+          Button(action: viewModel.addMember) {
             Image(systemName: "plus.circle")
               .resizable()
               .frame(width: 30, height: 30)
           }
-          .tag("send button")
-          .disabled(isValid)
         }
         .padding(5)
         .overlay(
@@ -69,6 +64,9 @@ struct CreateChatView: View {
     }
     .onAppear() {
       focusField = .name
+    }
+    .onDisappear() {
+      viewModel.preformOnDisappear()
     }
   }
 }
