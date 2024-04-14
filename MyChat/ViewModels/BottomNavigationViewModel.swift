@@ -27,7 +27,7 @@ final class BottomNavigationViewModel: ObservableObject {
       .sink { self.showBottomNavigation = $0 }
       .store(in: &appStateSubs)
     appState.userData
-      .map { $0.user?.displayName }
+      .map { $0.username }
       .removeDuplicates()
       .sink { self.userNameIsNil = $0 == nil }
       .store(in: &appStateSubs)

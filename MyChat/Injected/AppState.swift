@@ -5,7 +5,6 @@
 //  Created by Nikita Ivanov on 21/02/2024.
 //
 
-import FirebaseAuth
 import Combine
 
 @MainActor
@@ -22,9 +21,11 @@ final class AppState {
 
 extension AppState {
   struct UserData {
-    var user: User?
-    
     var authState: AuthState = .unauthenticated
+    
+    var uid: String?
+    var username: String?
+    
     var error: String?
     
     var selectedChatID: String? = nil
@@ -39,8 +40,9 @@ extension AppState {
 
 // MARK: - UserData Actions
 extension AppState {
-  func update(user: User?) {
-    userData.value.user = user
+  func update(uid: String?, username: String?) {
+    userData.value.uid = uid
+    userData.value.username = username
   }
   
   func update(authState: AuthState) {
@@ -84,33 +86,3 @@ extension AppState {
     routing.value.showCreateChatView.toggle()
   }
 }
-
-#if DEBUG
-// MARK: - Preview
-extension AppState {
-  nonisolated static var preview: AppState {
-      var chat1 = Chat(members: [], name: "Sam")
-      var chat2 = Chat(members: [], name: "Merry")
-      var chat3 = Chat(members: [], name: "Pipppin")
-      let messageContent = "Hey, what's up. Hope everything is well. Do you have the ring? I was wondering if I could I borrow it for a little while."
-      let messageContent2 = "Hey, this is Merry. Hope everything is well. Do you have the ring? I was wondering if I could I borrow it for a little while."
-      chat1.messages = [Message(author: "Sam", content: messageContent)]
-      chat2.messages = [Message(author: "Merry", content: messageContent2)]
-      chat3.messages = [Message(author: "Pippin", content: messageContent)]
-      let userData = AppState.UserData(user: nil,
-                                       authState: .unauthenticated,
-                                       error: "",
-                                       selectedChatID: "1",
-                                       chats: ["1": chat1, "2": chat2, "3": chat3])
-      let routing = AppState.ViewRouting(showBottomNavigation: true)
-      let preview = AppState(userData: userData, routing: routing)
-      return preview
-  }
-}
-
-extension AppState {
-  func update(selectedChatID: String) {
-    userData.value.selectedChatID = selectedChatID
-  }
-}
-#endif

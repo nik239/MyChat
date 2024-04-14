@@ -53,7 +53,7 @@ final class ProfileViewModel: ObservableObject {
 extension ProfileViewModel {
   func subscribeToState() {
     appState.userData
-      .map { $0.user?.displayName ?? "Unknown"}
+      .map { $0.username ?? "Unknown"}
       .removeDuplicates()
       .sink { self.username = $0 }
       .store(in: &appStateSubs)

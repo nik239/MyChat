@@ -26,8 +26,8 @@ final class RealAuthService: AuthService {
     if authStateHandler == nil {
       authStateHandler = Auth.auth().addStateDidChangeListener { auth, user in
         Task {
-          await self.appState.update(user: user)
           await self.appState.update(authState: user == nil ? .unauthenticated : .authenticated)
+          await self.appState.update(uid: user?.uid, username: user?.displayName)
         }
       }
     }
@@ -47,7 +47,7 @@ final class RealAuthService: AuthService {
   
   func deleteAccount() async {
     do {
-      try await self.appState.userData.value.user?.delete()
+      try await Auth.auth().currentUser?.delete()
     }
     catch {
       Task {
@@ -93,7 +93,7 @@ extension RealAuthService {
 // MARK: -RealAuthService Update username
 extension RealAuthService {
   func setUsername(newName: String) async throws {
-    guard let changeRequest = await appState.userData.value.user?.createProfileChangeRequest() else {
+    guard let changeRequest = await Auth.auth().currentUser?.createProfileChangeRequest() else {
       return
     }
     changeRequest.displayName = newName

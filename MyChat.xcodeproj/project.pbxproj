@@ -17,6 +17,7 @@
 		A81D03402BC9D90100463E97 /* CreateChatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D033F2BC9D90100463E97 /* CreateChatButton.swift */; };
 		A81D03422BCA3A1C00463E97 /* CreateChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D03412BCA3A1B00463E97 /* CreateChatViewModel.swift */; };
 		A81D03442BCB512000463E97 /* AddChatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D03432BCB512000463E97 /* AddChatButton.swift */; };
+		A81D03462BCB5B4D00463E97 /* AppStatePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D03452BCB5B4D00463E97 /* AppStatePreview.swift */; };
 		A83B45B92BA6A9B6004FA743 /* ChatsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83B45B82BA6A9B6004FA743 /* ChatsViewTests.swift */; };
 		A83B45BC2BA6AB92004FA743 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = A83B45BB2BA6AB92004FA743 /* ViewInspector */; };
 		A83B45BE2BA6ACB3004FA743 /* AuthViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83B45BD2BA6ACB3004FA743 /* AuthViewTests.swift */; };
@@ -37,7 +38,6 @@
 		A849C8F42B9E33F600655D1C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F32B9E33F600655D1C /* SceneDelegate.swift */; };
 		A849C8F62B9E361000655D1C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F52B9E361000655D1C /* ContentView.swift */; };
 		A849C8F82B9E434F00655D1C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F72B9E434F00655D1C /* Helpers.swift */; };
-		A854B0AD2BB1FA1600BD2AEC /* TextEditorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A854B0AC2BB1FA1600BD2AEC /* TextEditorExample.swift */; };
 		A854B0AF2BB2162400BD2AEC /* FontConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A854B0AE2BB2162400BD2AEC /* FontConversion.swift */; };
 		A854B0B22BB22B6F00BD2AEC /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A854B0B12BB22B6F00BD2AEC /* Mock.swift */; };
 		A854B0B42BB22D0200BD2AEC /* MockedAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A854B0B32BB22D0200BD2AEC /* MockedAuthService.swift */; };
@@ -104,6 +104,7 @@
 		A81D033F2BC9D90100463E97 /* CreateChatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChatButton.swift; sourceTree = "<group>"; };
 		A81D03412BCA3A1B00463E97 /* CreateChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChatViewModel.swift; sourceTree = "<group>"; };
 		A81D03432BCB512000463E97 /* AddChatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChatButton.swift; sourceTree = "<group>"; };
+		A81D03452BCB5B4D00463E97 /* AppStatePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStatePreview.swift; sourceTree = "<group>"; };
 		A82CFB6F2B79AD9D00E4DE0D /* MyChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A82CFB782B79DAF600E4DE0D /* MyChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyChat.entitlements; sourceTree = "<group>"; };
 		A83B45B82BA6A9B6004FA743 /* ChatsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewTests.swift; sourceTree = "<group>"; };
@@ -125,7 +126,6 @@
 		A849C8F32B9E33F600655D1C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A849C8F52B9E361000655D1C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A849C8F72B9E434F00655D1C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		A854B0AC2BB1FA1600BD2AEC /* TextEditorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorExample.swift; sourceTree = "<group>"; };
 		A854B0AE2BB2162400BD2AEC /* FontConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontConversion.swift; sourceTree = "<group>"; };
 		A854B0B12BB22B6F00BD2AEC /* Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
 		A854B0B32BB22D0200BD2AEC /* MockedAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedAuthService.swift; sourceTree = "<group>"; };
@@ -366,7 +366,6 @@
 				A83B45BF2BA7FBFC004FA743 /* ChatView.swift */,
 				A849C8DD2B9BA4E100655D1C /* CreateChatView.swift */,
 				A849C8F02B9E17D000655D1C /* Components */,
-				A854B0AC2BB1FA1600BD2AEC /* TextEditorExample.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -414,6 +413,7 @@
 			isa = PBXGroup;
 			children = (
 				A8E4D5832B86F62600EA0EE7 /* AppState.swift */,
+				A81D03452BCB5B4D00463E97 /* AppStatePreview.swift */,
 				A849C8EA2B9D5DC200655D1C /* DIContainer.swift */,
 			);
 			path = Injected;
@@ -567,6 +567,7 @@
 				A841D3EA2BB0DB850059F443 /* BottomNavigationViewModel.swift in Sources */,
 				A8B98AD62BB9E05300E96E51 /* ChatTable.swift in Sources */,
 				A8D9C0CA2B7878FF00118CA0 /* AuthViewModel.swift in Sources */,
+				A81D03462BCB5B4D00463E97 /* AppStatePreview.swift in Sources */,
 				A81D03442BCB512000463E97 /* AddChatButton.swift in Sources */,
 				A849C8EF2B9D63DE00655D1C /* AppEnvironment.swift in Sources */,
 				A87579432B883D5200289437 /* DBService.swift in Sources */,
@@ -590,7 +591,6 @@
 				A8125C182BC5BBEA0007D720 /* RealAuthService.swift in Sources */,
 				A849C8EB2B9D5DC200655D1C /* DIContainer.swift in Sources */,
 				A8E4D5812B86F40C00EA0EE7 /* AuthService.swift in Sources */,
-				A854B0AD2BB1FA1600BD2AEC /* TextEditorExample.swift in Sources */,
 				A8125C142BC5AC920007D720 /* SetUsernameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -27,7 +27,7 @@ final class FireStoreService: DBService {
   private func createUserObserver() async {
       await MainActor.run {
         appStateSub = appState.userData
-          .compactMap{ $0.user?.displayName }
+          .compactMap{ $0.username }
           .removeDuplicates()
           .sink { username in
             self.listeners.forEach { $0.remove() }

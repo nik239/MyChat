@@ -62,7 +62,7 @@ final class ChatViewModel: ObservableObject {
 extension ChatViewModel {
   func sendMessage() {
     #if DEBUG
-    let author = appState.userData.value.user?.displayName ?? "tester"
+    let author = appState.userData.value.username ?? "tester"
     guard let chatID = appState.userData.value.selectedChatID else {
       return
     }
@@ -86,7 +86,7 @@ extension ChatViewModel {
 //MARK: - ChatViewModel - UI
 extension ChatViewModel {
   func isAuthorSelf(message: Message) -> Bool {
-    return message.author == appState.userData.value.user?.displayName
+    return message.author == appState.userData.value.username
   }
   
   func calculateTextHeight() {
@@ -94,7 +94,8 @@ extension ChatViewModel {
       editorHeight = 20
       return
     }
-    let textView = UITextView(frame: CGRect(x: 0, y: 0, width: editorWidth, height: CGFloat.greatestFiniteMagnitude))
+    let textView = UITextView(frame: CGRect(x: 0, y: 0, width: editorWidth,
+                                            height: CGFloat.greatestFiniteMagnitude))
     textView.text = userInput
     textView.font = UIFont.preferredFont(from: editorFont)
     textView.sizeToFit()
