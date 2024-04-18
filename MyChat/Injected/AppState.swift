@@ -22,7 +22,7 @@ final class AppState {
 extension AppState {
   struct UserData {
     var authState: AuthState = .unauthenticated
-  
+    var uid: String?
     var username: String?
     
     var error: String?
@@ -39,12 +39,16 @@ extension AppState {
 
 // MARK: - UserData Actions
 extension AppState {
-  func update(username: String?) {
-    userData.value.username = username
-  }
-  
   func update(authState: AuthState) {
     userData.value.authState = authState
+  }
+  
+  func update(uid: String?) {
+    userData.value.uid = uid
+  }
+  
+  func update(username: String?) {
+    userData.value.username = username
   }
   
   func update(error: String?) {

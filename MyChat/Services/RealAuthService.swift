@@ -26,8 +26,11 @@ final class RealAuthService: AuthService {
     if authStateHandler == nil {
       authStateHandler = Auth.auth().addStateDidChangeListener { auth, user in
         Task {
-          await self.appState.update(authState: user == nil ? .unauthenticated : .authenticated)
-          await self.appState.update(username: user?.displayName)
+          await MainActor.run {
+            self.appState.update(authState: user == nil ? .unauthenticated : .authenticated)
+            self.appState.update(uid: user?.uid)
+            self.appState.update(username: user?.displayName)
+          }
         }
       }
     }

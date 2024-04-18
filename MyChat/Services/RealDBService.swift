@@ -28,12 +28,12 @@ final class FireStoreService: DBService {
   private func createUserObserver() async {
       await MainActor.run {
         appStateSub = appState.userData
-          .compactMap{ $0.username }
+          .compactMap{ $0.uid }
           .removeDuplicates()
-          .sink { username in
+          .sink { uid in
             self.listeners.forEach { $0.remove() }
             self.listeners = []
-            self.configureListeners(forUser: username)
+            self.configureListeners(forUser: uid)
           }
       }
   }
@@ -42,13 +42,13 @@ final class FireStoreService: DBService {
 // MARK: - FireStoreService Configuring Listeners
 extension FireStoreService {
   /// Configures listeners on FireStore collections. Listeners are responsible for updating AppState when new data becomes available.
-  func configureListeners(forUser name: String?) {
-    guard let name = name else {
+  func configureListeners(forUser uid: String?) {
+    guard let uid = uid else {
       //assertionFailure("User object is nil.")
       return
     }
     
-    let listener = db.collection("chats").whereField("members",  arrayContains: name)
+    let listener = db.collection("chats").whereField("members",  arrayContains: uid)
       .addSnapshotListener { querySnapshot, error in
         
       guard let chatDocs = querySnapshot?.documents else {
@@ -59,7 +59,7 @@ extension FireStoreService {
       }
       
       Task {
-        let newChatTable = await self.getUpdatedChatTable(from: chatDocs, forUser: name)
+        let newChatTable = await self.getUpdatedChatTable(from: chatDocs, forUser: uid)
         await self.appState.update(chats: newChatTable)
       }
     }
