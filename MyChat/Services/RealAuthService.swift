@@ -27,7 +27,7 @@ final class RealAuthService: AuthService {
       authStateHandler = Auth.auth().addStateDidChangeListener { auth, user in
         Task {
           await self.appState.update(authState: user == nil ? .unauthenticated : .authenticated)
-          await self.appState.update(uid: user?.uid, username: user?.displayName)
+          await self.appState.update(username: user?.displayName)
         }
       }
     }
@@ -93,34 +93,22 @@ extension RealAuthService {
 // MARK: -RealAuthService Update username
 extension RealAuthService {
   func setUsername(newName: String) async throws {
-    guard let changeRequest = await Auth.auth().currentUser?.createProfileChangeRequest() else {
-      return
-    }
-    changeRequest.displayName = newName
     do {
-      try await requestFSupdate(newName: newName)
-      // if .commitChanges throws after requestFSupdate succeeds, not good
-      try await changeRequest.commitChanges()
+      let _ : Void = try await withCheckedThrowingContinuation { continuation in
+        let request = ["new_name": newName]
+        Functions.functions().httpsCallable("set_display_name").call(request) { _, error in
+          if let error = error {
+            continuation.resume(throwing: error)
+          } else {
+            continuation.resume()
+          }
+        }
+      }
     }
     catch {
       print("Unable to update the user's displayname: \(error.localizedDescription)")
       await self.appState.update(error: "\(error)")
       throw error
-    }
-  }
-  
-  /// Updates username in FireStore. Throws if the username is taken.
-  /// Unfortunately, Firebase doesn't provide a straightforward way to trigger side-effects when a user changes their displayName.
-  func requestFSupdate(newName: String) async throws {
-    let _ : Void = try await withCheckedThrowingContinuation { continuation in
-      let request = ["new_name": newName]
-      Functions.functions().httpsCallable("updateDisplayName").call(request) { _, error in
-        if let error = error {
-          continuation.resume(throwing: error)
-        } else {
-          continuation.resume()
-        }
-      }
     }
   }
 }

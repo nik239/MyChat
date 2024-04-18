@@ -37,17 +37,17 @@ extension DIContainer {
     
     static func stub(appState: AppState = .preview) -> ViewModels {
       return .init(authViewModel: AuthViewModel(authService: StubAuthService(),
-                                         appState: appState),
-            chatsViewModel: ChatsViewModel(appState: appState),
-            chatViewModel: ChatViewModel(dbService: StubFireStoreService(),
-                                         appState: appState),
-            profileViewModel: ProfileViewModel(authService: StubAuthService(),
-                                               appState: appState),
-            bottomNavigationViewModel: BottomNavigationViewModel(appState: appState),
-            usernameViewModel: UsernameViewModel(authService: StubAuthService(),
-                                                 appState: appState),
-            createChatViewModel: CreateChatViewModel(dbService: StubFireStoreService(),
-                                                     appState: appState))
+                                                appState: appState),
+                   chatsViewModel: ChatsViewModel(appState: appState),
+                   chatViewModel: ChatViewModel(dbService: StubFireStoreService(),
+                                                appState: appState),
+                   profileViewModel: ProfileViewModel(authService: StubAuthService(),
+                                                      appState: appState),
+                   bottomNavigationViewModel: BottomNavigationViewModel(appState: appState),
+                   usernameViewModel: UsernameViewModel(authService: StubAuthService(),
+                                                        appState: appState),
+                   createChatViewModel: CreateChatViewModel(dbService: StubFireStoreService(),
+                                                            appState: appState))
     }
   }
 }

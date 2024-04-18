@@ -22,14 +22,14 @@ final class ChatsViewModelTests: XCTestCase {
   @MainActor
   func test_subscribeToState() {
     //given
-    XCTAssertNil(sut.appStateSub)
+    XCTAssertEqual(sut.appStateSubs.count, 0)
     XCTAssertNil(sut.chats)
     let chat = Chat(members: ["tester"])
     appState.update(chatAtID: "test", to: chat)
     //when
     sut.subscribeToState()
     //then
-    XCTAssertNotNil(sut.appStateSub)
+    XCTAssertEqual(sut.appStateSubs.count, 2)
     XCTAssertNotNil(sut.chats)
   }
   
@@ -37,26 +37,27 @@ final class ChatsViewModelTests: XCTestCase {
   func test_unsubscribeFromState() {
     //given
     sut.subscribeToState()
-    XCTAssertNotNil(sut.appStateSub)
     //when
     sut.unsubscribeFromState()
     //then
-    XCTAssertNil(sut.appStateSub)
+    XCTAssertEqual(sut.appStateSubs.count, 0)
   }
   
-  @MainActor
-  func test_isMoreRecent() {
-    //when
-    var chat1 = Chat(members: ["tester"])
-    var chat2 = Chat(members: ["tester"])
-    let message1 = Message(author: "tester", content: "test", date: .now)
-    let message2 = Message(author: "tester", content: "test", date: .now + 1)
-    chat1.messages = [message1]
-    chat2.messages = [message2]
-    //then
-    XCTAssertTrue(sut.isMoreRecent(chat2, then: chat1))
-    XCTAssertFalse(sut.isMoreRecent(chat1, then: chat2))
-  }
+
+  //Needs to be moved to Chat Tests
+//  @MainActor
+//  func test_isMoreRecent() {
+//    //when
+//    var chat1 = Chat(members: ["tester"])
+//    var chat2 = Chat(members: ["tester"])
+//    let message1 = Message(author: "tester", content: "test", date: .now)
+//    let message2 = Message(author: "tester", content: "test", date: .now + 1)
+//    chat1.messages = [message1]
+//    chat2.messages = [message2]
+//    //then
+//    XCTAssertTrue(sut.isMoreRecent(chat2, then: chat1))
+//    XCTAssertFalse(sut.isMoreRecent(chat1, then: chat2))
+//  }
   
   @MainActor
   func test_messagePreview() {

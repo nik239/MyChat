@@ -6,6 +6,7 @@
 //
 
 import FirebaseFirestore
+import FirebaseFunctions
 import Combine
 
 final class FireStoreService: DBService {
@@ -147,6 +148,20 @@ extension FireStoreService {
           continuation.resume(throwing: error)
         } else {
           continuation.resume(returning: ())
+        }
+      }
+    }
+  }
+    
+  func createNewChat(chat: Chat) async throws {
+    let data = try Firestore.Encoder().encode(chat)
+    let _ : Void = try await withCheckedThrowingContinuation { continuation in
+      let request = data
+      Functions.functions().httpsCallable("create_chat").call(request) { _, error in
+        if let error = error {
+          continuation.resume(throwing: error)
+        } else {
+          continuation.resume()
         }
       }
     }

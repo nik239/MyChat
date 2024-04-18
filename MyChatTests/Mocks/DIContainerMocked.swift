@@ -11,12 +11,14 @@ extension DIContainer.ViewModels {
   static func mocked(authService: MockedAuthService = MockedAuthService(),
                      dbService: MockedDBService = MockedDBService(),
                      appState: AppState = .preview) -> DIContainer.ViewModels {
+    
     .init(authViewModel: AuthViewModel(authService: authService, appState: appState),
           chatsViewModel: ChatsViewModel(appState: appState),
           chatViewModel: ChatViewModel(dbService: dbService, appState: appState),
           profileViewModel: ProfileViewModel(authService: authService, appState: appState),
           bottomNavigationViewModel: BottomNavigationViewModel(appState: appState),
-          usernameViewModel: UsernameViewModel(authService: authService, appState: appState))
+          usernameViewModel: UsernameViewModel(authService: authService, appState: appState),
+          createChatViewModel: CreateChatViewModel(dbService: dbService, appState: appState))
   }
 }
 
