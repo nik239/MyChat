@@ -12,8 +12,8 @@ extension AppState {
       let userData = AppState.UserData(authState: .unauthenticated,
                                        username: "test user",
                                        error: "",
-                                       selectedChatID: "1",
-                                       chats: self.previewChatsTable)
+                                       chats: self.previewChatsTable,
+                                       selectedChatID: "1")
     
       let routing = AppState.ViewRouting(showBottomNavigation: true,
                                          showCreateChatView: false)

@@ -12,6 +12,7 @@ final class MockedDBService: Mock, DBService {
   enum Action: Equatable {
     case sendMessage(message: Message, toChatWithID: String)
     case updateChat(chat: Chat, withID: String?)
+    case createNewChat(chat: Chat)
     
     //Need simplified Message equality check for testing
     static func ==(lhs: Action, rhs: Action) -> Bool {
@@ -22,7 +23,10 @@ final class MockedDBService: Mock, DBService {
       case let (.updateChat(lhsChat, lhsID), .updateChat(rhsChat, rhsID)):
         return lhsChat == rhsChat && lhsID == rhsID
         
-      case (.sendMessage, _), (.updateChat, _):
+      case let (.createNewChat(chat: lhsChat), .createNewChat(chat: rhsChat)):
+        return lhsChat == rhsChat
+        
+      default:
         return false
       }
     }
@@ -40,5 +44,9 @@ final class MockedDBService: Mock, DBService {
   
   func updateChat(chat: Chat, withID id: String?) async throws {
     register(.updateChat(chat: chat, withID: id))
+  }
+  
+  func createNewChat(chat: Chat) async throws {
+    register(.createNewChat(chat: chat))
   }
 }

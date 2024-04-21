@@ -72,8 +72,6 @@ extension FireStoreService {
                            forUser userID: String) async -> ChatTable {
     var chatTable = await appState.userData.value.chats
     
-    // TaskGroup here introduces unnescessary complexity without a clear preformance benefit
-    // It's implemented largely for the sake of exercise
     await withTaskGroup(of: (String, Chat?).self) { group in
       for chatDoc in chatDocs {
         let id = chatDoc.documentID
@@ -100,6 +98,11 @@ extension FireStoreService {
     }
     guard var chatOld = chatOld else {
       configureMessagesListener(forChatID: chatDoc.documentID)
+      Task {
+        await MainActor.run {
+          appState.update(newChatID: chatDoc.documentID)
+        }
+      }
       return chatNew
     }
     chatOld.members = chatNew.members

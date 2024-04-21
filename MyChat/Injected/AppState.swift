@@ -27,13 +27,15 @@ extension AppState {
     
     var error: String?
     
-    var selectedChatID: String? = nil
     var chats: ChatTable = ChatTable()
+    var selectedChatID: String?
+    var newChatID: String?
   }
   
   struct ViewRouting {
     var showBottomNavigation = true
     var showCreateChatView = false
+    var showChatView = false
   }
 }
 
@@ -73,6 +75,10 @@ extension AppState {
     userData.value.chats.key(forValue: selectedChat)
   }
   
+  func update(newChatID: String) {
+    userData.value.selectedChatID = newChatID
+  }
+  
   func update(userInput: String, forChatAtID id: String) {
     userData.value.chats[id]?.userInput = userInput
   }
@@ -86,5 +92,9 @@ extension AppState {
   
   func toggleShowCreateChatView() {
     routing.value.showCreateChatView.toggle()
+  }
+  
+  func toggleShowChatView() {
+    routing.value.showChatView.toggle()
   }
 }

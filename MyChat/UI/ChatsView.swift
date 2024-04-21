@@ -15,28 +15,28 @@ struct ChatsView: View {
   #endif
   
   var body: some View {
-    
-    VStack (alignment: .leading) {
-      HStack {
+    NavigationStack {
+      VStack (alignment: .leading) {
+        HStack {
+          Spacer()
+          AddChatButton(createChat: viewModel.didTapAddBtn)
+            .padding(5)
+        }
         Spacer()
-        AddChatButton(createChat: viewModel.didTapAddBtn)
-        .padding(5)
-      }
-      Spacer()
-      NavigationStack {
         ScrollView(.vertical) {
           ForEach(viewModel.chats ?? []) { chat in
-            NavigationLink(destination: ChatView()) {
-              ChatPreview(name: chat.name,
-                          date: viewModel.lastMessageDate(chat: chat),
-                          messagePreview: viewModel.messagePreview(chat: chat))
-            }
-            .simultaneousGesture(TapGesture().onEnded {
+            ChatPreview(name: chat.name,
+                        date: viewModel.lastMessageDate(chat: chat),
+                        messagePreview: viewModel.messagePreview(chat: chat))
+            .onTapGesture {
               viewModel.didTapOnChat(chat: chat)
-            })
+            }
             Divider()
           }
         }
+      }
+      .navigationDestination(isPresented: $viewModel.showChatView) {
+        ChatView()
       }
       Spacer()
     }

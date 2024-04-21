@@ -388,8 +388,8 @@
 			isa = PBXGroup;
 			children = (
 				A8E4D5802B86F40C00EA0EE7 /* AuthService.swift */,
-				A87579422B883D5200289437 /* DBService.swift */,
 				A8125C172BC5BBEA0007D720 /* RealAuthService.swift */,
+				A87579422B883D5200289437 /* DBService.swift */,
 				A8125C192BC5BC7A0007D720 /* RealDBService.swift */,
 			);
 			path = Services;

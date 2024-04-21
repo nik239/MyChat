@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import Combine
 
 @MainActor
 final class CreateChatViewModel: ObservableObject {
+  private var dbService: DBService
   private var appState: AppState
-  private var dbService: DBService?
+  
+  var appStateSub: AnyCancellable?
   
   @Published var addingMembers = false
   @Published var isValid: Bool = false
@@ -22,6 +25,8 @@ final class CreateChatViewModel: ObservableObject {
   private var members: [String] = []
 
   @Published var error = ""
+  
+  private var flagAwaitingNewChat = false
   
   nonisolated init(dbService: DBService, appState: AppState) {
     self.appState = appState
@@ -39,13 +44,30 @@ final class CreateChatViewModel: ObservableObject {
     let chat = Chat(members: members, name: chatNameEntry)
     Task {
       do {
-        try await dbService?.updateChat(chat: chat, withID: nil)
-        appState.toggleShowCreateChatView()
+        try await dbService.createNewChat(chat: chat)
       }
       catch {
         self.error = "\(error)"
       }
     }
+  }
+  
+  func subscribeToState() {
+    appStateSub = appState.userData
+      .compactMap { $0.newChatID }
+      .sink { id in
+        guard self.flagAwaitingNewChat else {
+          return
+        }
+        self.switchToNewChat(id: id)
+      }
+  }
+  
+  func switchToNewChat(id: String) {
+    self.flagAwaitingNewChat = false
+    self.appState.update(selectedChatID: id)
+    self.appState.toggleShowCreateChatView()
+    self.appState.toggleShowChatView()
   }
   
   func preformOnDisappear() {

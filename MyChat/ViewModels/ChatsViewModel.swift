@@ -15,6 +15,7 @@ final class ChatsViewModel: ObservableObject {
   
   @Published var chats: [Chat]?
   @Published var showingCreateChat: Bool = false
+  @Published var showChatView: Bool = false
   
   nonisolated init(appState: AppState) {
     self.appState = appState
@@ -36,6 +37,14 @@ final class ChatsViewModel: ObservableObject {
         self.showingCreateChat = $0
       }
       .store(in: &appStateSubs)
+    
+    appState.routing
+      .map { $0.showChatView }
+      .removeDuplicates()
+      .sink {
+        self.showChatView = $0
+      }
+      .store(in: &appStateSubs)
   }
   
   func unsubscribeFromState() {
@@ -47,6 +56,7 @@ final class ChatsViewModel: ObservableObject {
 extension ChatsViewModel {
   func didTapOnChat(chat: Chat) {
     appState.update(selectedChat: chat)
+    appState.toggleShowChatView()
   }
   
   func didTapAddBtn() {

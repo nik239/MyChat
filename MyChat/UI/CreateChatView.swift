@@ -74,6 +74,7 @@ struct CreateChatView: View {
     }
     .onAppear() {
       focusField = .name
+      viewModel.subscribeToState()
     }
     .onDisappear() {
       viewModel.preformOnDisappear()

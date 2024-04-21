@@ -116,6 +116,7 @@ extension ChatViewModel {
   
   func preformOnDisappear() {
     appState.toggleBottomNavigation()
+    appState.toggleShowChatView()
     unsubscribeFromState()
     backUpUserInput()
   }
