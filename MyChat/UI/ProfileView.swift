@@ -77,7 +77,6 @@ struct ProfileView: View {
       .padding()
       
       Spacer()
-      Divider()
     }
     .onAppear {
       viewModel.subscribeToState()

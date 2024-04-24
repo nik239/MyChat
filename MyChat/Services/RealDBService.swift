@@ -135,6 +135,21 @@ extension FireStoreService {
   }
 }
 
+// MARK: -FireStoreService Reading from Firestore
+extension FireStoreService {
+  func getAllUsers() async -> [String]? {
+    let ref = db.collection("users").document("all_users")
+    do {
+      let doc = try await ref.getDocument()
+      let allUsers = try doc.data(as: AllUsers.self)
+      return allUsers.allUsers
+    } catch {
+      print("\(error)")
+    }
+    return nil
+  }
+}
+
 // MARK: - FireStoreService Writing to Firestore
 extension FireStoreService {
   /// Creates a chat, optionally specifying its Firestore document id. The id parameter is meant for testing purposes.
