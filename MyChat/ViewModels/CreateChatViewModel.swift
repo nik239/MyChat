@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import PrefixLookup
 
 @MainActor
 final class CreateChatViewModel: ObservableObject {
@@ -25,6 +26,9 @@ final class CreateChatViewModel: ObservableObject {
   private var members: [String] = []
 
   @Published var error = ""
+  @Published var searchText = ""
+  
+  private var loader: PrefixLoader?
   
   private var flagAwaitingNewChat = false
   
@@ -50,6 +54,10 @@ final class CreateChatViewModel: ObservableObject {
         self.error = "\(error)"
       }
     }
+  }
+  
+  func reloadUsers() {
+    
   }
   
   func subscribeToState() {

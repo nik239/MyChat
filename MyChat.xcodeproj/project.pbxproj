@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -40,6 +40,8 @@
 		A849C8F82B9E434F00655D1C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A849C8F72B9E434F00655D1C /* Helpers.swift */; };
 		A851C6782BD89EB10074E8C2 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A851C6772BD89EB10074E8C2 /* SearchBar.swift */; };
 		A851C67A2BD8A99B0074E8C2 /* AllUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A851C6792BD8A99B0074E8C2 /* AllUsers.swift */; };
+		A851C67C2BD8B5030074E8C2 /* OnSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A851C67B2BD8B5030074E8C2 /* OnSet.swift */; };
+		A851C67F2BDAD0D70074E8C2 /* PrefixLookup in Frameworks */ = {isa = PBXBuildFile; productRef = A851C67E2BDAD0D70074E8C2 /* PrefixLookup */; };
 		A854B0AF2BB2162400BD2AEC /* FontConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A854B0AE2BB2162400BD2AEC /* FontConversion.swift */; };
 		A854B0B22BB22B6F00BD2AEC /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A854B0B12BB22B6F00BD2AEC /* Mock.swift */; };
 		A854B0B42BB22D0200BD2AEC /* MockedAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A854B0B32BB22D0200BD2AEC /* MockedAuthService.swift */; };
@@ -130,6 +132,7 @@
 		A849C8F72B9E434F00655D1C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		A851C6772BD89EB10074E8C2 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A851C6792BD8A99B0074E8C2 /* AllUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUsers.swift; sourceTree = "<group>"; };
+		A851C67B2BD8B5030074E8C2 /* OnSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnSet.swift; sourceTree = "<group>"; };
 		A854B0AE2BB2162400BD2AEC /* FontConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontConversion.swift; sourceTree = "<group>"; };
 		A854B0B12BB22B6F00BD2AEC /* Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
 		A854B0B32BB22D0200BD2AEC /* MockedAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedAuthService.swift; sourceTree = "<group>"; };
@@ -180,6 +183,7 @@
 				A8E4FDF52BA11D9900BF9077 /* FirebaseAuth in Frameworks */,
 				A8E4FDF72BA11D9900BF9077 /* FirebaseFirestore in Frameworks */,
 				A8EF712D2BC07D550008E935 /* FirebaseFunctions in Frameworks */,
+				A851C67F2BDAD0D70074E8C2 /* PrefixLookup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +415,7 @@
 				A8FA92AE2BAA8047004D9F2C /* KeyForValue.swift */,
 				A854B0AE2BB2162400BD2AEC /* FontConversion.swift */,
 				A8EF71192BBDE6840008E935 /* Inspection.swift */,
+				A851C67B2BD8B5030074E8C2 /* OnSet.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -463,6 +468,7 @@
 				A8E4FDF42BA11D9900BF9077 /* FirebaseAuth */,
 				A8E4FDF62BA11D9900BF9077 /* FirebaseFirestore */,
 				A8EF712C2BC07D550008E935 /* FirebaseFunctions */,
+				A851C67E2BDAD0D70074E8C2 /* PrefixLookup */,
 			);
 			productName = MyChat;
 			productReference = A80AADE62B71DE7F00A74DAA /* MyChat.app */;
@@ -520,6 +526,7 @@
 			packageReferences = (
 				A8E4FDF12BA11D9900BF9077 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				A83B45BA2BA6AB92004FA743 /* XCRemoteSwiftPackageReference "ViewInspector" */,
+				A851C67D2BDAD0D70074E8C2 /* XCLocalSwiftPackageReference "PrefixLookup" */,
 			);
 			productRefGroup = A80AADE72B71DE7F00A74DAA /* Products */;
 			projectDirPath = "";
@@ -562,6 +569,7 @@
 				A8EF711A2BBDE6840008E935 /* Inspection.swift in Sources */,
 				A849C8E92B9D189100655D1C /* ListenerManager.swift in Sources */,
 				A8125C1A2BC5BC7A0007D720 /* RealDBService.swift in Sources */,
+				A851C67C2BD8B5030074E8C2 /* OnSet.swift in Sources */,
 				A83B45C42BA802EC004FA743 /* MessageBubble.swift in Sources */,
 				A849C8E22B9BA58B00655D1C /* ProfileView.swift in Sources */,
 				A8D45E532B7880DA0005126C /* EmailLoginView.swift in Sources */,
@@ -895,6 +903,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		A851C67D2BDAD0D70074E8C2 /* XCLocalSwiftPackageReference "PrefixLookup" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = PrefixLookup;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		A83B45BA2BA6AB92004FA743 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -919,6 +934,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A83B45BA2BA6AB92004FA743 /* XCRemoteSwiftPackageReference "ViewInspector" */;
 			productName = ViewInspector;
+		};
+		A851C67E2BDAD0D70074E8C2 /* PrefixLookup */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PrefixLookup;
 		};
 		A8E4FDF22BA11D9900BF9077 /* FirebaseAppCheck */ = {
 			isa = XCSwiftPackageProductDependency;
