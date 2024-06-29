@@ -35,6 +35,6 @@ As I introduced Swift concurrency to the Redux architecture, one interesting que
 <br>
 **On Swift Concurrency and Combine**
 <br>
-In retrospect, this should have been obvious, but yeah they don't gel together. My initial thinking was, that it might slide, as long as Combine is used exclusively to propagate data along the main thread (from AppState to view model to view). I was able to get away with it, with some compiler warnings, however, the whole thing was ill-conceived. The problem is that Combine uses dynamic thread switching, which doesn't satisfy the compile-time guarantees of Swift's concurrency model. At best, this leads to erratic compiler behavior. I've posted about this here [@MainActor + Combine inconsistent compiler error](https://stackoverflow.com/questions/78245151/mainactor-combine-inconsistent-compiler-error).
+In retrospect, this should have been obvious, but yeah they don't gel together. My initial thinking was, that it might slide, as long as Combine is used exclusively to propagate data along the main thread (from AppState to view model to view). I was able to get away with it, with some compiler warnings, however, the whole thing was ill-conceived. The problem is that Combine uses dynamic thread switching, which doesn't satisfy the compile-time guarantees of Swift's concurrency model. At best, this leads to erratic compiler warnings. I've posted about this here [@MainActor + Combine inconsistent compiler error](https://stackoverflow.com/questions/78245151/mainactor-combine-inconsistent-compiler-error).
 
 
