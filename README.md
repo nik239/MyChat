@@ -23,5 +23,9 @@ The project's architecture was inspired by [CountriesSwiftUI](https://github.com
 <br>
 
 ## Key Takeaways
-**On Redux**
-The project's main goal was to experiment with some architectural patterns. As a result, it turned out to be much more bloated with boilerplate than it needed to be. 
+**On Architecture**
+<br>
+In attempting to experiment with architectural patterns the project turned out to be much more bloated with boilerplate than it needed to be. While the idea of a bootstrap() function as a centralized initialization point has an appeal in its potential for maintainability, scalability, and testability, I believe that for small and medium-sized projects, it's certainly overkill. Concerning the AppState object, I've found it quite handy for storing data that need to be shared/accessed across the app, including authentication data (uid, etc.) and view routing data. It lends itself well to serializing access to this data by using Swift's Actor model in combination with "private(set)" variables and dedicated setter functions. It can be a more structured alternative to singletons. At the same time, I think it's important to have restraint in choosing what to include in AppState as there's a risk of making it into a God object.
+<br>
+**On Actors**
+
